@@ -2,10 +2,13 @@ abstract class Media{
   Media();
 
   static const _baseImage = 'assets/img';
+  static const _baseLottie = 'assets/lottie';
   static const _baseImageIcon = 'assets/img/icon';
   static const _baseFont = 'assets/fonts';
   static const _baseImageSlider = 'assets/img/slider';
   static const _paymentBaseImages = 'assets/payment';
+  static const emptyCart = '$_baseLottie/empty_cart.json';
+  static const AnimetEmptyCart = '$_baseLottie/animation_empty.json';
 
   static const slider1 = '$_baseImageSlider/slider_books_1.jpg';
   static const slider2 = '$_baseImageSlider/slider_books_2.jpg';

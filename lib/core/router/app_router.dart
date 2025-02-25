@@ -7,6 +7,7 @@ class AppRoutes{
   //static String splashScreen = '/splash';
   //static String onboardingScreen = '/onboarding';
   static String dashboardScreen = '/dashboard';
+  static String cartScreen = '/cart';
   static String productDetailScreen = '/product-detail';
   //static String cartProductScreen = '/cart-product-view';
   static String checkoutScreen = '/checkout';

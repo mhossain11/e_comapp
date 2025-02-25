@@ -40,6 +40,7 @@ class CacheHelper {
   String? getAccessToken() {
     final accessToken = _prefs.getString(_accessTokenKey);
     if (accessToken != null) {
+      print(accessToken);
       debugPrint('getSessionToken: access Token exists');
     } else {
       debugPrint('getSessionToken: access does not exist');

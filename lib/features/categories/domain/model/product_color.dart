@@ -4,10 +4,10 @@ import 'dart:convert';
 /// name : "Green"
 /// image : "https://ecommerce.liberalsoft.net/product_colors/1.PNG"
 
-Colors colorsFromJson(String str) => Colors.fromJson(json.decode(str));
-String colorsToJson(Colors data) => json.encode(data.toJson());
-class Colors {
-  Colors({
+ProductColor colorsFromJson(String str) => ProductColor.fromJson(json.decode(str));
+String colorsToJson(ProductColor data) => json.encode(data.toJson());
+class ProductColor {
+  ProductColor({
       String? uid, 
       String? name, 
       String? image,}){
@@ -16,7 +16,7 @@ class Colors {
     _image = image;
 }
 
-  Colors.fromJson(dynamic json) {
+  ProductColor.fromJson(dynamic json) {
     _uid = json['uid'];
     _name = json['name'];
     _image = json['image'];
@@ -24,10 +24,10 @@ class Colors {
   String? _uid;
   String? _name;
   String? _image;
-Colors copyWith({  String? uid,
+ProductColor copyWith({  String? uid,
   String? name,
   String? image,
-}) => Colors(  uid: uid ?? _uid,
+}) => ProductColor(  uid: uid ?? _uid,
   name: name ?? _name,
   image: image ?? _image,
 );

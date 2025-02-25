@@ -1,22 +1,26 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:e_comapp/core/extensions/text_style_extensions.dart';
+import 'package:e_comapp/core/extensions/widget_extensions.dart';
 import 'package:e_comapp/features/shared/widgets/dotted_line.dart';
-import 'package:e_comapp/features/shared/widgets/other/size_picker.dart';
+import 'package:e_comapp/features/product_details/presentations/widget/size_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:shimmer/shimmer.dart';
-
-import '../../../../core/res/styles/colors.dart';
+import '../../../../core/app/cache/cache_helper.dart';
+import '../../../../core/di/injection_container.main.dart';
 import '../../../../core/res/styles/text.dart';
-import '../../../../core/utils/circular_icon.dart';
-import '../../../../core/utils/constants/network_constants.dart';
+import '../../../../core/utils/core_utils.dart';
+import '../../../cart/presentation/controller/cart_controller.dart';
+import '../../../shared/widgets/app_bar_bottom.dart';
 import '../../../shared/widgets/roundedImage.dart';
+import '../../../shared/widgets/rounded_button.dart';
+import '../../../wishlist/presentation/widgets/favorite_Icon.dart';
 import '../controller/product_details_controller.dart';
+import '../widget/color_pallete_widget.dart';
 
 class ProductDetails extends StatefulWidget {
-  const ProductDetails({super.key, required this.productId});
+  const ProductDetails({super.key,
+    required this.productId,});
 
   final String productId;
   static const path='/product-detail';
@@ -28,6 +32,7 @@ class _ProductDetailsState extends State<ProductDetails> {
 
  final ProductDetailsController productController =Get.find<ProductDetailsController>();
  String? selectedSize;
+ Color? selectedColour;
 
  @override
   void initState() {
@@ -45,7 +50,7 @@ class _ProductDetailsState extends State<ProductDetails> {
         builder: (controller){
           return Scaffold(
             appBar: AppBar(
-              title:controller.isLoading.value == true ? SizedBox(
+              title:controller.isLoading.value ? SizedBox(
                 width: 200,
                 height: 50,
                 child: Shimmer.fromColors(
@@ -54,22 +59,23 @@ class _ProductDetailsState extends State<ProductDetails> {
                               child: const Text('Shimmer',textAlign: TextAlign.start,)),
               )
                       :Text('${controller.selectedProduct.value?.name.toString()}'),
+              bottom: const AppBarBottom(),
+              actions: [
+                  if (controller.selectedProduct.value != null)
+                    FavoriteIcon(productList: controller.selectedProduct.value!),
+                ],
             ),
             body: SingleChildScrollView(
               child: Builder(
                   builder: (context){
                 if(controller.isLoading.value){
-                  return  Center(
-                     /* child: CircularProgressIndicator.adaptive(
-                        backgroundColor: Colours.lightThemePrimaryColour,
-                  ));*/
-                    child: SizedBox(
-                      width: 200,
-                      height: 200,
-                      child: Shimmer.fromColors(
-                        baseColor: Colors.yellow,
-                        highlightColor: Colors.grey,
-                        child: const Text(''),),));
+                  return  SizedBox(
+                    width: 200,
+                    height: 200,
+                    child: Shimmer.fromColors(
+                      baseColor: Colors.yellow,
+                      highlightColor: Colors.grey,
+                      child: const Text(''),),);
                 }else if(controller.selectedProduct.value !=null){
                   final product = controller.selectedProduct.value!;
                     return Column(
@@ -82,15 +88,16 @@ class _ProductDetailsState extends State<ProductDetails> {
                               children: [
                                 Padding(
                                   padding: const EdgeInsets.all(10.0),
-              
+
                                   child: Center(
                                       child: RoundedImage(
                                         isNetworkImage: true,
                                     imageUrl: controller.selectedProduct.value!.images![0].image.toString(),
-                                    height: media.width * 0.50,
+                                    height: media.width * 0.70,
                                     fit: BoxFit.fitWidth,)
                                   ),
                                 ),
+
                                 Center(child: Text('${controller.selectedProduct.value?.name.toString()}',
                                   style: const TextStyle(fontSize: 20,fontWeight: FontWeight.bold),)),
                                 Padding(
@@ -134,22 +141,67 @@ class _ProductDetailsState extends State<ProductDetails> {
 
 
                                 ],
-              
-              
-              
+                                if (product.colors!.isNotEmpty)
+                                  ColourPalette(
+                                    colors: product.colors!,
+
+                                  ),
+
+
+
                               ],
                             ),
-                            const Positioned(
+                            /*Positioned(
                                 right: 0,
-                                child: CircularIcon(icon: Icons.favorite,size: 40,color: Colors.red,backgroundColor: Colors.transparent,))
+                                child: FavoriteIcon(productList: product,))*/
                           ],
                         ),
+                        Padding(
+                          padding: const EdgeInsets.all(20).copyWith(bottom: 40),
+                          child: GetBuilder<CartController>(
+                            builder: (cartController) {
+                              return RoundedButton(
+                                height: 50,
+                                onPressed: () {
+                                  if (product.colors!.isNotEmpty && selectedColour == null) {
+                                    CoreUtils.showSnackBar(
+                                      context,
+                                      message: 'Pick a colour',
+                                      backgroundColour: Colors.red.withOpacity(.8),
+                                    );
+                                    return;
+                                  } else if (product.sizes!.isNotEmpty && selectedSize == null) {
+                                    CoreUtils.showSnackBar(
+                                      context,
+                                      message: 'Pick a size',
+                                      backgroundColour: Colors.red.withOpacity(.8),
+                                    );
+                                    return;
+                                  }
+
+                                 /* cartController.addToCart(
+                                    userId: '${sl<CacheHelper>().getUserId()}',
+                                    cartProduct: const CartProductModel.empty().copyWith(
+                                      productId: product.id,
+                                      quantity: 1,
+                                      selectedSize: selectedSize,
+                                      selectedColour: selectedColour,
+                                    ), productUid: '',
+                                  );*/
+                                },
+                                text: 'Add to Cart',
+                                textStyle: TextStyles.buttonTextHeadingSemiBold.copyWith(fontSize: 16).white,
+                              ).loading(cartController.isAddingToCart.value);
+                            },
+                          ),
+                        ),
                       ],
+
                     );
                 }
                 return const SizedBox.shrink();
               }
-              
+
               ),
             ),
           );

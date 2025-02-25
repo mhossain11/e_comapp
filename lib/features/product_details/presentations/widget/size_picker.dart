@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import '../../../../core/res/styles/colors.dart';
 import '../../../../core/res/styles/text.dart';
 import '../../../categories/domain/model/Sizes.dart';
-import '../dotted_line.dart';
+import '../../../shared/widgets/dotted_line.dart';
 
 class SizePicker extends StatefulWidget {
   const SizePicker({
@@ -31,10 +31,11 @@ class SizePicker extends StatefulWidget {
 
 class _SizePickerState extends State<SizePicker> {
   String? selectedSize;
-  String? selectedPrice;
+  String? selectedPrice ;
 
   @override
   Widget build(BuildContext context) {
+   // selectedPrice = widget.sizes[0].mainPrice;
     return Column(
       children: [
         SizedBox(
@@ -47,9 +48,12 @@ class _SizePickerState extends State<SizePicker> {
             itemCount: widget.sizes.length,
             separatorBuilder: (_, __) => Gap(widget.spacing ?? 2),
             itemBuilder: (context, index) {
+              print('price1:$selectedPrice');
               final size = widget.sizes[index].name;
-              var prices = widget.sizes[index].mainPrice;
+              selectedPrice = widget.sizes[0].mainPrice;
               final isActive = selectedSize?.toLowerCase() == size?.toLowerCase();
+
+              print('price2:$selectedPrice');
               return GestureDetector(
                 onTap: () {
                   String? activeSize = size;
@@ -60,14 +64,16 @@ class _SizePickerState extends State<SizePicker> {
                     widget.onSelect!(activeSize);
 
                     if(widget.sizes[index].mainPrice!.isNotEmpty){
-                      selectedPrice = prices;
+                      selectedPrice = widget.sizes[index].mainPrice;
+                      print('Print3:$selectedPrice');
                     }else {
-                      prices = widget.sizes[0].mainPrice;
-
+                      selectedPrice = widget.sizes[0].mainPrice.toString();
+                      print('price4:$selectedPrice');
                     }
+
                     setState(() {
                       selectedSize = activeSize;
-                      selectedPrice = prices;
+
                     });
                   }
                 },
@@ -110,8 +116,8 @@ class _SizePickerState extends State<SizePicker> {
             ),
             Row(
               children: [
-                const Text('Price:'),
-                Text('$selectedPrice'),
+                const Text('Price:',style: TextStyle(fontWeight: FontWeight.normal,fontSize: 20),),
+                Text( selectedPrice.toString(),style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 20 ),),
               ],
             ),
             Padding(

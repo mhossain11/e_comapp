@@ -8,6 +8,7 @@ abstract class Colours {
   static const Color  primary = const Color(0xff5ABD8C);
   static const Color  wColor = Colors.white;
   static const Color  yellow = Colors.yellow;
+  static Color  drColor = Colors.grey;
   // lightThemePrimaryTint Color Swatch
   static const Color lightThemePrimaryTint = Color(0xff9e9cdc);
 

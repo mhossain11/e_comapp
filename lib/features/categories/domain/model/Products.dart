@@ -1,6 +1,6 @@
 import 'Images.dart';
 import 'Sizes.dart';
-import 'Colors.dart';
+import 'product_color.dart';
 import 'dart:convert';
 
 /// uid : "0cf46b62-f94c-4b83-af33-41372e5d27c5"
@@ -19,7 +19,7 @@ class Products {
       String? description, 
       List<Images>? images, 
       List<Sizes>? sizes, 
-      List<Colors>? colors,}){
+      List<ProductColor>? colors,}){
     _uid = uid;
     _name = name;
     _description = description;
@@ -47,7 +47,7 @@ class Products {
     if (json['colors'] != null) {
       _colors = [];
       json['colors'].forEach((v) {
-        _colors?.add(Colors.fromJson(v));
+        _colors?.add(ProductColor.fromJson(v));
       });
     }
   }
@@ -56,13 +56,13 @@ class Products {
   String? _description;
   List<Images>? _images;
   List<Sizes>? _sizes;
-  List<Colors>? _colors;
+  List<ProductColor>? _colors;
 Products copyWith({  String? uid,
   String? name,
   String? description,
   List<Images>? images,
   List<Sizes>? sizes,
-  List<Colors>? colors,
+  List<ProductColor>? colors,
 }) => Products(  uid: uid ?? _uid,
   name: name ?? _name,
   description: description ?? _description,
@@ -75,7 +75,7 @@ Products copyWith({  String? uid,
   String? get description => _description;
   List<Images>? get images => _images;
   List<Sizes>? get sizes => _sizes;
-  List<Colors>? get colors => _colors;
+  List<ProductColor>? get colors => _colors;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};

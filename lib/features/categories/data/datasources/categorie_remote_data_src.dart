@@ -14,7 +14,7 @@ abstract class CategoryRemoteDataSrc {
   Future<List<CategoryModel>> getCategory();
 }
 
-const getCategoryEndpoint = '/categories';
+const getCategoryEndpoint = '/categories/';
 
 class CategoryRemoteDataSrcImpl implements CategoryRemoteDataSrc{
   CategoryRemoteDataSrcImpl(this._client);
@@ -24,7 +24,7 @@ class CategoryRemoteDataSrcImpl implements CategoryRemoteDataSrc{
   Future<List<CategoryModel>> getCategory() async{
 
     try{
-      final uri = Uri.parse('${NetworkConstants.baseUrlOne}$getCategoryEndpoint');
+      final uri = Uri.parse('${NetworkConstants.baseUrlOne}${NetworkConstants.apiUrl}$getCategoryEndpoint');
       final response =await _client.get(
           uri,
         headers: NetworkConstants.headers,

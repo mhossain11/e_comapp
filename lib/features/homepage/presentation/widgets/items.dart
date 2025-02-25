@@ -61,7 +61,7 @@ class Items extends StatelessWidget {
                   child: Image.network(
                     '${item.images![index].image}',
                    // width: media.width * 0.32,
-                    height: media.width * 0.50,
+                    height: media.width * 0.40,
                     fit: BoxFit.fitWidth,
                   ),
                 ),
@@ -116,7 +116,7 @@ class Items extends StatelessWidget {
                     item.sizes![index].mainPrice.toString(),
                     maxLines: 1,
                     textAlign: TextAlign.center,
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.black,
                       fontSize: 11,
                     ),

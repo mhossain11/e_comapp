@@ -3,10 +3,19 @@
 import 'dart:ui';
 
 extension StringExt on String {
+
   Map<String, String> get toHeaders {
     return {
       'Authorization': 'Bearer $this',
       'Content-Type': 'application/json; charset=UTF-8',
+    };
+  }
+  Map<String, String> get toHeader {
+   String? sessionKey ='w6ochuwh3mjfyhrr1awd9xz1mhxa48o3';
+    return {
+      'Authorization': 'Bearer $this',
+      'Content-Type': 'application/json',
+      "X-Session-Key": sessionKey,
     };
   }
 

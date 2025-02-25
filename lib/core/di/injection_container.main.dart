@@ -1,7 +1,15 @@
+import 'package:e_comapp/features/cart/data/datasource/cart_remore_data_src.dart';
+import 'package:e_comapp/features/cart/data/repo/cartlist_repo_impl.dart';
+import 'package:e_comapp/features/cart/domains/repo/cartlist_repo.dart';
 import 'package:e_comapp/features/product_details/data/datasources/product_remote_data_src.dart';
 import 'package:e_comapp/features/product_details/data/repo/product_repo_impl.dart';
 import 'package:e_comapp/features/product_details/domain/repo/product_repo.dart';
 import 'package:e_comapp/features/product_details/presentations/controller/product_details_controller.dart';
+import 'package:e_comapp/features/profile/data/datasource/profile_remote_data_src.dart';
+import 'package:e_comapp/features/wishlist/data/datasources/wish_remote_data_src.dart';
+import 'package:e_comapp/features/wishlist/data/repos/wishlist_repo_impl.dart';
+import 'package:e_comapp/features/wishlist/domain/repos/wishlist_repo.dart';
+import 'package:e_comapp/features/wishlist/presentation/controller/wishlist_controller.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -10,6 +18,7 @@ import '../../features/auth/data/datasources/auth_remote_data_src.dart';
 import '../../features/auth/data/repos/auth_repo_impl.dart';
 import '../../features/auth/domains/repos/auth_repo.dart';
 import '../../features/auth/presentation/controller/auth_controllere.dart';
+import '../../features/cart/presentation/controller/cart_controller.dart';
 import '../../features/categories/data/datasources/categorie_remote_data_src.dart';
 import '../../features/categories/data/repo/category_repo_impl.dart';
 import '../../features/categories/domain/repo/category_repo.dart';
@@ -24,11 +33,18 @@ Future<void> init() async {
   await _userAuthInit();
   await _categoryInit();
   await _productInit();
-/*
-  await _cartInit();
   await _profileInit();
-  await _wishlistInit();*/
+  await _wishlistInit();
+  await _cartInit();
+/*
+
+  await _profileInit();
+  */
 }
+
+
+
+
 
 
 
@@ -67,6 +83,7 @@ Future<void> _categoryInit() async {
   sl.registerLazySingleton<CategoryController>(
       () => CategoryController(sl<CategoryRepo>()));
 }
+
 Future<void> _productInit() async{
   sl.registerLazySingleton<ProductRemoteDataSrc>(
       ()=>ProductRemoteDataSrcImp(sl()));
@@ -78,6 +95,40 @@ Future<void> _productInit() async{
   sl.registerLazySingleton<ProductDetailsController>(
           ()=>ProductDetailsController(sl<ProductRepo>()));
 }
+
+Future<void> _profileInit() async{
+  sl.registerLazySingleton<ProfileRemoteDataSrc>(
+      ()=>ProfileRemoteDataSrcImpl(sl()));
+
+
+}
+
+Future<void> _wishlistInit() async{
+  sl.registerLazySingleton<WishRemoteDataSrc>(
+          ()=>WishRemoteDataSrcImpl(sl()));
+  sl.registerLazySingleton<WishListRepo>(
+      ()=>WishListRepoImpl(sl<WishRemoteDataSrc>()));
+
+  sl.registerLazySingleton<WishListController>(
+      ()=>WishListController(sl<WishListRepo>()));
+
+}
+
+Future<void> _cartInit() async {
+  // Registering AuthRemoteDataSrc if not already registered
+  sl.registerLazySingleton<CartRemoteDataSrc>(() =>
+      CartRemoteDataSrcImpl(sl())); //object initialize and inject dependencies
+
+  // Registering AuthRepo and its implementation
+  sl.registerLazySingleton<CartListRepo>(
+          () => CartListRepoImpl(sl<CartRemoteDataSrc>()));
+
+  // Registering CategoryController
+  sl.registerLazySingleton<CartController>(
+          () => CartController(sl<CartListRepo>()));
+}
+
+
 /*
 Future<void> _productInit() async {
   // Registering AuthRemoteDataSrc if not already registered
@@ -93,19 +144,7 @@ Future<void> _productInit() async {
       () => ProductController(sl<ProductRepo>()));
 }
 
-Future<void> _cartInit() async {
-  // Registering AuthRemoteDataSrc if not already registered
-  sl.registerLazySingleton<CartRemoteDataSrc>(() =>
-      CartRemoteDataSrcImpl(sl())); //object initialize and inject dependencies
 
-  // Registering AuthRepo and its implementation
-  sl.registerLazySingleton<CartRepo>(
-      () => CartRepoImpl(sl<CartRemoteDataSrc>()));
-
-  // Registering CategoryController
-  sl.registerLazySingleton<CartController>(
-      () => CartController(sl<CartRepo>()));
-}
 
 Future<void> _profileInit() async {
   // Registering AuthRemoteDataSrc if not already registered

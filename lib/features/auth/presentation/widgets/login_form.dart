@@ -103,7 +103,8 @@ class _LoginFormState extends State<LoginForm> {
                 }
               },
               text: 'Sign In'),
-          GetBuilder<AuthController>(builder: (authController) {
+          GetBuilder<AuthController>(
+              builder: (authController) {
             if (authController.isLoading.value) {
               return const CircularProgressIndicator(); // Show circular progress when loading
             }

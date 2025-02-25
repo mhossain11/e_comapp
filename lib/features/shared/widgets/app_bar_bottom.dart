@@ -25,3 +25,36 @@ class AppBarBottom extends StatelessWidget implements PreferredSizeWidget {
   // TODO: implement preferredSize
   Size get preferredSize => Size.zero;
 }
+
+
+class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
+  final List<Widget>? action;
+  final VoidCallback? txtOnPressed;
+  final bool showBackArrow;
+  final String text;
+  final bool centerTitle;
+
+  const CustomAppBar({super.key,
+    required this.txtOnPressed,
+    this.action,
+    this.showBackArrow =false,
+    required this.text,
+    this.centerTitle = false });
+
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+      leading: showBackArrow ?IconButton(onPressed: (){Navigator.of(context).pop();}, icon: const Icon(Icons.arrow_back_ios)):const SizedBox(),
+      title: TextButton(
+        onPressed: txtOnPressed,
+        child: Text(text,
+            style: const TextStyle(fontSize: 20,color: Colors.black,fontWeight: FontWeight.w500)),),
+      backgroundColor: Colours.primary,
+      centerTitle: centerTitle,
+      actions: action,
+    );
+  }
+
+  @override
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+}

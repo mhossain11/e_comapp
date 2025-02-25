@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:iconly/iconly.dart';
 
 import '../../../categories/widgets/categories_section.dart';
 import '../../domain/model/bestsellerModel.dart';
@@ -16,6 +17,10 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Home Screen'),
         centerTitle: true,
+        automaticallyImplyLeading: false,
+        actions: [
+          IconButton(onPressed: (){}, icon: const Icon(IconlyBroken.notification)),
+        ],
       ),
       body: const SingleChildScrollView(
         child: Column(

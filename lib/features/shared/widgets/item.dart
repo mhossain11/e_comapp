@@ -1,23 +1,28 @@
 import 'package:e_comapp/core/extensions/string_extensions.dart';
-import 'package:e_comapp/core/utils/constants/network_constants.dart';
-import 'package:e_comapp/features/categories/domain/model/CategoryModel.dart';
 import 'package:e_comapp/features/shared/widgets/roundedContainer.dart';
-import 'package:e_comapp/features/wishlist/presentation/widgets/favorite_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import '../../../core/res/styles/colors.dart';
 import '../../../core/res/styles/sizes_padding.dart';
 import '../../categories/domain/model/Products.dart';
+import '../../wishlist/presentation/widgets/favorite_Icon.dart';
 
 
 
 
 
 class Item extends StatelessWidget {
-  final Products items;
+  final Products item;
   final  int index;
-  const Item({super.key, required this.items, required this.index});
+  final bool ignoring;
+  final bool priceIgnoring;
+  const Item({super.key,
+    required this.item,
+    this.index=0,
+    required this.ignoring,
+    required this.priceIgnoring,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -37,13 +42,13 @@ class Item extends StatelessWidget {
                   color: const Color(0xfff0f0f0),
                   borderRadius: BorderRadius.circular(16),
                   image: DecorationImage(
-                      image: NetworkImage('${items.images![index].image}'),
+                      image: NetworkImage('${item.images![index].image}'),
                   )
                 ),
               ),
-              Positioned(
+              /*Positioned(
                   right: 0,
-                  child: FavouriteIcon(productId: items.uid!,)),
+                  child: FavoriteIcon(productList: item,)),*/
               Positioned(
                   left: 0,
                   child: RoundedContainer(
@@ -65,12 +70,12 @@ class Item extends StatelessWidget {
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(items.name!.truncateWithEllipsis(15),
+                  Text(item.name!.truncateWithEllipsis(15),
                   maxLines: 1,),
                   const Gap(6),
                 ],
               ),
-              Text('\$${items.sizes![index].mainPrice}'),
+              Text('\$${item.sizes![index].mainPrice}'),
 
             ],
           ),

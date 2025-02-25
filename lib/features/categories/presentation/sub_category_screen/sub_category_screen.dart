@@ -84,23 +84,15 @@ class _SubCategoryScreenState extends State<SubCategoryScreen> {
                   ),
                 ),
                 const Gap(10),
-                SingleChildScrollView(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      if(widget.productItem.subcategories![categoryController.index.value].products!.isEmpty )
-                      const Center(child: Text(" Item is Empty")),
-                      if(widget.productItem.subcategories![categoryController.index.value].products!.isNotEmpty )
-                      ProductGridView(
-                        item: widget.productItem.subcategories![categoryController
-                            .index.value].products,
-                        ignoring: true,
-                        crossAxisCount: 2,
-                      ),
-                    ],
-                  ),
-                )
-
+                if(widget.productItem.subcategories![categoryController.index.value].products!.isEmpty )
+                  const Center(child: Text(" Item is Empty")),
+                if(widget.productItem.subcategories![categoryController.index.value].products!.isNotEmpty )
+                ProductGridView(
+                  item: widget.productItem.subcategories![categoryController
+                      .index.value].products,
+                  ignoring: true,
+                  crossAxisCount: 2,
+                ),
 
               ],
             );

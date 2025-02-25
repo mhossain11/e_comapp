@@ -1,14 +1,14 @@
 import 'package:e_comapp/features/dashboard/presentation/controller/navigation_controller.dart';
-import 'package:e_comapp/features/explore/presentation/screen/explore_screen.dart';
 import 'package:e_comapp/features/homepage/presentation/screen/home_screen.dart';
 import 'package:e_comapp/features/profile/presentation/screen/profile_screen.dart';
 import 'package:e_comapp/features/wishlist/presentation/screen/wishlist_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:get/get.dart';
 import 'package:iconly/iconly.dart';
+import 'package:badges/badges.dart' as badges;
 
 import '../../../../core/res/styles/colors.dart';
+import '../../../cart/presentation/screen/cart_screen.dart';
 
 class DashboardScreen extends ConsumerWidget {
   const DashboardScreen({super.key});
@@ -23,7 +23,7 @@ class DashboardScreen extends ConsumerWidget {
         index: activeNavIndex,
         children: const [
           HomeScreen(),
-          ExploreScreen(),
+          CartScreen(),
           WishListScreen(),
           ProfileScreen()
         ],
@@ -45,15 +45,24 @@ class DashboardScreen extends ConsumerWidget {
             ),
 
             BottomNavigationBarItem(
-                icon: Icon(IconlyBroken.discovery),
-                activeIcon: Icon(IconlyBold.discovery,),
-                label: 'Explore'
+              icon: badges.Badge(
+                badgeContent: Text(
+                  '4',
+                  style: TextStyle(color: Colors.white, fontSize: 10),
+                ),
+                badgeStyle:badges.BadgeStyle(badgeColor: Colors.blueAccent) ,
+                child: Icon(IconlyBroken.bag),
+              ),
+             // activeIcon: Icon(IconlyBold.bag_2,),
+              label: 'Cart',
             ),
+
+
 
             BottomNavigationBarItem(
                 icon: Icon(IconlyBroken.heart),
                 activeIcon: Icon(IconlyBold.heart,),
-                label: 'Home'
+                label: 'Favourite'
             ),
 
             BottomNavigationBarItem(

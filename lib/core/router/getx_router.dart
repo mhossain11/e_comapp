@@ -1,3 +1,4 @@
+import 'package:e_comapp/features/cart/presentation/screen/cart_screen.dart';
 import 'package:e_comapp/features/homepage/presentation/screen/home_screen.dart';
 import 'package:get/get.dart';
 import '../../features/auth/presentation/screen/login_screen.dart';
@@ -54,10 +55,17 @@ class GetAppRouter {
     GetPage(
     name: AppRoutes.productDetailScreen,
     page: () {
-    final productId = Get
-        .arguments['productId']; // Retrieve the productId from the URL
+    final productId = Get.arguments['productId']; // Retrieve the productId from the URL
+    // Retrieve the productId from the URL
     return ProductDetails(productId: productId,);
-    },)
+    },),
+
+
+      GetPage(
+        name: AppRoutes.cartScreen,
+        page: () => const CartScreen(),
+      ),
+
     /* GetPage(
         name: AppRoutes.dashboardScreen,
         page: () => const DashboardScreen(),
