@@ -4,7 +4,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 
 
@@ -61,7 +60,6 @@ class LoginScreen extends StatelessWidget {
                           color: Colours.lightThemePrimaryColour),
                       recognizer: TapGestureRecognizer()
                         ..onTap = () {
-                          // context.go(RegisterScreen.path);
                           Get.to(() => const RegisterScreen());
                         }),
                 ]),

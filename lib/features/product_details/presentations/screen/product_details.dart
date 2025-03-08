@@ -143,7 +143,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                                 ],
                                 if (product.colors!.isNotEmpty)
                                   ColourPalette(
-                                    colors: product.colors!,
+                                    colors: product.colors!, radius: 10,
 
                                   ),
 

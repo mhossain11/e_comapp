@@ -43,10 +43,19 @@ class _WishListScreenState extends State<WishListScreen> {
                 child: Builder(
                     builder: (context){
                       if(controller.isLoading.value){
-                        return const Center(
+                       /* return const Center(
                           child: CircularProgressIndicator.adaptive(
                             backgroundColor: Colors.lightBlue,
                           ),
+                        );*/
+                        return ListView.separated(
+                          padding: const EdgeInsets.all(16),
+                          itemBuilder: (context,index){
+                            final product = controller.wishList[index];
+                            return WishlistProductTile(product);
+                          },
+                          separatorBuilder: (_,__)=> const Gap(20),
+                          itemCount: controller.wishList.length,
                         );
                       }else if(controller.wishList.isEmpty){
                         return const EmptyData('No Saved Product');

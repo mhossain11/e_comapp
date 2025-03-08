@@ -37,7 +37,7 @@ class RegisterScreen extends StatelessWidget {
                   style: TextStyles.headingBold3.adaptiveColour(context),
                 ),
                 Text(
-                  'Create a Swift Shop Account',
+                  'Create a Ecommerce Account',
                   style: TextStyles.paragraphSubTextRegular1.grey,
                 ),
                 const Gap(40),

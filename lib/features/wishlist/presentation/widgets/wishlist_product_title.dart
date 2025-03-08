@@ -155,7 +155,10 @@ class WishlistProductTile extends StatelessWidget {
                      Row(
                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                        children: [
-                         ProductTitleText(title:wishlistProduct.productName.toString(),smallSize: false,),
+                         SizedBox(
+                             width:  170,
+                             child: ProductTitleText(title:wishlistProduct.productName.toString(),
+                               maxLines: 1,smallSize: true,)),
                          IconButton(
                              onPressed: (){
                            wishlistController.removeFromWishList(
@@ -198,13 +201,6 @@ class WishlistProductTile extends StatelessWidget {
                                   colorUid: wishlistProduct.productColorUid!,
                                   quantity: cartController.quantity.value);
 
-                             print('1 Add to Cart');
-                             print(wishlistProduct.productUid!);
-                             print(wishlistProduct.productImageUid!);
-                             print(wishlistProduct.productSizeUid!);
-                             print(wishlistProduct.productColorUid!);
-                             print(cartController.quantity.value);
-                             print('2 Add to Cart');
                               wishlistController.removeFromWishList(
                                 wishUid: wishlistProduct.uid.toString(),
                               );

@@ -32,18 +32,18 @@ class AuthRepoImpl implements AuthRepo{
     required String firstname,
     required String lastname,
     required String email,
-    required String gender,
     required String phone,
     required String password,
+    required String confirmPassword,
   }) async{
     try{
       await _remoteDataSrc.register(
           firstname: firstname,
           lastname: lastname,
           email: email,
-          gender: gender,
           phone: phone,
           password: password,
+          confirmPassword: confirmPassword
       );
       return const Right(null);
     } on ServerException catch (e){

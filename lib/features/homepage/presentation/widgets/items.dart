@@ -11,12 +11,11 @@ class Items extends StatelessWidget {
   final Products item;
   final bool ignoring;
   final bool priceIgnoring;
-  final int index;
   const Items({super.key,
     required this.item,
     required this.ignoring,
     required this.priceIgnoring,
-    this.index=0});
+  });
 
 
   @override
@@ -46,6 +45,7 @@ class Items extends StatelessWidget {
         child: Column(
           children: [
             const Gap(5),
+            if(item.images!.isEmpty)
             Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
@@ -58,15 +58,35 @@ class Items extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 5),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(10),
-                  child: Image.network(
-                    '${item.images![index].image}',
+                  child: SizedBox(
                    // width: media.width * 0.32,
                     height: media.width * 0.40,
-                    fit: BoxFit.fitWidth,
                   ),
                 ),
               ),
             ),
+            if(item.images!.isNotEmpty)
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  boxShadow: const [
+                    BoxShadow(
+                        color: Colors.white38, offset: Offset(0, 2), blurRadius: 5)
+                  ],
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 5),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: Image.network(
+                      '${item.images![0].image}',
+                      // width: media.width * 0.32,
+                      height: media.width * 0.40,
+                      fit: BoxFit.fitWidth,
+                    ),
+                  ),
+                ),
+              ),
             const Gap(5),
             Text(
               item.name.toString(),
@@ -75,7 +95,7 @@ class Items extends StatelessWidget {
               style: const TextStyle(
                   color: Colours.lightThemeSecondaryTextColour, fontSize: 13, fontWeight: FontWeight.w700),
             ),
-/*            const Gap(5),
+    /*            const Gap(5),
             Text(
               item.name.toString(),
               maxLines: 1,
@@ -113,7 +133,7 @@ class Items extends StatelessWidget {
                     fontSize: 13,fontWeight: FontWeight.bold
                   )),
                   Text(
-                    item.sizes![index].mainPrice.toString(),
+                    item.sizes![0].mainPrice.toString(),
                     maxLines: 1,
                     textAlign: TextAlign.center,
                     style: const TextStyle(

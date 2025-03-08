@@ -22,14 +22,14 @@ abstract class AuthRemoteDataSrc{
     required String firstname,
     required String lastname,
     required String email,
-    required String gender,
     required String phone,
-    required String password
+    required String password,
+    required String confirmPassword,
 });
 
  // Future<bool> verifyToken();
 }
-const REGISTER_ENDPOINT = '/register';
+const REGISTER_ENDPOINT = '/registration';
 const LOGIN_ENDPOINT = '/login';
 
 class AuthRemoteDataSrcImpl implements AuthRemoteDataSrc{
@@ -79,9 +79,9 @@ class AuthRemoteDataSrcImpl implements AuthRemoteDataSrc{
     required String firstname,
     required String lastname,
     required String email,
-    required String gender,
     required String phone,
     required String password,
+    required String confirmPassword,
 
   }) async{
 
@@ -95,8 +95,8 @@ class AuthRemoteDataSrcImpl implements AuthRemoteDataSrc{
         'last_name' : lastname,
         'email' : email,
         'phone' : phone,
-        'gender' : gender,
         'password' : password,
+        "confirm_password":confirmPassword,
       }),
         headers: NetworkConstants.headers,
       );

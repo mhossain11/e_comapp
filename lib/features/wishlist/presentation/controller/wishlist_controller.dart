@@ -71,6 +71,7 @@ class WishListController extends GetxController{
       try{
          isRemoving.value = true;
          final result =await _wishListRepo.removeWish(wishUid: wishUid);
+         update();
          result.fold(
              (failure){
                 errorMessage.value = _mapFailureToMessage(failure);

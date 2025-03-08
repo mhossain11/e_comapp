@@ -30,7 +30,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
   final firstNameController = TextEditingController();
   final lastNameController = TextEditingController();
   final phoneController = TextEditingController();
-  final genderController = TextEditingController();
+ // final genderController = TextEditingController();
   final countryController = TextEditingController();
   final obscurePasswordNotifier = ValueNotifier(true);
   final obscureConfirmPasswordNotifier = ValueNotifier(true);
@@ -61,7 +61,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
     firstNameController.dispose();
     lastNameController.dispose();
     phoneController.dispose();
-    genderController.dispose();
+   // genderController.dispose();
     obscurePasswordNotifier.dispose();
     obscureConfirmPasswordNotifier.dispose();
 
@@ -147,8 +147,8 @@ class _RegistrationFormState extends State<RegistrationForm> {
               );
             },
           ),
-          const Gap(20),
-          DropDownButtons(dropdownValue: gender,),
+        //  const Gap(20),
+         // DropDownButtons(dropdownValue: gender,),
           const Gap(20),
           ValueListenableBuilder(
             valueListenable: obscurePasswordNotifier,
@@ -213,6 +213,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
                 final formattedNumber ='+${country.phoneCode}${toNumericString(phoneNumber)}';
                 final email = emailController.text.trim();
                 final password = passwordController.text.trim();
+                final confirmPassword = confirmPasswordController.text.trim();
                 final firstName = firstNameController.text.trim();
                 final lastName = lastNameController.text.trim();
 
@@ -221,9 +222,10 @@ class _RegistrationFormState extends State<RegistrationForm> {
                     firstname: firstName,
                     lastname: lastName,
                     email: email,
-                    gender: gender,
                     phone: phoneNumber,
-                    password: password);
+                    password: password,
+                    confirmPassword: confirmPassword
+                );
               }
             },
             text: 'Sign Up',

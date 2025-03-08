@@ -27,7 +27,7 @@ class _CartItemsState extends State<CartItems> {
 
   @override
   Widget build(BuildContext context) {
-
+    print('Item: ${widget.item.quantity.toString()}');
     var dark = HelperFunctions.isDarkMode(context);
     return Card(
       elevation: 3,
@@ -85,10 +85,12 @@ class _CartItemsState extends State<CartItems> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Flexible(child: PriceProductCountText(
-                                  price: widget.item.price!.toStringAsFixed(0),
-                                quantity: widget.item.quantity!,
+                                Flexible(
+                                    child: PriceProductCountText(
+                                  price: widget.item.price.toStringAsFixed(0),
+                                quantity: widget.item.quantity,
                                 )),
+                                //-
                                 Padding(
                                   padding: const EdgeInsets.only(left: 5.0,top: 15),
                                   child: Container(
@@ -96,20 +98,25 @@ class _CartItemsState extends State<CartItems> {
                                     alignment: Alignment.center,
                                     color: Colors.white,
 
-                                    child: TwoSideRoundedButton(text: '-',fontSize: 11,
+                                    child: TwoSideRoundedButton(
+                                        text: '-',fontSize: 11,
                                         press: (){
-                                      setState(() {
-                                        cartController.decrement(widget.item.productUid);
-                                      });
+                                        cartController.decrement(widget.item,widget.item.productUid);
+
+
                                       print('-');
                                     }),
                                   ),
                                 ),
+
+
                                  Padding(
                                   padding: const EdgeInsets.only(left: 8.0,right: 8.0,top: 15),
                                   child: Text(widget.item.quantity.toString(),
                                     style: const TextStyle(fontSize:17,fontWeight: FontWeight.bold),),
                                 ),
+
+                              //+
                                 Padding(
                                   padding: const EdgeInsets.only(left: 5.0,top: 15),
                                   child: Container(
@@ -120,7 +127,8 @@ class _CartItemsState extends State<CartItems> {
                                     child: TwoSideRoundedButton(text: '+',fontSize: 11,
                                         press: (){
                                           setState(() {
-                                            cartController.increment(widget.item.productUid);
+                                            cartController.increment(widget.item,widget.item.productUid);
+                                          //  cartController.addToCarts(widget.item);
                                           });
                                       print('+');
                                     }),
@@ -137,7 +145,7 @@ class _CartItemsState extends State<CartItems> {
                     Padding(
                       padding: const EdgeInsets.all(5.0),
                       child: ProductPriceText(
-                        price: widget.item.price!.toStringAsFixed(0),),
+                        price: widget.item.price.toStringAsFixed(0),),
                     ),
                   ],
                 )
@@ -147,9 +155,9 @@ class _CartItemsState extends State<CartItems> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 IconButton(onPressed: (){
-                  print(widget.item.productUid!.toString());
+                  print(widget.item.productUid.toString());
                   cartController.removeFromCart(
-                      cartProductUid:widget.item.productUid!);
+                      cartProductUid:widget.item.productUid);
                 },
                     icon: const Row(
                   children: [

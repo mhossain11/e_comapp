@@ -34,7 +34,7 @@ class _SubCategoryScreenState extends State<SubCategoryScreen> {
         builder: (controller) {
           if (widget.productItem.subcategories!.isEmpty) {
             return const Center(child: Text('Item is Empty'));
-          } else {
+          }else if(widget.productItem.subcategories!.isNotEmpty){
             return Column(
               children: [
                 SizedBox(
@@ -87,15 +87,17 @@ class _SubCategoryScreenState extends State<SubCategoryScreen> {
                 if(widget.productItem.subcategories![categoryController.index.value].products!.isEmpty )
                   const Center(child: Text(" Item is Empty")),
                 if(widget.productItem.subcategories![categoryController.index.value].products!.isNotEmpty )
-                ProductGridView(
-                  item: widget.productItem.subcategories![categoryController
-                      .index.value].products,
-                  ignoring: true,
-                  crossAxisCount: 2,
-                ),
+                  ProductGridView(
+                    item: widget.productItem.subcategories![categoryController.index.value].products,
+                    ignoring: true,
+                    crossAxisCount: 2,
+                  ),
 
               ],
             );
+          }
+          else {
+            return SizedBox();
           }
         }
 

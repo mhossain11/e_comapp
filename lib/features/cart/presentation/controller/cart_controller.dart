@@ -7,8 +7,10 @@ class CartController extends GetxController {
   final CartListRepo _cartListRepo;
 
 
+
+
   var cartList =<CartsItems>[].obs;
-  var total_Prices=0.obs;
+  var totalPrices=0.0.obs;
   var isLoading = false.obs;
   var isAddingToCart = false.obs;                      // Adding to wishlist state
   var isRemovingFromCart = false.obs;
@@ -34,7 +36,7 @@ class CartController extends GetxController {
       );
     }finally{
       isLoading.value = false;
-      update();
+     // update();
     }
 
   }
@@ -66,7 +68,7 @@ class CartController extends GetxController {
       );
     } finally {
       isAddingToCart.value = false;
-      update(); // Notify listeners
+     // update(); // Notify listeners
     }
   }
 
@@ -89,54 +91,78 @@ class CartController extends GetxController {
       );
     } finally {
       isRemovingFromCart.value = false;
-      update(); // Notify listeners
+     // update(); // Notify listeners
     }
   }
 
 
-/*  String allPrices(){
-    CartsItems item=  cartList.firstWhere((item)=> item.productUid == productId);
-    total_Prices.value = total_Prices.value +  item.totalPrice!.toInt();
-    return total_Prices.value.toString();
+ String allPrices(){
 
-  }*/
+   double item = cartList.fold(0, (sum, item) => sum + item.totalPrice);
+   totalPrices.value = item;
+   print(item.toString());
+   print(totalPrices.value.toString());
+   return totalPrices.value.toString();
+  }
 
-  increment(productUid) async{
-    CartsItems item = cartList.firstWhere((item) => item.productUid == productUid );
-   quantity.value +=1;
+  // Add Item to Cart
+
+  increment(CartsItems item,productUid) async{
+    print("Incr1:${quantity.value}");
+    quantity.value =1;
+    var existingItem = cartList.firstWhereOrNull((element) => element.productUid == item.productUid);
+    int index = cartList.indexWhere((item) => item.productUid == productUid);
+    if (existingItem != null) {
+      if (index != -1) {
+        print("Incr:${cartList[index].quantity}");
+         quantity.value = cartList[index].quantity++;
+        cartList[index].totalPrice = cartList[index].quantity * cartList[index].price;
+         print("Incr2:${quantity.value}");
+      }
+      print(quantity.value);
+      //removeFromCart( cartProductUid: item.productUid);
+      print(quantity.value);
     await addToCart(
-        productUid: productUid,
-        imageUid: item.productImageUid!,
-        sizeUid: item.productSizeUid!,
-        colorUid: item.productColorUid!,
-        quantity: quantity.value);
-   // fetchGetCartList();
-    print('$productUid');
-    print(item.productImageUid!);
-    print(item.productSizeUid!);
-    print(item.productColorUid!);
-    print(quantity.value);
+          productUid: item.productUid,
+          imageUid: item.productImageUid,
+          sizeUid: item.productSizeUid,
+          colorUid: item.productColorUid,
+          quantity: quantity.value);
+      quantity.value=1;
+      print(quantity.value);
+    }
+
+    allPrices();
     update();
   }
 
-  decrement(productUid) async{
-     CartsItems item = cartList.firstWhere((item) => item.productUid == productUid);
-    if (quantity > 1) {
-      quantity.value--;
+  decrement(CartsItems item,productUid) async{
+    quantity.value =1;
+    int index = cartList.indexWhere((item) => item.productUid == productUid);
+    var existingItem = cartList.firstWhereOrNull((element) => element.productUid == item.productUid);
+    print(cartList[index].quantity);
+    if (existingItem != null) {
+      if (index != -1) {
+        if (cartList[index].quantity > 1) {
+          quantity.value =cartList[index].quantity--;
+          cartList[index].totalPrice = cartList[index].quantity * cartList[index].price;
+        }
+      }
+      print(cartList[index].quantity);
+      print(cartList[index].totalPrice);
       await addToCart(
-          productUid: productUid,
-          imageUid: item.productImageUid!,
-          sizeUid: item.productSizeUid!,
-          colorUid: item.productColorUid!,
+          productUid: item.productUid,
+          imageUid: item.productImageUid,
+          sizeUid: item.productSizeUid,
+          colorUid: item.productColorUid,
           quantity: quantity.value);
-     // fetchGetCartList();
-      print('$productUid');
-      print(item.productImageUid!);
-      print(item.productSizeUid!);
-      print(item.productColorUid!);
-      print(quantity.value);
-      update();
+      print(cartList[index].quantity);
+      quantity.value =1;
+      print(cartList[index].quantity);
     }
+    allPrices();
+    update();
+
 }
 
 

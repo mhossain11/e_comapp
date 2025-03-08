@@ -3,8 +3,6 @@ import 'package:e_comapp/features/categories/domain/model/Products.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-
 import '../../homepage/presentation/widgets/items.dart';
 
 class ProductGridView extends StatelessWidget {
@@ -29,21 +27,26 @@ class ProductGridView extends StatelessWidget {
           shrinkWrap: true,
           itemCount: item!.length,
           itemBuilder:(context,index){
-      
-              return GestureDetector(
-                onTap: (){
-                  if (kDebugMode) {
-                    print('${item![index].uid}');
-                  }
-                  Get.toNamed(AppRoutes.productDetailScreen,
-                  arguments: {'productId':item![index].uid});
-                },
-                child: Items(
-                  item: item![index],
-                  ignoring: true,
-                  priceIgnoring: true, ),
-              );
-          }),
+              if(item!.isEmpty){
+               return const Center(child: Text(" Item is Empty"));
+          }else {
+                return GestureDetector(
+                  onTap: (){
+                    if (kDebugMode) {
+                      print('${item![index].uid}');
+                    }
+                    Get.toNamed(AppRoutes.productDetailScreen,
+                        arguments: {'productId':item![index].uid});
+                  },
+                  child: Items(
+                    item: item![index],
+                    ignoring: true,
+                    priceIgnoring: true, ),
+                );
+              }
+    }
+
+              ),
     );
   }
 }
