@@ -26,8 +26,21 @@ class LoginScreen extends StatelessWidget {
           'Sign In',
           style: TextStyles.headingSemiBold,
         ),
+<<<<<<< HEAD
         bottom: const AppBarBottom(),
       ),
+=======
+        automaticallyImplyLeading: true,
+       /* leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Get.back();
+          },
+        ),*/
+        bottom: const AppBarBottom(),
+      ),
+
+>>>>>>> e751dd7 ( product details screen change)
       body: Column(
         children: [
           Expanded(

@@ -13,6 +13,10 @@ import '../../../shared/widgets/roundedImage.dart';
 import '../../../shared/widgets/two_side_rounded_button.dart';
 import '../../domains/models/cart_Items.dart';
 import '../controller/cart_controller.dart';
+<<<<<<< HEAD
+=======
+import '../utils/cart_utils.dart';
+>>>>>>> e751dd7 ( product details screen change)
 
 class CartItems extends StatefulWidget {
   const CartItems({super.key, required this.item});
@@ -102,8 +106,11 @@ class _CartItemsState extends State<CartItems> {
                                         text: '-',fontSize: 11,
                                         press: (){
                                         cartController.decrement(widget.item,widget.item.productUid);
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> e751dd7 ( product details screen change)
                                       print('-');
                                     }),
                                   ),
@@ -126,10 +133,16 @@ class _CartItemsState extends State<CartItems> {
 
                                     child: TwoSideRoundedButton(text: '+',fontSize: 11,
                                         press: (){
+<<<<<<< HEAD
                                           setState(() {
                                             cartController.increment(widget.item,widget.item.productUid);
                                           //  cartController.addToCarts(widget.item);
                                           });
+=======
+                                            cartController.increment(widget.item,widget.item.productUid);
+                                          //  cartController.addToCarts(widget.item);
+
+>>>>>>> e751dd7 ( product details screen change)
                                       print('+');
                                     }),
                                   ),
@@ -151,6 +164,7 @@ class _CartItemsState extends State<CartItems> {
                 )
               ],
             ),
+<<<<<<< HEAD
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -158,6 +172,23 @@ class _CartItemsState extends State<CartItems> {
                   print(widget.item.productUid.toString());
                   cartController.removeFromCart(
                       cartProductUid:widget.item.productUid);
+=======
+
+            //Delete
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                IconButton(onPressed: ()async{
+                  print(widget.item.productUid.toString());
+                  final shouldDelete = await CartUtils.verifyDeletion(
+                    context,
+                    message: 'Are you sure you want to remove these items?',
+                  );
+                  if(shouldDelete){
+                    cartController.removeFromCart(
+                        cartProductUid:widget.item.productUid);
+                  }
+>>>>>>> e751dd7 ( product details screen change)
                 },
                     icon: const Row(
                   children: [

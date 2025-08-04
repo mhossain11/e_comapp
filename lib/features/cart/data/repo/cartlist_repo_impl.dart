@@ -22,6 +22,19 @@ class CartListRepoImpl implements CartListRepo{
     }
   }
 
+<<<<<<< HEAD
+=======
+  @override
+  ResultFuture<String> getSessionKey() async{
+    try{
+      final result = await _cartRemoteDataSrc.getSessionKey();
+      return Right(result);
+    }on ServerException catch (e) {
+      return Left(ServerFailure(message: e.message, statusCode: e.statusCode));
+    }
+  }
+
+>>>>>>> e751dd7 ( product details screen change)
 
   @override
   ResultFuture<void> addCartList({
@@ -56,4 +69,9 @@ class CartListRepoImpl implements CartListRepo{
     }
   }
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> e751dd7 ( product details screen change)
 }

@@ -369,6 +369,7 @@ class _CartScreenState extends State<CartScreen> {
           body: Center(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
+<<<<<<< HEAD
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -379,12 +380,30 @@ class _CartScreenState extends State<CartScreen> {
                     style: TextStyles.headingSemiBold.grey,
                   ),
                 ],
+=======
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Lottie.asset(Media.AnimetEmptyCart, repeat: true),
+                    const Gap(5),
+                    Text(
+                      'Oh! So empty',
+                      style: TextStyles.headingSemiBold.grey,
+                    ),
+                  ],
+                ),
+>>>>>>> e751dd7 ( product details screen change)
               ),
             ),
           ),
         );
       }
+<<<<<<< HEAD
       print("Price: ${cartController.totalPrices.value.toString()}");
+=======
+
+>>>>>>> e751dd7 ( product details screen change)
       return Scaffold(
         appBar: CustomAppBar(
           txtOnPressed: () {},

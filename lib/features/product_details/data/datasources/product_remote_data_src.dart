@@ -15,6 +15,10 @@ import '../../../../core/utils/constants/network_constants.dart';
 abstract class ProductRemoteDataSrc{
 
   Future<Products> getProducts(String productId);
+<<<<<<< HEAD
+=======
+  //Future<Products> getProductsReview(String productId);
+>>>>>>> e751dd7 ( product details screen change)
 
 }
 
@@ -27,6 +31,11 @@ class ProductRemoteDataSrcImp implements ProductRemoteDataSrc{
 
   @override
   Future<Products> getProducts(String productId) async{
+<<<<<<< HEAD
+=======
+
+    print('ProductID:$productId');
+>>>>>>> e751dd7 ( product details screen change)
     try{
       final uri =Uri.http(NetworkConstants.authority,'${NetworkConstants.apiUrl}$GET_PRODUCTS_ENDPOINT/$productId/');
      // final uri =Uri.parse('${NetworkConstants.baseUrlOne}/$productId/');

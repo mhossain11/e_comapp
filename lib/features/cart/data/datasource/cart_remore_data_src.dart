@@ -15,6 +15,11 @@ import '../../../../core/di/injection_container.main.dart';
 abstract class CartRemoteDataSrc{
 
   Future<List<CartsItems>> getCart();
+<<<<<<< HEAD
+=======
+
+  Future<String> getSessionKey();
+>>>>>>> e751dd7 ( product details screen change)
   
   Future<void> addToCart({
   required String productUid,
@@ -30,6 +35,7 @@ abstract class CartRemoteDataSrc{
 }
 
 
+<<<<<<< HEAD
 class CartRemoteDataSrcImpl implements CartRemoteDataSrc{
   CartRemoteDataSrcImpl(this._client);
   
@@ -55,11 +61,80 @@ class CartRemoteDataSrcImpl implements CartRemoteDataSrc{
        final errorResponse = ErrorResponse.fromMap(payload);
        throw ServerException(message: errorResponse.errorMessage, statusCode: response.statusCode);
      }
+=======
+
+class CartRemoteDataSrcImpl implements CartRemoteDataSrc {
+  CartRemoteDataSrcImpl(this._client);
+
+  final http.Client _client;
+
+  @override
+  Future<String> getSessionKey() async{
+    final existingKey = sl<CacheHelper>().getSession();
+    if (existingKey != null && existingKey.isNotEmpty) {
+      return existingKey;
+    }
+    try{
+      final uri=Uri.parse('${NetworkConstants.baseUrlOne}${NetworkConstants.sessionKey}');
+
+      final response =await _client.get(
+        uri,
+        headers:NetworkConstants.headers,
+
+      ).timeout(const Duration(seconds: 60));
+      final payload = jsonDecode(response.body);
+      await NetworkUtils.renewToken(response);
+
+      if(response.statusCode != 200){
+        payload as DataMap;
+        final errorResponse = ErrorResponse.fromMap(payload);
+        throw ServerException(message: errorResponse.errorMessage, statusCode: response.statusCode);
+      }
+      //await sl<CacheHelper>().cacheSessionToken(payload);
+      return payload["session_key"] ?? "";
+
+
+    }on ServerException {
+    rethrow;
+    } catch (e, s) {
+    debugPrint(e.toString());
+    debugPrintStack(stackTrace: s);
+    throw ServerException(message: e.toString(), statusCode: 500);
+    }
+  }
+
+  @override
+  Future<List<CartsItems>> getCart() async{
+     await getSessionKey();
+   try{
+     final uri=Uri.parse('${NetworkConstants.baseUrlOne}${NetworkConstants.cartListGet}');
+     final response =await _client.get(
+       uri,
+     headers:sl<CacheHelper>().getAccessAllToken()?.toHeader,
+     ).timeout(const Duration(seconds: 60));
+      debugPrint('Hedder:${sl<CacheHelper>().getAccessAllToken()!.toHeader}');
+     final payload = jsonDecode(response.body);
+     await NetworkUtils.renewToken(response);
+     //await sl<CacheHelper>().removeSessionKey();
+     if(response.statusCode != 200){
+       payload as DataMap;
+       final errorResponse = ErrorResponse.fromMap(payload);
+       throw ServerException(
+           message: errorResponse.errorMessage,
+           statusCode: response.statusCode);
+     }
+
+>>>>>>> e751dd7 ( product details screen change)
      return (payload["items"] as List)
          .map(
            (cartProduct) => CartsItems.fromJson(cartProduct),
      )
          .toList();
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> e751dd7 ( product details screen change)
    }on ServerException {
      rethrow;
    } catch (e, s) {
@@ -82,7 +157,11 @@ class CartRemoteDataSrcImpl implements CartRemoteDataSrc{
 
       final response =await _client.post(
           uri,
+<<<<<<< HEAD
           headers: sl<CacheHelper>().getAccessToken()?.toHeader,
+=======
+          headers: sl<CacheHelper>().getAccessAllToken()?.toHeader,
+>>>>>>> e751dd7 ( product details screen change)
           body: jsonEncode({
             'product_uid': productUid,
             'image_uid': imageUid,
@@ -119,7 +198,11 @@ class CartRemoteDataSrcImpl implements CartRemoteDataSrc{
 
       final response = await _client.delete(
         uri,
+<<<<<<< HEAD
       headers: sl<CacheHelper>().getAccessToken()!.toHeaders,
+=======
+      headers: sl<CacheHelper>().getAccessAllToken()!.toHeaders,
+>>>>>>> e751dd7 ( product details screen change)
       );
       await NetworkUtils.renewToken(response);
 
@@ -139,4 +222,15 @@ class CartRemoteDataSrcImpl implements CartRemoteDataSrc{
       throw ServerException(message: e.toString(), statusCode: 500);
     }
   }
+<<<<<<< HEAD
 }
+=======
+
+
+
+
+
+}
+
+
+>>>>>>> e751dd7 ( product details screen change)

@@ -2,23 +2,71 @@ import 'package:e_comapp/features/cart/domains/models/cart_Items.dart';
 import 'package:e_comapp/features/cart/domains/repo/cartlist_repo.dart';
 import 'package:get/get.dart';
 
+<<<<<<< HEAD
+=======
+import '../../../../core/app/cache/cache_helper.dart';
+import '../../../../core/di/injection_container.main.dart';
+
+>>>>>>> e751dd7 ( product details screen change)
 class CartController extends GetxController {
   CartController(this. _cartListRepo);
   final CartListRepo _cartListRepo;
 
+<<<<<<< HEAD
 
 
 
   var cartList =<CartsItems>[].obs;
+=======
+      @override
+  void onInit() {
+    super.onInit();
+    fetchGetCartList();
+    getSessionKey();
+  }
+
+
+  RxList<CartsItems> cartList =<CartsItems>[].obs;
+>>>>>>> e751dd7 ( product details screen change)
   var totalPrices=0.0.obs;
   var isLoading = false.obs;
   var isAddingToCart = false.obs;                      // Adding to wishlist state
   var isRemovingFromCart = false.obs;
   var errorMessage = ''.obs;
+<<<<<<< HEAD
   var quantity = 1.obs;
   var cartCount = 0.obs;
 
 
+=======
+  var quantity = 0.obs;
+  var cartCount = 0.obs;
+
+
+  Future<String>getSessionKey() async{
+    try{
+      isLoading.value =true;
+      update();
+      final result = await _cartListRepo.getSessionKey();
+      String? sessionKey;
+      result.fold(
+              (failure){
+            errorMessage.value = failure.errorMessage;
+          },
+              (fetchedData) {
+                sessionKey = fetchedData;
+                sl<CacheHelper>().cacheSessionToken(sessionKey!);
+          }
+
+      );
+      return sessionKey ?? '';
+    }finally{
+      isLoading.value = false;
+      // update();
+    }
+  }
+
+>>>>>>> e751dd7 ( product details screen change)
   Future<void>fetchGetCartList() async{
 
     try{
@@ -109,13 +157,20 @@ class CartController extends GetxController {
 
   increment(CartsItems item,productUid) async{
     print("Incr1:${quantity.value}");
+<<<<<<< HEAD
     quantity.value =1;
+=======
+>>>>>>> e751dd7 ( product details screen change)
     var existingItem = cartList.firstWhereOrNull((element) => element.productUid == item.productUid);
     int index = cartList.indexWhere((item) => item.productUid == productUid);
     if (existingItem != null) {
       if (index != -1) {
         print("Incr:${cartList[index].quantity}");
+<<<<<<< HEAD
          quantity.value = cartList[index].quantity++;
+=======
+          quantity.value+=1;
+>>>>>>> e751dd7 ( product details screen change)
         cartList[index].totalPrice = cartList[index].quantity * cartList[index].price;
          print("Incr2:${quantity.value}");
       }
@@ -128,7 +183,11 @@ class CartController extends GetxController {
           sizeUid: item.productSizeUid,
           colorUid: item.productColorUid,
           quantity: quantity.value);
+<<<<<<< HEAD
       quantity.value=1;
+=======
+      quantity.value=0;
+>>>>>>> e751dd7 ( product details screen change)
       print(quantity.value);
     }
 
@@ -137,14 +196,21 @@ class CartController extends GetxController {
   }
 
   decrement(CartsItems item,productUid) async{
+<<<<<<< HEAD
     quantity.value =1;
+=======
+>>>>>>> e751dd7 ( product details screen change)
     int index = cartList.indexWhere((item) => item.productUid == productUid);
     var existingItem = cartList.firstWhereOrNull((element) => element.productUid == item.productUid);
     print(cartList[index].quantity);
     if (existingItem != null) {
       if (index != -1) {
         if (cartList[index].quantity > 1) {
+<<<<<<< HEAD
           quantity.value =cartList[index].quantity--;
+=======
+          quantity.value--;
+>>>>>>> e751dd7 ( product details screen change)
           cartList[index].totalPrice = cartList[index].quantity * cartList[index].price;
         }
       }
@@ -157,7 +223,11 @@ class CartController extends GetxController {
           colorUid: item.productColorUid,
           quantity: quantity.value);
       print(cartList[index].quantity);
+<<<<<<< HEAD
       quantity.value =1;
+=======
+      quantity.value=0;
+>>>>>>> e751dd7 ( product details screen change)
       print(cartList[index].quantity);
     }
     allPrices();

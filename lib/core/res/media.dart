@@ -8,6 +8,10 @@ abstract class Media{
   static const _baseImageSlider = 'assets/img/slider';
   static const _paymentBaseImages = 'assets/payment';
   static const emptyCart = '$_baseLottie/empty_cart.json';
+<<<<<<< HEAD
+=======
+  static const splashLogo = '$_baseLottie/logo.json';
+>>>>>>> e751dd7 ( product details screen change)
   static const AnimetEmptyCart = '$_baseLottie/animation_empty.json';
 
   static const slider1 = '$_baseImageSlider/slider_books_1.jpg';

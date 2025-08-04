@@ -52,7 +52,11 @@ class _FavoriteIconState extends State<FavoriteIcon> {
                     productId: widget.productList.uid!,
                     imageId: widget.productList.images![0].uid!,
                     sizeId: widget.productList.sizes![0].uid!,
+<<<<<<< HEAD
                     colorId: widget.productList.colors![0].uid! ,
+=======
+                    colorId: widget.productList.colors![0].uid!,
+>>>>>>> e751dd7 ( product details screen change)
                   );
                 controller.fetchGetWishList();
                // productIsFavourite = false;

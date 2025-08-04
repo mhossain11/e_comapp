@@ -1,4 +1,8 @@
 import 'dart:convert';
+<<<<<<< HEAD
+=======
+import 'package:e_comapp/core/extensions/string_extensions.dart';
+>>>>>>> e751dd7 ( product details screen change)
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 
@@ -32,6 +36,10 @@ abstract class AuthRemoteDataSrc{
 const REGISTER_ENDPOINT = '/registration';
 const LOGIN_ENDPOINT = '/login';
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> e751dd7 ( product details screen change)
 class AuthRemoteDataSrcImpl implements AuthRemoteDataSrc{
 
   const AuthRemoteDataSrcImpl(this._client);
@@ -61,9 +69,38 @@ class AuthRemoteDataSrcImpl implements AuthRemoteDataSrc{
             message: errorResponse.errorMessage,
             statusCode: response.statusCode);
       }
+<<<<<<< HEAD
       await sl<CacheHelper>().cacheAccessToken(payload['access']);
 
 
+=======
+      final tokenValue = payload['access'];
+      await sl<CacheHelper>().cacheAccessToken(tokenValue);
+     // await sl<CacheHelper>().resetSessionKey();
+     // debugPrint("Login_sessionKey_remove:${sl<CacheHelper>().resetSessionKey().toString()}");
+/*      final sessionKey = sl<CacheHelper>().getSession();
+      debugPrint('Login_sessionKey:$sessionKey');
+      // 🧠 Cart merge logic
+      if (sessionKey != null) {
+        final mergeUri = Uri.parse("${NetworkConstants.baseUrl}${NetworkConstants.cartListAddEndPoint}");
+        final mergeResponse = await http.post(
+          mergeUri,
+          headers: sl<CacheHelper>().getAccessAllToken()?.toHeaders,
+          body: jsonEncode({"X-Session-Key": sessionKey}),
+        );
+        debugPrint('Login_cartListGet Called');
+        debugPrint('Login_cartListGet Called: ${mergeResponse.statusCode}');
+        if (mergeResponse.statusCode != 200) {
+          throw ServerException(
+            message: "Cart merge failed",
+            statusCode: mergeResponse.statusCode,
+          );
+        } else {
+          debugPrint("✅ Cart merged successfully.");
+          await sl<CacheHelper>().resetSessionKey();
+        }
+      }*/
+>>>>>>> e751dd7 ( product details screen change)
     }on ServerException {
       rethrow;
     }catch(e,s){

@@ -6,6 +6,10 @@ import '../../../../core/res/styles/shadows.dart';
 import '../../../../core/res/styles/text.dart';
 import '../../../../core/utils/helper_functions.dart';
 import '../../../cart/presentation/controller/cart_controller.dart';
+<<<<<<< HEAD
+=======
+import '../../../cart/presentation/utils/cart_utils.dart';
+>>>>>>> e751dd7 ( product details screen change)
 import '../../../shared/widgets/other/productpricetext.dart';
 import '../../../shared/widgets/roundedContainer.dart';
 import '../../../shared/widgets/roundedImage.dart';
@@ -160,10 +164,24 @@ class WishlistProductTile extends StatelessWidget {
                              child: ProductTitleText(title:wishlistProduct.productName.toString(),
                                maxLines: 1,smallSize: true,)),
                          IconButton(
+<<<<<<< HEAD
                              onPressed: (){
                            wishlistController.removeFromWishList(
                              wishUid: wishlistProduct.uid.toString(),
                            );
+=======
+                             onPressed: () async{
+                               final shouldDelete = await CartUtils.verifyDeletions(
+                                 context,
+                                 message: 'Are you sure you want to remove these items?',
+                               );
+                               if(shouldDelete){
+                                 wishlistController.removeFromWishList(
+                                   wishUid: wishlistProduct.uid.toString(),
+                                 );
+                               }
+
+>>>>>>> e751dd7 ( product details screen change)
                          }, icon: const Icon(Icons.delete)),
                        ],
                      ),

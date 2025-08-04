@@ -57,7 +57,11 @@ class _LoginFormState extends State<LoginForm> {
                   label: 'Password',
                   hintText: 'Enter your password',
                   controller: passwordController,
+<<<<<<< HEAD
                   keyboardType: TextInputType.visiblePassword,
+=======
+                  keyboardType: TextInputType.text,
+>>>>>>> e751dd7 ( product details screen change)
                   suffixIcon: GestureDetector(
                     onTap: () {
                       obscurePasswordNotifier.value = !obscurePasswordNotifier.value;

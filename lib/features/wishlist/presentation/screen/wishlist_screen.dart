@@ -28,6 +28,10 @@ class _WishListScreenState extends State<WishListScreen> {
   }
   @override
   Widget build(BuildContext context) {
+<<<<<<< HEAD
+=======
+    print('WishlistScreen');
+>>>>>>> e751dd7 ( product details screen change)
     return GetBuilder<WishListController>(
         builder: (controller){
           return RefreshIndicator(

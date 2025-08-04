@@ -95,11 +95,19 @@ class _ColourPaletteState extends State<ColourPalette> {
                   backgroundImage: NetworkImage(widget.colors[index].image!), // Use color image
                 ),
                 const SizedBox(height: 5),
+<<<<<<< HEAD
                 Text(
                   widget.colors[index].name!,
                   style: const TextStyle(fontSize: 12),
                 ),
                 const SizedBox(height: 5),
+=======
+               /* Text(
+                  widget.colors[index].name!,
+                  style: const TextStyle(fontSize: 12),
+                ),
+                const SizedBox(height: 5),*/
+>>>>>>> e751dd7 ( product details screen change)
               ],
             );
           },

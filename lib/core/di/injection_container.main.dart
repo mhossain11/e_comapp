@@ -42,12 +42,15 @@ Future<void> init() async {
   */
 }
 
+<<<<<<< HEAD
 
 
 
 
 
 
+=======
+>>>>>>> e751dd7 ( product details screen change)
 Future<void> _cacheInit() async {
   final prefs = await SharedPreferences.getInstance();
   sl
