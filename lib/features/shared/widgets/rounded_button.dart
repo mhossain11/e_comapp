@@ -25,11 +25,11 @@ class RoundedButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: height ?? 66,
-<<<<<<< HEAD
+
       width: double.maxFinite,
-=======
-      width:  double.maxFinite,
->>>>>>> e751dd7 ( product details screen change)
+
+      //width:  double.maxFinite,
+
       child: FilledButton(
         style: FilledButton.styleFrom(
           shape: RoundedRectangleBorder(

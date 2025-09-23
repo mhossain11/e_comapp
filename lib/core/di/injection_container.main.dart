@@ -25,7 +25,7 @@ import '../../features/categories/domain/repo/category_repo.dart';
 import '../../features/categories/presentation/controller/category_controller.dart';
 import '../app/cache/cache_helper.dart';
 
-final sl = GetIt.instance;
+final sl = GetIt.instance;  //service locator
 
 Future<void> init() async {
   sl.registerLazySingleton(http.Client.new);
@@ -42,20 +42,20 @@ Future<void> init() async {
   */
 }
 
-<<<<<<< HEAD
 
 
 
 
 
 
-=======
->>>>>>> e751dd7 ( product details screen change)
+
+
+
 Future<void> _cacheInit() async {
-  final prefs = await SharedPreferences.getInstance();
+  final prefs = await SharedPreferences.getInstance(); //inject dependencies
   sl
-    ..registerLazySingleton(() => CacheHelper(sl()))
-    ..registerLazySingleton<SharedPreferences>(() => prefs);
+    ..registerLazySingleton(() => CacheHelper(sl())) //object initialize
+    ..registerLazySingleton<SharedPreferences>(() => prefs);//inject dependencies
 }
 
 Future<void> _userAuthInit() async {

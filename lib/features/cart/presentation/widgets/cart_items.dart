@@ -13,10 +13,7 @@ import '../../../shared/widgets/roundedImage.dart';
 import '../../../shared/widgets/two_side_rounded_button.dart';
 import '../../domains/models/cart_Items.dart';
 import '../controller/cart_controller.dart';
-<<<<<<< HEAD
-=======
 import '../utils/cart_utils.dart';
->>>>>>> e751dd7 ( product details screen change)
 
 class CartItems extends StatefulWidget {
   const CartItems({super.key, required this.item});
@@ -27,7 +24,7 @@ class CartItems extends StatefulWidget {
 }
 
 class _CartItemsState extends State<CartItems> {
-    CartController cartController = Get.find<CartController>();
+  CartController cartController = Get.find<CartController>();
 
   @override
   Widget build(BuildContext context) {
@@ -91,9 +88,9 @@ class _CartItemsState extends State<CartItems> {
                               children: [
                                 Flexible(
                                     child: PriceProductCountText(
-                                  price: widget.item.price.toStringAsFixed(0),
-                                quantity: widget.item.quantity,
-                                )),
+                                      price: widget.item.price.toStringAsFixed(0),
+                                      quantity: widget.item.quantity,
+                                    )),
                                 //-
                                 Padding(
                                   padding: const EdgeInsets.only(left: 5.0,top: 15),
@@ -105,25 +102,20 @@ class _CartItemsState extends State<CartItems> {
                                     child: TwoSideRoundedButton(
                                         text: '-',fontSize: 11,
                                         press: (){
-                                        cartController.decrement(widget.item,widget.item.productUid);
-<<<<<<< HEAD
-
-
-=======
->>>>>>> e751dd7 ( product details screen change)
-                                      print('-');
-                                    }),
+                                          cartController.decrement(widget.item,widget.item.productUid);
+                                          print('-');
+                                        }),
                                   ),
                                 ),
 
 
-                                 Padding(
+                                Padding(
                                   padding: const EdgeInsets.only(left: 8.0,right: 8.0,top: 15),
                                   child: Text(widget.item.quantity.toString(),
                                     style: const TextStyle(fontSize:17,fontWeight: FontWeight.bold),),
                                 ),
 
-                              //+
+                                //+
                                 Padding(
                                   padding: const EdgeInsets.only(left: 5.0,top: 15),
                                   child: Container(
@@ -133,18 +125,11 @@ class _CartItemsState extends State<CartItems> {
 
                                     child: TwoSideRoundedButton(text: '+',fontSize: 11,
                                         press: (){
-<<<<<<< HEAD
-                                          setState(() {
-                                            cartController.increment(widget.item,widget.item.productUid);
-                                          //  cartController.addToCarts(widget.item);
-                                          });
-=======
-                                            cartController.increment(widget.item,widget.item.productUid);
+                                          cartController.increment(widget.item,widget.item.productUid);
                                           //  cartController.addToCarts(widget.item);
 
->>>>>>> e751dd7 ( product details screen change)
-                                      print('+');
-                                    }),
+                                          print('+');
+                                        }),
                                   ),
                                 )
                               ],
@@ -164,15 +149,6 @@ class _CartItemsState extends State<CartItems> {
                 )
               ],
             ),
-<<<<<<< HEAD
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                IconButton(onPressed: (){
-                  print(widget.item.productUid.toString());
-                  cartController.removeFromCart(
-                      cartProductUid:widget.item.productUid);
-=======
 
             //Delete
             Row(
@@ -188,14 +164,13 @@ class _CartItemsState extends State<CartItems> {
                     cartController.removeFromCart(
                         cartProductUid:widget.item.productUid);
                   }
->>>>>>> e751dd7 ( product details screen change)
                 },
                     icon: const Row(
-                  children: [
-                    Icon(Icons.delete_outline),
-                    Text('Remove')
-                  ],
-                )),
+                      children: [
+                        Icon(Icons.delete_outline),
+                        Text('Remove')
+                      ],
+                    )),
 
               ],
             ),

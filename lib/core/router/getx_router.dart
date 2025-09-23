@@ -1,40 +1,29 @@
 import 'package:e_comapp/features/cart/presentation/screen/cart_screen.dart';
-<<<<<<< HEAD
-=======
+
+
 import 'package:e_comapp/features/dashboard/presentation/screen/dashboard_screen.dart';
->>>>>>> e751dd7 ( product details screen change)
+
 import 'package:e_comapp/features/homepage/presentation/screen/home_screen.dart';
 import 'package:get/get.dart';
 import '../../features/auth/presentation/screen/login_screen.dart';
 import '../../features/auth/presentation/screen/register_screen.dart';
 
 import '../../features/categories/domain/model/CategoryModel.dart';
-<<<<<<< HEAD
-import '../../features/categories/presentation/sub_category_screen/sub_category_screen.dart';
+
+import '../../features/categories/presentation/sub_category_screen/sub_category_screen.dart' hide SubCategoryScreen;
 import '../../features/product_details/presentations/screen/product_details.dart';
-=======
+
 import '../../features/categories/presentation/screen/allViewCategory_screen.dart';
 import '../../features/categories/presentation/screen/subCategory_screen.dart';
 import '../../features/product_details/presentations/screen/product_details.dart';
 import '../../features/splash/presentation/screen/splash_screen.dart';
->>>>>>> e751dd7 ( product details screen change)
+
 import 'app_router.dart';
 
 class GetAppRouter {
   List<GetPage> getRoutes() {
     return [
-<<<<<<< HEAD
-   /*   GetPage(
-        name: AppRoutes.initial,
-        page: () => const SplashScreen(),
-        // Bindings for the splash screen if necessary
-      ),*/
-     /* GetPage(
-        name: AppRoutes.onboardingScreen,
-        page: () => const OnBoardingScreen(),
-        // Bindings for the onboarding screen if necessary
-      ),*/
-=======
+
       GetPage(
         name: AppRoutes.initial,
         page: () => const SplashScreen(),
@@ -42,10 +31,10 @@ class GetAppRouter {
       ),
       GetPage(
         name: AppRoutes.dashboardScreen,
-        page: () => const DashboardScreen(),
+        page: () => DashboardScreen(),
         // Bindings for the onboarding screen if necessary
       ),
->>>>>>> e751dd7 ( product details screen change)
+
       GetPage(
         name: AppRoutes.homePage,
         page: () => const HomeScreen(),
@@ -62,12 +51,12 @@ class GetAppRouter {
         // Bindings for the onboarding screen if necessary
       ),
 
-<<<<<<< HEAD
-      GetPage(
+
+     /* GetPage(
         name: AppRoutes.subCategoryScreen,
         page: () {
-          final products = Get.arguments['productItem'] as CategoryModel;
-=======
+    final products = Get.arguments['productItem'] as CategoryModel;
+    }),*/
      /* GetPage(
         name: AppRoutes.specialCategoryScreen,
         page: () => const SpecialCategoryScreen(),
@@ -78,7 +67,7 @@ class GetAppRouter {
         name: AppRoutes.subCategoryScreen,
         page: () {
           final products = Get.arguments['productItem'] as ProductCategoriesModel;
->>>>>>> e751dd7 ( product details screen change)
+
        //   final index = Get.arguments['index'] as int;
     if (products == null) {
     // Redirect to home screen if category is null or invalid
@@ -100,7 +89,7 @@ class GetAppRouter {
 
       GetPage(
         name: AppRoutes.cartScreen,
-<<<<<<< HEAD
+
         page: () => const CartScreen(),
       ),
 
@@ -109,11 +98,11 @@ class GetAppRouter {
         page: () => const DashboardScreen(),
         // Bindings for the onboarding screen if necessary
       ),*/
-=======
-        page: () {
+
+      /*  page: () {
           return CartScreen();
         }
-      ),
+      ),*/
 
      GetPage(
         name: AppRoutes.allViewCategoryScreen,
@@ -124,7 +113,7 @@ class GetAppRouter {
         } ,
         // Bindings for the onboarding screen if necessary
       ),
->>>>>>> e751dd7 ( product details screen change)
+
 
         // Bindings for the onboarding screen if necessary
       //),
@@ -158,7 +147,7 @@ class GetAppRouter {
     ];
   }
 }
-<<<<<<< HEAD
-=======
 
->>>>>>> e751dd7 ( product details screen change)
+
+
+

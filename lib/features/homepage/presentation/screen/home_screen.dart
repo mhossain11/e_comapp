@@ -1,26 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-<<<<<<< HEAD
+
 import 'package:iconly/iconly.dart';
 
-import '../../../categories/widgets/categories_section.dart';
-import '../../domain/model/bestsellerModel.dart';
-import '../widgets/bestseller_from.dart';
-import '../widgets/category_list_products.dart';
 import '../widgets/sliderpiccell.dart';
-
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
-  static const path = '/home';
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Home Screen'),
-=======
 import 'package:get/get.dart';
-import 'package:iconly/iconly.dart';
-
 import '../../../categories/presentation/controller/category_controller.dart';
 import '../../../categories/presentation/screen/banar_screen.dart';
 import '../../../categories/presentation/screen/sliderpiccell_screen.dart';
@@ -62,28 +46,15 @@ Future<void> _onRefresh() async {
       appBar: AppBar(
         title: const Text('Home Screen'),
         backgroundColor: Colors.white,
->>>>>>> e751dd7 ( product details screen change)
+
         centerTitle: true,
         automaticallyImplyLeading: false,
         actions: [
           IconButton(onPressed: (){}, icon: const Icon(IconlyBroken.notification)),
         ],
       ),
-<<<<<<< HEAD
-      body: const SingleChildScrollView(
-        child: Column(
-          children: [
-            SliderPickCell(),
-            Gap(10),
-            CategoriesSection(),
-            Gap(10),
-           // CategoryListProducts()
 
-            
-        
-        
-          ],
-=======
+
       body: RefreshIndicator(
         key:  _refreshKey,
         onRefresh: _onRefresh,
@@ -103,7 +74,7 @@ Future<void> _onRefresh() async {
               ),
             ],
           ),
->>>>>>> e751dd7 ( product details screen change)
+
         ),
       ),
     );

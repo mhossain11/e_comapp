@@ -1,21 +1,17 @@
+
+
 import 'package:dartz/dartz.dart';
-import 'package:e_comapp/core/error/exceptions.dart';
-import 'package:e_comapp/core/error/failures.dart';
-import 'package:e_comapp/core/utils/typedefs.dart';
-import 'package:e_comapp/features/categories/data/datasources/categorie_remote_data_src.dart';
 
-import 'package:e_comapp/features/categories/domain/model/CategoryModel.dart';
-<<<<<<< HEAD
-
-=======
-import 'package:e_comapp/features/categories/domain/model/Products.dart';
-import 'package:e_comapp/features/categories/domain/model/Slider_model.dart';
-import 'package:e_comapp/features/categories/domain/model/special_categories_model/special_categories_Uid_model.dart';
-import 'package:e_comapp/features/categories/domain/model/special_categories_model/special_category_model.dart';
-
+import '../../../../core/error/exceptions.dart';
+import '../../../../core/error/failures.dart';
+import '../../../../core/utils/typedefs.dart';
+import '../../../homepage/domain/model/sliderModel.dart';
+import '../../domain/model/CategoryModel.dart';
+import '../../domain/model/Slider_model.dart';
 import '../../domain/model/specialCategoryProduct_model.dart';
->>>>>>> e751dd7 ( product details screen change)
+import '../../domain/model/special_categories_model/special_categories_Uid_model.dart';
 import '../../domain/repo/category_repo.dart';
+import '../datasources/categorie_remote_data_src.dart';
 
 class CategoryRepoImpl implements CategoryRepo{
   CategoryRepoImpl(this._categoryRemoteDataSrc);
@@ -24,26 +20,18 @@ class CategoryRepoImpl implements CategoryRepo{
 
 
   @override
-<<<<<<< HEAD
-  ResultFuture<List<CategoryModel>> getCategory() async{
-=======
   ResultFuture<List<ProductCategoriesModel>> getCategory() async{
->>>>>>> e751dd7 ( product details screen change)
+
     try{
       final result = await _categoryRemoteDataSrc.getCategory();
       return Right(result);
     }on ServerException catch(e){
-<<<<<<< HEAD
-      return left(ServerFailure.fromException(e));
-=======
       return Left(ServerFailure.fromException(e));
->>>>>>> e751dd7 ( product details screen change)
+
     }
 
   }
 
-<<<<<<< HEAD
-=======
   @override
   ResultFuture<List<SpecialCategoryProductModel>> getSpecialCategories() async{
     try{
@@ -65,11 +53,11 @@ class CategoryRepoImpl implements CategoryRepo{
   }
 */
   @override
-  ResultFuture<List<SliderModel>> getBanner() async{
-    try{
+  ResultFuture<List<SliderModel>> getBanner() async {
+    try {
       final result = await _categoryRemoteDataSrc.getBanner();
       return Right(result);
-    }on ServerException catch(e){
+    } on ServerException catch (e) {
       return Left(ServerFailure.fromException(e));
     }
   }
@@ -94,5 +82,5 @@ class CategoryRepoImpl implements CategoryRepo{
     }
   }
 
->>>>>>> e751dd7 ( product details screen change)
+
 }

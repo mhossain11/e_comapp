@@ -1,11 +1,11 @@
 
-<<<<<<< HEAD
+
 import 'package:e_comapp/features/wishlist/domain/repos/wishlist_repo.dart';
 import 'package:get/get.dart';
 
 import '../../../../core/error/failures.dart';
 
-=======
+
 import 'package:e_comapp/core/app/cache/cache_helper.dart';
 import 'package:e_comapp/core/router/app_router.dart';
 import 'package:e_comapp/features/wishlist/domain/repos/wishlist_repo.dart';
@@ -15,7 +15,6 @@ import '../../../../core/di/injection_container.main.dart';
 import '../../../../core/error/failures.dart';
 
 import '../../../auth/presentation/screen/login_screen.dart';
->>>>>>> e751dd7 ( product details screen change)
 import '../../domain/models/wish_items.dart';
 
 class WishListController extends GetxController{
@@ -36,8 +35,6 @@ class WishListController extends GetxController{
 
       try{
          isLoading.value =true;
-<<<<<<< HEAD
-=======
 
          //String? token = sl<CacheHelper>().getAccessToken();
         /* if (token == null || token.isEmpty) {
@@ -45,20 +42,17 @@ class WishListController extends GetxController{
            return;
          }*/
 
->>>>>>> e751dd7 ( product details screen change)
          final result = await _wishListRepo.getWishlist();
          result.fold(
              (failure){
                 errorMessage.value = _mapFailureToMessage(failure);
              },
              (fetchedData){
-<<<<<<< HEAD
+
                 wishList.value = fetchedData;
-=======
 
-                  wishList.value = fetchedData;
+                //  wishList.value = fetchedData;
 
->>>>>>> e751dd7 ( product details screen change)
              }
 
          );
@@ -70,20 +64,17 @@ class WishListController extends GetxController{
    }
 
 
-<<<<<<< HEAD
-   Future<void> addToWishList({required String productId,
-=======
+
+
+
    Future<void> addToWishList({
      required String productId,
->>>>>>> e751dd7 ( product details screen change)
      required String imageId,
      required String sizeId,
      required String colorId,
    })async{
       try{
          isLoading.value = true;
-<<<<<<< HEAD
-=======
 
          String? token = sl<CacheHelper>().getAccessToken();
 
@@ -92,7 +83,6 @@ class WishListController extends GetxController{
            Get.toNamed(AppRoutes.loginScreen);
            return;
          }
->>>>>>> e751dd7 ( product details screen change)
          final result =await _wishListRepo.addWishList(
              productId: productId,imageId: imageId,sizeId: sizeId,colorId: colorId);
          result.fold(

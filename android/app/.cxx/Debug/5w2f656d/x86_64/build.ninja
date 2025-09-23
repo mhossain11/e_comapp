@@ -4,16 +4,16 @@
 # This file contains all the build statements describing the
 # compilation DAG.
 
-# =============================================================================
+#
 # Write statements declared in CMakeLists.txt:
 # 
 # Which is the root file.
-# =============================================================================
+#
 
-# =============================================================================
+#
 # Project: Project
 # Configurations: Debug
-# =============================================================================
+#
 
 #############################################
 # Minimal version of Ninja required by this file
@@ -25,7 +25,7 @@ ninja_required_version = 1.5
 # Set configuration variable for custom commands.
 
 CONFIGURATION = Debug
-# =============================================================================
+#
 # Include auxiliary files.
 
 
@@ -34,7 +34,7 @@ CONFIGURATION = Debug
 
 include CMakeFiles/rules.ninja
 
-# =============================================================================
+#
 
 #############################################
 # Logical path to working directory; prefix for absolute paths.
@@ -63,20 +63,20 @@ build CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
 
 build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 
-# =============================================================================
+#
 # Target aliases.
 
-# =============================================================================
+#
 # Folder targets.
 
-# =============================================================================
+#
 
 #############################################
 # Folder: I:/Andriod/android app/Dart Project/10th/e_comapp/android/app/.cxx/Debug/5w2f656d/x86_64
 
 build all: phony
 
-# =============================================================================
+#
 # Built-in targets
 
 

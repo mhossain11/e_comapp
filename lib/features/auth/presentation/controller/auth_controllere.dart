@@ -31,11 +31,11 @@ Future<void>login({
           (_) {
         Get.snackbar('Success', 'Login successful');
         isLoading.value = false;
-<<<<<<< HEAD
-        Get.to(() => const DashboardScreen());
-=======
+
+       // Get.to(() => const DashboardScreen());
+
         Get.to(() => DashboardScreen());
->>>>>>> e751dd7 ( product details screen change)
+
       });
 }
 

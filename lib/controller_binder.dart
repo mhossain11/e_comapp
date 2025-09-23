@@ -7,12 +7,12 @@ import 'package:get/get.dart';
 import 'core/di/injection_container.main.dart';
 import 'features/auth/presentation/controller/auth_controllere.dart';
 import 'features/categories/presentation/controller/category_controller.dart';
-<<<<<<< HEAD
+
 import 'features/homepage/controllers/homeController.dart';
-=======
+
 import 'features/dashboard/presentation/controller/navigation_controller.dart';
-import 'features/homepage/presentation/controllers/homeController.dart';
->>>>>>> e751dd7 ( product details screen change)
+import 'features/homepage/presentation/controllers/homeController.dart' hide HomeController;
+
 import 'features/product_details/presentations/controller/product_details_controller.dart';
 
 class ControllerBinder extends Bindings{
@@ -20,10 +20,7 @@ class ControllerBinder extends Bindings{
   void dependencies() {
     Get.put(AuthController(sl()));
     Get.put(HomeController());
-<<<<<<< HEAD
-=======
     Get.put(NavigationController());
->>>>>>> e751dd7 ( product details screen change)
     Get.put(CategoryController(sl()));
     Get.put(WishListController(sl()));
     Get.put(ProductDetailsController(sl()));

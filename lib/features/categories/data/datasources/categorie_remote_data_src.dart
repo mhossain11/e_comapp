@@ -1,7 +1,7 @@
-<<<<<<< HEAD
-=======
+
+
 import 'dart:async';
->>>>>>> e751dd7 ( product details screen change)
+
 import 'dart:convert';
 
 import 'package:e_comapp/core/error/exceptions.dart';
@@ -11,25 +11,23 @@ import 'package:flutter/cupertino.dart';
 import '../../../../core/error/error_reponse.dart';
 import '../../domain/model/CategoryModel.dart';
 import 'package:http/http.dart'as http;
-<<<<<<< HEAD
-=======
+
+
 import '../../domain/model/Slider_model.dart';
 import '../../domain/model/specialCategoryProduct_model.dart';
 import '../../domain/model/special_categories_model/special_categories_Uid_model.dart';
->>>>>>> e751dd7 ( product details screen change)
+
 
 abstract class CategoryRemoteDataSrc {
   const CategoryRemoteDataSrc();
 
-<<<<<<< HEAD
-  Future<List<CategoryModel>> getCategory();
-=======
+
   Future<List<SliderModel>> getSlider();
   Future<List<SliderModel>> getBanner();
   Future<List<ProductCategoriesModel>> getCategory();
   Future<List<SpecialCategoryProductModel>> getSpecialCategories();
   Future<SpecialCategoriesUidModel> getProducts(String productId);
->>>>>>> e751dd7 ( product details screen change)
+
 }
 
 const getCategoryEndpoint = '/categories/';
@@ -38,9 +36,9 @@ class CategoryRemoteDataSrcImpl implements CategoryRemoteDataSrc{
   CategoryRemoteDataSrcImpl(this._client);
 
   final http.Client _client;
-<<<<<<< HEAD
+
   @override
-  Future<List<CategoryModel>> getCategory() async{
+  Future<List<ProductCategoriesModel>> getCategory() async{
 
     try{
       final uri = Uri.parse('${NetworkConstants.baseUrlOne}${NetworkConstants.apiUrl}$getCategoryEndpoint');
@@ -49,8 +47,27 @@ class CategoryRemoteDataSrcImpl implements CategoryRemoteDataSrc{
         headers: NetworkConstants.headers,
         //headers: sl<CacheHelper>().getAccessToken()?.toHeaders,
       );
+      final payload = jsonDecode(response.body);
+      if(response.statusCode != 200){
+      payload as DataMap;
+      final errorResponse = ErrorResponse.fromMap(payload);
+      throw ServerException(message: errorResponse.errorMessage,
+          statusCode: response.statusCode);
+      }
+      payload as List<dynamic>;
+      return payload.cast<DataMap>().map((category)=> ProductCategoriesModel.fromJson(category)).toList();
 
-=======
+      }on ServerException {
+      rethrow;
+
+    }catch (e,s){
+      debugPrint(e.toString());
+      debugPrintStack(stackTrace: s);
+      throw ServerException(message: e.toString(), statusCode: 500);
+    }
+    }
+
+
 
   //Slider
   @override
@@ -62,7 +79,7 @@ class CategoryRemoteDataSrcImpl implements CategoryRemoteDataSrc{
         uri,
         headers: NetworkConstants.headers,
       );
->>>>>>> e751dd7 ( product details screen change)
+
       final payload = jsonDecode(response.body);
 
       if(response.statusCode != 200){
@@ -72,9 +89,7 @@ class CategoryRemoteDataSrcImpl implements CategoryRemoteDataSrc{
             statusCode: response.statusCode);
       }
       payload as List<dynamic>;
-<<<<<<< HEAD
-      return payload.cast<DataMap>().map((category)=> CategoryModel.fromJson(category)).toList();
-=======
+
       return payload.cast<DataMap>().map((slider)=> SliderModel.fromJson(slider)).toList();
 
     }on ServerException {
@@ -133,9 +148,9 @@ class CategoryRemoteDataSrcImpl implements CategoryRemoteDataSrc{
 
 
 
-  //Category
+/*  //Category
   @override
-  Future<List<ProductCategoriesModel>> getCategory() async{
+  Future<List<CategoryModel>> getCategory() async{
 
     try{
       final uri = Uri.parse('${NetworkConstants.baseUrlOne}${NetworkConstants.apiUrl}$getCategoryEndpoint');
@@ -152,8 +167,8 @@ class CategoryRemoteDataSrcImpl implements CategoryRemoteDataSrc{
             statusCode: response.statusCode);
       }
       payload as List<dynamic>;
-      return payload.cast<DataMap>().map((category)=> ProductCategoriesModel.fromJson(category)).toList();
->>>>>>> e751dd7 ( product details screen change)
+      return payload.cast<DataMap>().map((category)=> CategoryModel.fromJson(category)).toList();
+
 
     }on ServerException {
       rethrow;
@@ -163,10 +178,10 @@ class CategoryRemoteDataSrcImpl implements CategoryRemoteDataSrc{
       debugPrintStack(stackTrace: s);
       throw ServerException(message: e.toString(), statusCode: 500);
     }
-  }
+  }*/
 
-<<<<<<< HEAD
-=======
+
+
   //SpecialCategories
   @override
   Future<List<SpecialCategoryProductModel>> getSpecialCategories() async{
@@ -227,5 +242,5 @@ class CategoryRemoteDataSrcImpl implements CategoryRemoteDataSrc{
     }
   }
 
->>>>>>> e751dd7 ( product details screen change)
+
 }

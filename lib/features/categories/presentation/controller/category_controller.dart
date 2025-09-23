@@ -1,17 +1,9 @@
 
 import 'package:e_comapp/features/categories/domain/model/CategoryModel.dart';
 import 'package:e_comapp/features/categories/domain/model/Products.dart';
-<<<<<<< HEAD
+
 import 'package:e_comapp/features/categories/domain/repo/category_repo.dart';
 import 'package:get/get.dart';
-
-class CategoryController extends GetxController{
-  CategoryController(this._categoryRepo);
-  final CategoryRepo _categoryRepo;
-
-  var categoryList = <CategoryModel>[].obs;
-  var productList = <Products>[].obs;
-=======
 import 'package:e_comapp/features/categories/domain/model/Slider_model.dart';
 import 'package:e_comapp/features/categories/domain/repo/category_repo.dart';
 import 'package:get/get.dart';
@@ -40,18 +32,18 @@ class CategoryController extends GetxController{
   var specialCategoryProductList = <SpecialCategoryProductModel>[].obs;
   var productList = <Products>[].obs;
   var specialCategoriesList = Rxn<List<SpecialCategoriesUidModel>>();
->>>>>>> e751dd7 ( product details screen change)
+
   var isLoading = false.obs;
   var index = 0 .obs;
   var clickSubItem = false.obs;
   var errorMessage = ''.obs;
-<<<<<<< HEAD
 
-=======
+
+
   void  updatePageIndicator(index){
     sliderIndex.value = index;
   }
->>>>>>> e751dd7 ( product details screen change)
+
 
   Future<void> getCategories() async{
     try{
@@ -66,11 +58,8 @@ class CategoryController extends GetxController{
           }
       ,
           (categories){
-<<<<<<< HEAD
-            categoryList.assignAll(categories);
-=======
             productCategories.assignAll(categories);
->>>>>>> e751dd7 ( product details screen change)
+
             update();
           }
       );
@@ -84,8 +73,8 @@ class CategoryController extends GetxController{
       update();
     }
   }
-<<<<<<< HEAD
-=======
+
+
 
   Future<void> getSpecialCategories() async{
     try{
@@ -199,5 +188,5 @@ class CategoryController extends GetxController{
 
 
 
->>>>>>> e751dd7 ( product details screen change)
+
 }

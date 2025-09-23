@@ -24,9 +24,6 @@ abstract class CartUtils {
 
     return result ?? false;
   }
-<<<<<<< HEAD
-}
-=======
 
 
 
@@ -59,4 +56,3 @@ abstract class CartUtils {
 
 }
 
->>>>>>> e751dd7 ( product details screen change)

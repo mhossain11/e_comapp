@@ -3,11 +3,11 @@ import 'package:e_comapp/features/categories/domain/model/Products.dart';
 import 'package:flutter/material.dart';
 import '../../../../core/res/styles/colors.dart';
 import '../../domain/model/bestsellerModel.dart';
-<<<<<<< HEAD
+
 import 'items.dart';
-=======
+
 import '../../../categories/widgets/categoriesProduct_items.dart';
->>>>>>> e751dd7 ( product details screen change)
+
 
 
 class SellerItemFrom extends StatelessWidget {
@@ -69,11 +69,8 @@ class SellerItemFrom extends StatelessWidget {
                     //'indexItemData':item.id'
                    // Get.toNamed(ProductDetails.path,arguments: {'productItem':item});
                   },
-<<<<<<< HEAD
-                  child: Items(
-=======
                   child: CategoriesProductItems(
->>>>>>> e751dd7 ( product details screen change)
+
                     item: item,
                     ignoring: rating,
                     priceIgnoring: priceIgnoring,

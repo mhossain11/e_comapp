@@ -3,40 +3,25 @@ import 'package:e_comapp/features/homepage/presentation/screen/home_screen.dart'
 import 'package:e_comapp/features/profile/presentation/screen/profile_screen.dart';
 import 'package:e_comapp/features/wishlist/presentation/screen/wishlist_screen.dart';
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:iconly/iconly.dart';
 import 'package:badges/badges.dart' as badges;
 
 import '../../../../core/res/styles/colors.dart';
 import '../../../cart/presentation/screen/cart_screen.dart';
-
-class DashboardScreen extends ConsumerWidget {
-=======
 import 'package:get/get.dart';
-import 'package:iconly/iconly.dart';
-import 'package:badges/badges.dart' as badges;
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../cart/presentation/controller/cart_controller.dart';
-import '../../../cart/presentation/screen/cart_screen.dart';
-import '../../../../core/res/styles/colors.dart';
+
 
 class DashboardScreen extends StatefulWidget {
->>>>>>> e751dd7 ( product details screen change)
   const DashboardScreen({super.key});
+
   static const path = '/dashboard';
 
   @override
-<<<<<<< HEAD
-  Widget build(BuildContext context, WidgetRef ref) {
-
-    final activeNavIndex = ref.watch(navigationController);
-    return Scaffold(
-      body: IndexedStack(
-        index: activeNavIndex,
-=======
   State<DashboardScreen> createState() => _DashboardScreenState();
 }
+
 
 class _DashboardScreenState extends State<DashboardScreen> {
   final NavigationController navController = Get.find<NavigationController>();
@@ -63,16 +48,16 @@ class _DashboardScreenState extends State<DashboardScreen> {
     return Scaffold(
       body: Obx(() => IndexedStack(
         index: navController.activeNavIndex.value, //  Rx Variable ব্যবহার
->>>>>>> e751dd7 ( product details screen change)
+
         children: const [
           HomeScreen(),
           CartScreen(),
           WishListScreen(),
-<<<<<<< HEAD
+
           ProfileScreen()
         ],
-      ),
-      bottomNavigationBar:BottomNavigationBar(
+      )),
+      /*bottomNavigationBar:BottomNavigationBar(
           currentIndex: activeNavIndex,
           onTap: (index){
             ref.read(navigationController.notifier).changeIndex(index);
@@ -115,10 +100,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 label: 'profile'
             ),
           ]) ,
-=======
-          ProfileScreen(),
-        ],
-      )),
+
+
+
+      )),*/
 
       bottomNavigationBar: Obx(() => BottomNavigationBar(
         currentIndex: navController.activeNavIndex.value,
@@ -163,7 +148,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               label: 'Profile'),
         ],
       )),
->>>>>>> e751dd7 ( product details screen change)
+
     );
   }
 }

@@ -39,11 +39,10 @@ class WishRemoteDataSrcImpl implements WishRemoteDataSrc{
   @override
   Future< List<WishItem> > getWishList() async{
     try{
-<<<<<<< HEAD
-      final uri = Uri.parse('${NetworkConstants.baseUrlOne}${NetworkConstants.wishList_Get}');
-=======
+      //final uri = Uri.parse('${NetworkConstants.baseUrlOne}${NetworkConstants.wishList_Get}');
+
       final uri = Uri.parse('${NetworkConstants.baseUrlOne}${NetworkConstants.wishListGet}');
->>>>>>> e751dd7 ( product details screen change)
+
 
       final response =await _client.get(
         uri,

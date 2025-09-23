@@ -2,15 +2,10 @@
 import 'package:e_comapp/core/utils/typedefs.dart';
 import 'package:e_comapp/features/categories/domain/model/CategoryModel.dart';
 
-<<<<<<< HEAD
-abstract class CategoryRepo{
-  ResultFuture<List<CategoryModel>> getCategory();
-=======
-import '../model/Products.dart';
+import '../../../homepage/domain/model/sliderModel.dart';
 import '../model/Slider_model.dart';
 import '../model/specialCategoryProduct_model.dart';
 import '../model/special_categories_model/special_categories_Uid_model.dart';
-import '../model/special_categories_model/special_category_model.dart';
 
 abstract class CategoryRepo{
   ResultFuture<List<ProductCategoriesModel>> getCategory();
@@ -19,5 +14,5 @@ abstract class CategoryRepo{
   ResultFuture<List<SliderModel>> getSlider();
   ResultFuture<List<SliderModel>> getBanner();
   ResultFuture<SpecialCategoriesUidModel> getProducts(String productId);
->>>>>>> e751dd7 ( product details screen change)
+
 }

@@ -22,8 +22,8 @@ class CartListRepoImpl implements CartListRepo{
     }
   }
 
-<<<<<<< HEAD
-=======
+
+
   @override
   ResultFuture<String> getSessionKey() async{
     try{
@@ -34,7 +34,7 @@ class CartListRepoImpl implements CartListRepo{
     }
   }
 
->>>>>>> e751dd7 ( product details screen change)
+
 
   @override
   ResultFuture<void> addCartList({
@@ -69,9 +69,9 @@ class CartListRepoImpl implements CartListRepo{
     }
   }
 
-<<<<<<< HEAD
-=======
 
 
->>>>>>> e751dd7 ( product details screen change)
+
+
+
 }

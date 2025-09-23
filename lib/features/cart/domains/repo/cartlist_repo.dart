@@ -3,10 +3,10 @@ import 'package:e_comapp/core/utils/typedefs.dart';
 import '../models/cart_Items.dart';
 
 abstract class CartListRepo{
-<<<<<<< HEAD
-=======
+
+
   ResultFuture<String> getSessionKey();
->>>>>>> e751dd7 ( product details screen change)
+
 
  ResultFuture<List<CartsItems>> getCartList();
 

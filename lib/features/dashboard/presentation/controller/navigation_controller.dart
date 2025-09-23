@@ -1,8 +1,8 @@
 
-<<<<<<< HEAD
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-=======
+
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -25,7 +25,7 @@ class NavigationController extends GetxController {
 
 
 /*//Riverpod Code
->>>>>>> e751dd7 ( product details screen change)
+
 final navigationController =
 StateNotifierProvider<NavigationControllerNotifier,int>
   ((ref)=>NavigationControllerNotifier());
@@ -38,8 +38,8 @@ class NavigationControllerNotifier extends StateNotifier<int>{
     state = newIndex;
   }
 
-<<<<<<< HEAD
+
 }
-=======
+
 }*/
->>>>>>> e751dd7 ( product details screen change)
+

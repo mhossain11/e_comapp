@@ -38,7 +38,7 @@ class _CategoriesSectionState extends State<CategoriesSection> {
               backgroundColor: Colours.lightThemePrimaryColour,
             ),
           );
-        } else if (controller.categoryList.isEmpty) {
+        } else if (controller.productCategories.isEmpty) {
           return const Center(
             child: Text('No categories found'),
           );
@@ -50,14 +50,14 @@ class _CategoriesSectionState extends State<CategoriesSection> {
               shrinkWrap: true,
               padding: const EdgeInsets.symmetric(horizontal: 5),
               scrollDirection: Axis.horizontal,
-              itemCount: controller.categoryList.length,
+              itemCount: controller.productCategories.length,
               separatorBuilder: (_, __) => const Gap(8),
               itemBuilder: (context, index) {
-                final category = controller.categoryList[index];
+                final category = controller.productCategories[index];
                 return GestureDetector(
                   onTap: () {
                     {
-                      final productItem = controller.categoryList[index];
+                      final productItem = controller.productCategories[index];
                       Get.toNamed(AppRoutes.subCategoryScreen, arguments:{"productItem":productItem});
                     }
                   },

@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../shared/widgets/circularContainer.dart';
-<<<<<<< HEAD
+
 import '../../controllers/homeController.dart';
-=======
-import '../controllers/homeController.dart';
->>>>>>> e751dd7 ( product details screen change)
+
+import '../controllers/homeController.dart' hide HomeController;
+
 import '../../domain/model/sliderModel.dart';
 
 

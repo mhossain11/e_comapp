@@ -9,7 +9,7 @@ abstract class NetworkConstants{
 
 
 
-<<<<<<< HEAD
+
   static const wishList_Get = '/cart/wishlist/';
   static const apiUrl = '/product';
   static const wishListAddEndPoint = '/cart/wishlist/add';
@@ -17,14 +17,14 @@ abstract class NetworkConstants{
   static const cartList_Get = '/cart/';
   static const cartListRemoveEndPoint = '/cart/cart/remove/';
   static const cartListAddEndPoint = '/cart/add/';
-=======
+
   static const wishListGet = '/cart/wishlist/';
-  static const apiUrl = '/product';
-  static const wishListAddEndPoint = '/cart/wishlist/add';
-  static const wishListRemoveEndPoint = '/cart/wishlist/remove';
+  //static const apiUrl = '/product';
+ // static const wishListAddEndPoint = '/cart/wishlist/add';
+ // static const wishListRemoveEndPoint = '/cart/wishlist/remove';
   static const cartListGet = '/cart/';
-  static const cartListRemoveEndPoint = '/cart/cart/remove/';
-  static const cartListAddEndPoint = '/cart/add/';
+//  static const cartListRemoveEndPoint = '/cart/cart/remove/';
+//  static const cartListAddEndPoint = '/cart/add/';
   static const specialCategoriesEndPoint = '/special-categories';
   static const specialCategoriesAllEndPoint = '/special-category-products';
   static const sliders = '/sliders';
@@ -32,5 +32,5 @@ abstract class NetworkConstants{
   static const sessionKey = '/cart/create-session';
   static const productReviews = '/products/reviews/';
 
->>>>>>> e751dd7 ( product details screen change)
+
 }

@@ -13,7 +13,7 @@ import '../controller/category_controller.dart';
 class SubCategoryScreen extends StatefulWidget {
   const SubCategoryScreen(this.productItem,{super.key});
 
-  final CategoryModel productItem;
+  final ProductCategoriesModel productItem;
 
     static const path ='/subCategoryScreen';
 

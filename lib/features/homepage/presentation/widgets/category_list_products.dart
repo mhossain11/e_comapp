@@ -21,15 +21,10 @@ class CategoryListProducts extends StatelessWidget {
 
                     // Get.toNamed(CategoryLists.path,arguments:{'item': bestList,'name':'Bestsellers Product'});
                   },
-<<<<<<< HEAD
-                  txt: controller.categoryList[index].name!,
-                  itemCount: controller.categoryList.length,
-                  items: controller.categoryList[index].subcategories![index].products!,
-=======
                   txt: controller.productCategories[index].name!,
                   itemCount: controller.productCategories.length,
                   items: controller.productCategories[index].subcategories![index].products!,
->>>>>>> e751dd7 ( product details screen change)
+
                   rating: true,
                 ),
               );

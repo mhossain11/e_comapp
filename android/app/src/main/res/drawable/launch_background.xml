@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<<<<<<< HEAD
+
 <!-- Modify this file to customize your launch splash screen -->
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:drawable="@android:color/white" />
@@ -10,7 +10,7 @@
             android:gravity="center"
             android:src="@mipmap/launch_image" />
     </item> -->
-=======
+
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
         <bitmap android:gravity="fill" android:src="@drawable/background"/>
@@ -18,5 +18,5 @@
     <item>
         <bitmap android:gravity="center" android:src="@drawable/splash"/>
     </item>
->>>>>>> e751dd7 ( product details screen change)
+
 </layer-list>

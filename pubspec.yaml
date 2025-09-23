@@ -19,11 +19,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-<<<<<<< HEAD
-  sdk: ^3.5.3
-=======
   sdk: ^3.7.2
->>>>>>> e751dd7 ( product details screen change)
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -35,18 +31,11 @@ dependencies:
   flutter:
     sdk: flutter
 
-<<<<<<< HEAD
-
-=======
->>>>>>> e751dd7 ( product details screen change)
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
   carousel_slider: ^5.0.0
-<<<<<<< HEAD
-=======
   flutter_screenutil: ^5.9.3
->>>>>>> e751dd7 ( product details screen change)
   get: ^4.6.6
   gap: ^3.0.1
   flutter_rating_bar: ^4.0.1
@@ -54,49 +43,32 @@ dependencies:
   dartz: ^0.10.1   #Left-Right method
   equatable: ^2.0.5
   country_picker: ^2.0.22 #country
-  flutter_multi_formatter: ^2.12.0 #phone verification
-  http: ^1.1.0
-<<<<<<< HEAD
-  get_it: ^7.6.4   #dependency injection
-=======
-  get_it: ^8.0.3   #dependency injection
->>>>>>> e751dd7 ( product details screen change)
+  flutter_multi_formatter: ^2.13.10 #phone verification
+  http: ^1.5.0
+  get_it: ^8.2.0   #dependency injection
   shared_preferences:
   curved_navigation_bar: ^1.0.6   #navigation_bottom_bar
-  flutter_riverpod: ^2.6.1
+  flutter_riverpod: ^3.0.0
   iconly: ^1.0.1
-<<<<<<< HEAD
-  infinite_scroll_pagination: ^4.1.0 #Paging
+  infinite_scroll_pagination: ^5.1.1 #Paging
   shimmer: ^3.0.0 #loading
   badges: ^3.1.2 #cart badges
-  lottie: ^3.3.1
-=======
-  infinite_scroll_pagination: ^5.0.0 #Paging
-  shimmer: ^3.0.0 #loading
-  badges: ^3.1.2 #cart badges
-  lottie: ^3.3.1
+  lottie: ^3.3.2
   #flutter_native_splash: ^2.4.4
+  readmore: ^3.0.0
 
 
->>>>>>> e751dd7 ( product details screen change)
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-<<<<<<< HEAD
-=======
 
->>>>>>> e751dd7 ( product details screen change)
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-<<<<<<< HEAD
-  flutter_lints: ^4.0.0
-
-=======
   flutter_lints: ^6.0.0
 #flutter_native_splash:
 #  color: "#ffffff"
@@ -105,7 +77,6 @@ dev_dependencies:
 #  android: true
 #  ios: true
 #  fullscreen: true
->>>>>>> e751dd7 ( product details screen change)
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
