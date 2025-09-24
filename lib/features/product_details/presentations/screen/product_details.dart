@@ -19,6 +19,7 @@ import '../../../shared/widgets/app_bar_bottom.dart';
 import '../../../shared/widgets/roundedImage.dart';
 import '../../../shared/widgets/rounded_button.dart';
 
+import '../../../shared/widgets/shimmer/shimmer_DetailProduct.dart';
 import '../../../wishlist/presentation/widgets/favorite_Icon.dart';
 import '../controller/product_details_controller.dart';
 import '../widget/color_pallete_widget.dart';
@@ -58,13 +59,18 @@ class _ProductDetailsState extends State<ProductDetails> {
     return GetBuilder<ProductDetailsController>(
         builder: (controller) {
           if (controller.isLoading.value) {
-            return const Center(
-              child: CircularProgressIndicator.adaptive(
-                backgroundColor: Colours.lightThemePrimaryColour,
+            return Scaffold(
+              appBar: AppBar(
+                backgroundColor: Colors.white,
+                leading: IconButton(
+                  onPressed: () => Get.back(),
+                  icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
+                ),
               ),
+              body: buildShimmer(context), // 👈 shimmer দেখাবে
             );
           } else {
-            return Scaffold(
+            return Scaffold  (
               appBar: AppBar(
                 backgroundColor: Colors.white,
                 centerTitle: true,

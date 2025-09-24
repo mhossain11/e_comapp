@@ -21,15 +21,14 @@ class ProductDetailsController extends GetxController{
   Future<void> fetchProduct(String productId)async{
     try{
       isLoading.value = true;
+      update();
       final result = await _repo.getProduct(productId);
       result.fold(
               (failure){
             errorMessage.value = failure.errorMessage;
-            isLoading.value = false;
           },
               (fetchedProducts){
             selectedProduct.value = fetchedProducts;
-            isLoading.value = false;
           }
       );
 

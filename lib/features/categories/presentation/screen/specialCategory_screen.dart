@@ -225,7 +225,7 @@ class _SpecialCategoryProductScreenState extends State<SpecialCategoryProductScr
                                       ),
                                     ),
                                     SizedBox(height: 4.h),
-                                    SizedBox(
+                                   /* SizedBox(
                                       width: 100.w,
                                       height: 50.h,
                                       child: ElevatedButton(
@@ -254,7 +254,7 @@ class _SpecialCategoryProductScreenState extends State<SpecialCategoryProductScr
                                           style: TextStyle(color: Colors.black),
                                         ),
                                       ),
-                                    ),
+                                    ),*/
 
                                   ],
                                 ),

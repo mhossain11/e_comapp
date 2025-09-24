@@ -33,16 +33,21 @@ class SizePicker extends StatefulWidget {
 class _SizePickerState extends State<SizePicker> {
   String? selectedSize;
   String? selectedPrice ;
+  String? selectedDiscount;
 
+  @override
+  void initState() {
+    super.initState();
 
-  String? discountPrice ;
-
+    setState(() {
+      selectedPrice = widget.sizes[0].mainPrice;
+      selectedDiscount = widget.sizes[0].discountPrice;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-   // selectedPrice = widget.sizes[0].mainPrice;
     return Column(
-
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -57,10 +62,11 @@ class _SizePickerState extends State<SizePicker> {
               itemCount: widget.sizes.length,
               separatorBuilder: (_, __) => Gap(widget.spacing ?? 2),
               itemBuilder: (context, index) {
-                print('price1:$selectedPrice');
+
+               // print('price1:$selectedPrice');
                 final size = widget.sizes[index].name;
                 selectedPrice = widget.sizes[index].mainPrice;
-                discountPrice = widget.sizes[index].discountPrice;
+                selectedDiscount = widget.sizes[index].discountPrice;
                 final isActive = selectedSize?.toLowerCase() == size?.toLowerCase();
 
                 print('price2:$selectedPrice');
@@ -73,16 +79,18 @@ class _SizePickerState extends State<SizePicker> {
                       }
                       widget.onSelect!(activeSize);
 
-                      if(widget.sizes[index].mainPrice!.isNotEmpty){
+                     /* if(widget.sizes[index].mainPrice!.isNotEmpty){
                         selectedPrice = widget.sizes[index].mainPrice;
                         print('Print3:$selectedPrice');
                       }else {
                         selectedPrice = widget.sizes[0].mainPrice.toString();
                         print('price4:$selectedPrice');
-                      }
+                      }*/
 
                       setState(() {
                         selectedSize = activeSize;
+                        selectedPrice = widget.sizes[index].mainPrice;
+                        selectedDiscount = widget.sizes[index].discountPrice;
 
                       });
                     }
@@ -127,19 +135,27 @@ class _SizePickerState extends State<SizePicker> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Center(
-                child: Text( selectedPrice.toString(),
+                child: Text( "${formatPrice(selectedPrice)} ৳",
                   style: TextStyle(
                 decoration: TextDecoration.lineThrough,color: Colors.grey,
                 fontWeight: FontWeight.normal,fontSize: 16.sp ),)),
             Gap(10),
-            Center(child: Text(discountPrice.toString(),style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17.sp ),)),
-            Gap(5),
-            Center(child: Text('Tk',style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 20 ),)),
+            Center(child: Text('${formatPrice(selectedDiscount)} ৳'?? '',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17.sp ),)),
           ],
         ),
         Gap(10)
 
       ],
     );
+  }
+
+  String formatPrice(String? price) {
+    if (price == null || price.isEmpty) return '';
+    final value = double.tryParse(price) ?? 0;
+    // যদি দশমিক অংশ 0 হয় তাহলে শুধু পূর্ণসংখ্যা দেখাবে
+    if (value == value.toInt()) {
+      return value.toInt().toString();
+    }
+    return value.toString();
   }
 }
