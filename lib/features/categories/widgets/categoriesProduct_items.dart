@@ -1,8 +1,11 @@
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:e_comapp/features/categories/domain/model/Products.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../../core/res/media.dart';
 import '../../../core/res/styles/colors.dart';
@@ -25,8 +28,8 @@ class CategoriesProductItems extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
       //width: media.width * 0.32,
-      width:  200,
-      height: 256,
+      width:  200.w,
+      height: 256.h,
 
       decoration: BoxDecoration(
         color: Colors.white,
@@ -78,33 +81,39 @@ class CategoriesProductItems extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(vertical: 5),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(10),
-                    child: Image.network(
-                      '${item.images![0].image}',
-                      // width: media.width * 0.32,
+                    child: CachedNetworkImage(
+                      imageUrl: item.images![0].image ?? '',
                       height: media.width * 0.40,
                       fit: BoxFit.fitWidth,
+
+                      // Shimmer while loading
+                      placeholder: (context, url) => Shimmer.fromColors(
+                        baseColor: Colors.grey.shade300,
+                        highlightColor: Colors.grey.shade100,
+                        child: Container(
+                          height: media.width * 0.40,
+                          width: double.infinity,
+                          color: Colors.white,
+                        ),
+                      ),
+
+                      // Show error icon if failed
+                      errorWidget: (context, url, error) =>
+                      const Icon(Icons.broken_image),
                     ),
                   ),
                 ),
               ),
-            const Gap(5),
+            const Gap(2),
             Text(
               item.name.toString(),
-              maxLines: 3,
+              maxLines: 2,
               textAlign: TextAlign.center,
               style: const TextStyle(
-                  color: Colours.lightThemeSecondaryTextColour, fontSize: 13, fontWeight: FontWeight.w700),
+                  fontSize: 10,
+                  fontWeight: FontWeight.bold),
             ),
-    /*            const Gap(5),
-            Text(
-              item.name.toString(),
-              maxLines: 1,
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                color: Colours.lightThemePrimaryTextColour,
-                fontSize: 11,
-              ),
-            ),*/
+
             const Gap(5),
             Visibility(
               visible: ignoring,
@@ -128,15 +137,16 @@ class CategoriesProductItems extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text('Price: ',style: TextStyle(
+                  /*const Text('Price: ',style: TextStyle(
                     color: Colors.black,
-                    fontSize: 13,fontWeight: FontWeight.bold
-                  )),
+                    fontSize: 10,fontWeight: FontWeight.bold,
+                  )),*/
                   Text(
                     item.sizes![0].mainPrice.toString(),
                     maxLines: 1,
                     textAlign: TextAlign.center,
                     style: const TextStyle(
+                      decoration:TextDecoration.lineThrough,
                       color: Colors.black,
                       fontSize: 11,
                     ),
@@ -146,6 +156,27 @@ class CategoriesProductItems extends StatelessWidget {
                       child: Image.asset(Media.takaPng)),
                 ],
               ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+               /* const Text('Price: ',style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 13,fontWeight: FontWeight.bold
+                )),*/
+                Text(
+                  item.sizes![0].discountPrice.toString(),
+                  maxLines: 1,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    color: Colors.black,
+                    fontSize: 11,
+                  ),
+                ),
+                SizedBox(
+                    height: 15,
+                    child: Image.asset(Media.takaPng)),
+              ],
             )
 
           ],

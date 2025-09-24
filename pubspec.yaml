@@ -50,6 +50,7 @@ dependencies:
   curved_navigation_bar: ^1.0.6   #navigation_bottom_bar
   flutter_riverpod: ^3.0.0
   iconly: ^1.0.1
+  cached_network_image: ^3.4.1
   infinite_scroll_pagination: ^5.1.1 #Paging
   shimmer: ^3.0.0 #loading
   badges: ^3.1.2 #cart badges

@@ -73,7 +73,7 @@ class _SplashScreenState extends State<SplashScreen> {
                     curve: Curves.easeIn,
                     child: Text.rich(
                       TextSpan(
-                        text: "IN",
+                        text: "E",
                         style: const TextStyle(
                           color: Colors.black,
                           fontSize: 30,
@@ -81,7 +81,7 @@ class _SplashScreenState extends State<SplashScreen> {
                         ),
                         children: [
                           TextSpan(
-                            text: "VENTORY",
+                            text: "COMMERCE",
                             style: TextStyle(
                               color: const Color(0xFF1F75FE),
                               fontSize: 30,

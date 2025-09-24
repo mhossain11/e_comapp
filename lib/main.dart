@@ -30,13 +30,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-
-    //  initialRoute: AppRoutes.loginScreen,
-
       initialRoute: AppRoutes.initial,
 
       initialBinding: ControllerBinder(),
       theme: ThemeData(
+        primaryColor: Colors.white,
+        scaffoldBackgroundColor: Colors.white,
+        appBarTheme: AppBarTheme(surfaceTintColor: Colors.white,),
         colorScheme: ColorScheme.fromSeed(
             seedColor: Colors.white),
         useMaterial3: true,

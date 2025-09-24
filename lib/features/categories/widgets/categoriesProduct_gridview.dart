@@ -32,9 +32,6 @@ class CategoriesProductGridView extends StatelessWidget {
           }else {
                 return GestureDetector(
                   onTap: (){
-                    if (kDebugMode) {
-                      print('${item![index].uid}');
-                    }
                     Get.toNamed(AppRoutes.productDetailScreen,
                         arguments: {'productId':item![index].uid});
                   },

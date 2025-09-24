@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-
 import 'package:iconly/iconly.dart';
-
-import '../widgets/sliderpiccell.dart';
 import 'package:get/get.dart';
 import '../../../categories/presentation/controller/category_controller.dart';
 import '../../../categories/presentation/screen/banar_screen.dart';
@@ -31,12 +28,6 @@ final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey();
     });
   }
 
-Future<void> _onRefresh() async {
-  await Future.delayed(const Duration(seconds: 2)); // simulate API call
-  print('Data refreshed');
-  await categoryController.getSpecialCategories();
-}
-
   @override
   Widget build(BuildContext context) {
 
@@ -44,9 +35,7 @@ Future<void> _onRefresh() async {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text('Home Screen'),
         backgroundColor: Colors.white,
-
         centerTitle: true,
         automaticallyImplyLeading: false,
         actions: [
@@ -55,27 +44,23 @@ Future<void> _onRefresh() async {
       ),
 
 
-      body: RefreshIndicator(
-        key:  _refreshKey,
-        onRefresh: _onRefresh,
-        child: SingleChildScrollView(
-          physics:  const BouncingScrollPhysics(),
-          child: Column(
-            children:[
-              const SliderPickCellScreen(),
-              const Gap(10),
-              const CategoriesSection(),
-              const Gap(10),
-              SpecialCategoryProductScreen(),
-              const Gap(10),
-              const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: BannerScreen(),
-              ),
-            ],
-          ),
-
+      body: SingleChildScrollView(
+        physics:  const BouncingScrollPhysics(),
+        child: Column(
+          children:[
+            const SliderPickCellScreen(),
+            const Gap(10),
+            const CategoriesSection(),
+            const Gap(10),
+            SpecialCategoryProductScreen(),
+            const Gap(10),
+            const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: BannerScreen(),
+            ),
+          ],
         ),
+
       ),
     );
   }

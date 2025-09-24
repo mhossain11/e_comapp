@@ -30,6 +30,12 @@ class GetAppRouter {
         // Bindings for the splash screen if necessary
       ),
       GetPage(
+        name: AppRoutes.loginScreen,
+        page: () => const LoginScreen(),
+        // Bindings for the onboarding screen if necessary
+      ),
+
+      GetPage(
         name: AppRoutes.dashboardScreen,
         page: () => DashboardScreen(),
         // Bindings for the onboarding screen if necessary
@@ -40,11 +46,7 @@ class GetAppRouter {
         page: () => const HomeScreen(),
         // Bindings for the onboarding screen if necessary
       ),
-      GetPage(
-        name: AppRoutes.loginScreen,
-        page: () => const LoginScreen(),
-        // Bindings for the onboarding screen if necessary
-      ),
+
       GetPage(
         name: AppRoutes.registerScreen,
         page: () => const RegisterScreen(),
@@ -52,16 +54,6 @@ class GetAppRouter {
       ),
 
 
-     /* GetPage(
-        name: AppRoutes.subCategoryScreen,
-        page: () {
-    final products = Get.arguments['productItem'] as CategoryModel;
-    }),*/
-     /* GetPage(
-        name: AppRoutes.specialCategoryScreen,
-        page: () => const SpecialCategoryScreen(),
-        // Bindings for the onboarding screen if necessary
-      ),*/
 
       GetPage(
         name: AppRoutes.subCategoryScreen,
@@ -93,16 +85,6 @@ class GetAppRouter {
         page: () => const CartScreen(),
       ),
 
-    /* GetPage(
-        name: AppRoutes.dashboardScreen,
-        page: () => const DashboardScreen(),
-        // Bindings for the onboarding screen if necessary
-      ),*/
-
-      /*  page: () {
-          return CartScreen();
-        }
-      ),*/
 
      GetPage(
         name: AppRoutes.allViewCategoryScreen,
@@ -113,37 +95,6 @@ class GetAppRouter {
         } ,
         // Bindings for the onboarding screen if necessary
       ),
-
-
-        // Bindings for the onboarding screen if necessary
-      //),
-      /* GetPage(
-        name: AppRoutes.cartProductScreen,
-        page: () => const CartProductsView(),
-        // Bindings for the onboarding screen if necessary
-      ),
-      GetPage(
-          name: AppRoutes.checkoutScreen,
-          page: () {
-            final checkoutUrl = Get.parameters['checkoutUrl'] as String;
-            return CheckoutView(sessionUrl: checkoutUrl);
-          }
-          // Bindings for the onboarding screen if necessary
-          ),
-
-      GetPage(
-        name: '/:category_name',
-        page: () {
-          // Retrieve the extra argument passed
-          final category = Get.arguments as ProductCategoryModel?;
-          if (category == null) {
-            // Redirect to home screen if category is null or invalid
-            return const HomeScreen();
-          }
-          return CategorizedProductsView(category);
-        },
-        // Optional transition or bindings can be added here
-      ),*/
     ];
   }
 }

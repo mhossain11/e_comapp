@@ -2,6 +2,8 @@ import 'package:e_comapp/core/extensions/text_style_extensions.dart';
 import 'package:e_comapp/core/extensions/widget_extensions.dart';
 import 'package:e_comapp/features/product_details/presentations/widget/size_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gap/gap.dart';
 
 import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
@@ -12,6 +14,7 @@ import '../../../../core/res/styles/text.dart';
 import '../../../../core/router/app_router.dart';
 import '../../../../core/utils/core_utils.dart';
 import '../../../cart/presentation/controller/cart_controller.dart';
+import '../../../homepage/presentation/widgets/product_image.show.dart';
 import '../../../shared/widgets/app_bar_bottom.dart';
 import '../../../shared/widgets/roundedImage.dart';
 import '../../../shared/widgets/rounded_button.dart';
@@ -51,9 +54,7 @@ class _ProductDetailsState extends State<ProductDetails> {
 
   @override
   Widget build(BuildContext context) {
-    var media = MediaQuery
-        .of(context)
-        .size;
+    var media = MediaQuery.of(context).size;
     return GetBuilder<ProductDetailsController>(
         builder: (controller) {
           if (controller.isLoading.value) {
@@ -65,28 +66,19 @@ class _ProductDetailsState extends State<ProductDetails> {
           } else {
             return Scaffold(
               appBar: AppBar(
-                title:
-                controller.isLoading.value
-                    ? SizedBox(
-                  width: 200,
-                  height: 50,
-                  child: Shimmer.fromColors(
-                    baseColor: Colors.yellow,
-                    highlightColor: Colors.grey,
-                    child: const Text(
-                      'Shimmer',
-                      textAlign: TextAlign.start,
-                    ),
+                backgroundColor: Colors.white,
+                centerTitle: true,
+                automaticallyImplyLeading: false,
+                leading: IconButton(
+                  onPressed: () {
+                    Get.back();
+                  },
+                  icon: const Icon(
+                    Icons.arrow_back_ios,
+                    color: Colors.black,
                   ),
-                )
-                    : Text(
-                  '${controller.selectedProduct.value?.name.toString()}',
                 ),
-                bottom: const AppBarBottom(),
-                actions: [
-                  //  if (controller.selectedProduct.value != null)
-                  //  FavoriteIcon(productList: controller.selectedProduct.value!),
-                ],
+
               ),
 
               body: SingleChildScrollView(
@@ -110,64 +102,46 @@ class _ProductDetailsState extends State<ProductDetails> {
                             Stack(
                                 children: [
                                   Column(
-                                    mainAxisAlignment: MainAxisAlignment
-                                        .start,
-                                    crossAxisAlignment: CrossAxisAlignment
-                                        .start,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
 
                                       Padding(
                                         padding: const EdgeInsets.all(10.0),
 
                                         child: Center(
-                                            child: RoundedImage(
-                                              isNetworkImage: true,
-                                              imageUrl: controller
-                                                  .selectedProduct.value!
-                                                  .images![0].image
-                                                  .toString(),
-                                              height: media.width * 0.70,
-                                              fit: BoxFit.fitWidth,)
-                                        ),
+                                          child: ProductImage(product: controller.selectedProduct.value!,),
+                                      ),
                                       ),
 
                                       Center(child: Text(
-                                        '${controller.selectedProduct.value
-                                            ?.name.toString()}',
-                                        style: const TextStyle(fontSize: 20,
+                                        controller.selectedProduct.value!.name.toString(),
+                                        maxLines: 2,
+                                        style: TextStyle(fontSize: 18.sp,
                                             fontWeight: FontWeight.bold),)),
-                                      /* Padding(
-                                          padding: const EdgeInsets.only(
-                                              left: 5.0, right: 10.0, top: 5),
-                                          child: CustomPaint(
-                                            size: const Size(
-                                                double.infinity, 1),
-                                            painter: DottedLine(width: 1,
-                                                spacing: 5,
-                                                color: Colors.grey),
-                                          ),
-                                        ),*/
-                                      const Padding(
+                                      Gap(15),
+                                  //Description
+                                       Padding(
                                         padding: EdgeInsets.only(left: 5.0),
                                         child: Text('Description:',
-                                          style: TextStyle(fontSize: 20,
+                                          style: TextStyle(fontSize: 14.sp,
                                               fontWeight: FontWeight.bold),),
                                       ),
                                       Padding(
                                         padding: const EdgeInsets.only(
                                             left: 5.0),
                                         child: Text(
-                                          '${ controller.selectedProduct
-                                              .value!.description}',
-                                          style: const TextStyle(fontSize: 15,
+                                          '${ controller.selectedProduct.value!.description}',
+                                          style: TextStyle(fontSize: 16.sp,
                                               fontWeight: FontWeight
                                                   .normal),),
                                       ),
-
-                                      const Padding(
+                                       Gap(5),
+                                    //  Size
+                                       Padding(
                                         padding: EdgeInsets.only(left: 5.0),
                                         child: Text('Size:', style: TextStyle(
-                                            fontSize: 20,
+                                            fontSize: 14.sp,
                                             fontWeight: FontWeight.bold),),
                                       ),
                                       if (product.sizes!.isNotEmpty) ...[
@@ -185,9 +159,17 @@ class _ProductDetailsState extends State<ProductDetails> {
 
                                       ],
                                       if (product.colors!.isNotEmpty)
-                                        ColourPalette(
-                                          colors: product.colors!, radius: 10,
+                                        Center(
+                                          child: ColourPalette(
+                                            colors: product.colors!,
+                                            radius: 35,
+                                            canScroll: true,
+                                            spacing: 8,
+                                            onSelect: (color) {
+                                              selectedColour = color;
+                                            },
 
+                                          ),
                                         ),
 
 

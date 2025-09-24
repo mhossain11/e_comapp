@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -121,7 +122,7 @@ class _SpecialCategoryProductScreenState extends State<SpecialCategoryProductScr
                       Text(
                         categoryName,
                         style: TextStyle(
-                          fontSize: 20.sp,
+                          fontSize: 17.sp,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -182,14 +183,25 @@ class _SpecialCategoryProductScreenState extends State<SpecialCategoryProductScr
                                     else
                                       ClipRRect(
                                         borderRadius: BorderRadius.circular(12),
-                                        child: Image.network(
-                                          productIndex.productImage ?? '',
+                                        child: CachedNetworkImage(
+                                          imageUrl: productIndex.productImage ?? '',
                                           height: media.width * 0.40.h,
                                           width: 160.w,
                                           fit: BoxFit.cover,
-                                          errorBuilder:
-                                              (_, __, ___) =>
-                                                  const Icon(Icons.broken_image),
+                                          placeholder: (context, url) => Shimmer.fromColors(
+                                            baseColor: Colors.grey.shade300,
+                                            highlightColor: Colors.grey.shade100,
+                                            child: Container(
+                                              height: media.width * 0.40.h,
+                                              width: 160.w,
+                                              decoration: BoxDecoration(
+                                                color: Colors.white,
+                                                borderRadius: BorderRadius.circular(10),
+                                              ),
+                                            ),
+                                          ),
+                                          errorWidget: (context, url, error) =>
+                                          const Icon(Icons.broken_image),
                                         ),
                                       ),
                                      SizedBox(height: 8.h),

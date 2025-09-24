@@ -88,6 +88,7 @@ class _ColourPaletteState extends State<ColourPalette> {
             );*/
 
             return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 CircleAvatar(
                   backgroundColor: Colors.transparent, // Background color

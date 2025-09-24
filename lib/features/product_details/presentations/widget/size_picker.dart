@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 
@@ -119,17 +120,19 @@ class _SizePickerState extends State<SizePicker> {
         Gap(10),
         Padding(
           padding: const EdgeInsets.only(left: 8.0),
-          child: const Text('Price:',style: TextStyle(fontWeight: FontWeight.normal,fontSize: 16,color: Colors.grey),),
+          child: Text('Price:',style: TextStyle(fontWeight: FontWeight.normal,fontSize: 14.sp,color: Colors.grey),),
         ),
         Gap(5),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Center(child: Text( selectedPrice.toString(),style: const TextStyle(
+            Center(
+                child: Text( selectedPrice.toString(),
+                  style: TextStyle(
                 decoration: TextDecoration.lineThrough,color: Colors.grey,
-                fontWeight: FontWeight.normal,fontSize: 16 ),)),
+                fontWeight: FontWeight.normal,fontSize: 16.sp ),)),
             Gap(10),
-            Center(child: Text(discountPrice.toString(),style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 20 ),)),
+            Center(child: Text(discountPrice.toString(),style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17.sp ),)),
             Gap(5),
             Center(child: Text('Tk',style: const TextStyle(fontWeight: FontWeight.bold,fontSize: 20 ),)),
           ],
