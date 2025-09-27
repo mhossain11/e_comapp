@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../shared/widgets/bottom_sheet_card.dart';
 
@@ -35,7 +36,7 @@ abstract class CartUtils {
       barrierDismissible: false,
       builder: (_) {
         return AlertDialog(
-          title: Text(finalMessage),
+          title: Text(finalMessage,style: TextStyle(fontSize: 16.sp),),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context, false), // Cancel

@@ -1,120 +1,94 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../../../categories/domain/model/Products.dart';
 import '../../../categories/domain/model/product_color.dart';
 
-class ColourPalette extends StatefulWidget {
+class ColorPalette extends StatefulWidget {
   final List<ProductColor> colors;
-  final double radius;
-  final bool canScroll;
-  final double? spacing;
-  final ValueChanged<Color?>? onSelect;
-
-
-  const ColourPalette({
-    required this.colors,
-    this.radius =2,
-    this.canScroll = false,
-    this.spacing,
-    this.onSelect,
-  });
+  final ValueChanged<String?>? onSelect;
+  const ColorPalette({super.key, required this.colors, this.onSelect});
 
   @override
-  State<ColourPalette> createState() => _ColourPaletteState();
+  State<ColorPalette> createState() => _ColorPaletteState();
 }
 
-class _ColourPaletteState extends State<ColourPalette> {
-  Color? selectedColour;
+class _ColorPaletteState extends State<ColorPalette> {
+  int? selectedIndex;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(90),
-        gradient: const LinearGradient(
-          colors: [
-            Color(0x50aa4b6b),
-            Color(0x506b6b83),
-            Color(0x503b8d99),
-          ],
-        ),
-      ),
-      child: SizedBox(
-        height: widget.radius * 2,
+    var media = MediaQuery.of(context).size;
+    print('ColorS:$selectedIndex');
+    return SizedBox(
+      height: 100,
+      child: Center(
         child: ListView.separated(
-          shrinkWrap: true,
-          scrollDirection: Axis.horizontal,
-          padding: const EdgeInsets.all(2),
-          physics:
-          widget.canScroll ? null : const NeverScrollableScrollPhysics(),
-          itemCount: widget.colors.length,
-          separatorBuilder: (_, __) => Gap(widget.spacing ?? 2),
-          itemBuilder: (context, index) {
-            final colour = widget.colors[index].image!;
-            final isActive = selectedColour == colour;
-            final innerContainer = Container(
-              height: widget.radius * 2,
-              width: widget.radius * 2,
-              decoration: const BoxDecoration(
-              //  color: colour,
-                shape: BoxShape.circle,
-              ),
-            );
+            shrinkWrap: true,
+            scrollDirection: Axis.horizontal,
+            itemCount: widget.colors.length,
+          padding: const EdgeInsets.all(5),
+          physics: const NeverScrollableScrollPhysics(),
+            separatorBuilder: (_,__) => const SizedBox(width:5),
+            itemBuilder: (context,index){
+              final item = widget.colors[index];
+              final colorName =  item.name!;
+              final isSelected = selectedIndex == index;
+              final isActive =colorName.toLowerCase() == colorName.toLowerCase();
 
-           /* return GestureDetector(
-              onTap: () {
-                Color? activeColour = colour;
-                if (widget.onSelect != null) {
-                  if (selectedColour == activeColour) {
-                    activeColour = null;
+              return  GestureDetector(
+                onTap: () {
+                  String? activeColor = colorName;
+                  if (widget.onSelect != null) {
+                    if (colorName.toLowerCase() == isActive) {
+                      activeColor = null;
+                    }
+                    widget.onSelect!(activeColor);
+                    setState(() {
+                      selectedIndex = index;
+                    });
                   }
-                  widget.onSelect!(activeColour);
-                  setState(() {
-                    selectedColour = activeColour;
-                  });
-                }
-              },
-              child: isActive
-                  ? Container(
-                padding: const EdgeInsets.all(3),
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  border: Border.all(
-                      width: 2,
-                      color: colour.inverse),
+                },
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Container(
+                      width: 50,
+                      height: 50,
+                      padding: const EdgeInsets.all(3),
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: isSelected ? Colors.blue : Colors.grey,
+                          width: isSelected ? 2 : 1,
+                        ),
+                        shape: BoxShape.circle,
+                      ),
+                      child: CachedNetworkImage(
+                        imageUrl: item.image!,
+                        imageBuilder: (context, imageProvider) => CircleAvatar(
+                          radius: 30,
+                          backgroundImage: imageProvider,
+                        ),
+                        placeholder: (_, __) => const CircularProgressIndicator(),
+                        errorWidget: (_, __, ___) => const Icon(Icons.broken_image),
+                      ),
+                    ),
+                    const SizedBox(height: 6),
+                    Text(
+                      item.name!,
+                      style: TextStyle(
+                        fontSize: 10.sp,
+                        color: isSelected ? Colors.blue : Colors.black,
+                      ),
+                    ),
+                  ],
                 ),
-                child: innerContainer,
-              )
-                  : innerContainer,
-            );*/
-
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                CircleAvatar(
-                  backgroundColor: Colors.transparent, // Background color
-                  radius: 10,
-                  backgroundImage: NetworkImage(widget.colors[index].image!), // Use color image
-                ),
-                const SizedBox(height: 5),
-
-                Text(
-                  widget.colors[index].name!,
-                  style: const TextStyle(fontSize: 12),
-                ),
-                const SizedBox(height: 5),
-
-               /* Text(
-                  widget.colors[index].name!,
-                  style: const TextStyle(fontSize: 12),
-                ),
-                const SizedBox(height: 5),*/
-
-              ],
-            );
-          },
+              );
+            },
         ),
       ),
     );
   }
 }
-

@@ -128,7 +128,7 @@ class _SizePickerState extends State<SizePicker> {
         Gap(10),
         Padding(
           padding: const EdgeInsets.only(left: 8.0),
-          child: Text('Price:',style: TextStyle(fontWeight: FontWeight.normal,fontSize: 14.sp,color: Colors.grey),),
+          child: Text('Price:',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 14.sp,color: Colors.black),),
         ),
         Gap(5),
         Row(
@@ -140,7 +140,7 @@ class _SizePickerState extends State<SizePicker> {
                 decoration: TextDecoration.lineThrough,color: Colors.grey,
                 fontWeight: FontWeight.normal,fontSize: 16.sp ),)),
             Gap(10),
-            Center(child: Text('${formatPrice(selectedDiscount)} ৳'?? '',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17.sp ),)),
+            Center(child: Text('${formatPrice(selectedDiscount)}  ৳'?? '',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 17.sp ),)),
           ],
         ),
         Gap(10)

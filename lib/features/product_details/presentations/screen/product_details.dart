@@ -41,6 +41,7 @@ class _ProductDetailsState extends State<ProductDetails> {
 
   final ProductDetailsController productController = Get.find<ProductDetailsController>();
   String? selectedSize;
+  String? colorSelected;
   Color? selectedColour;
   bool addToCart = false;
   final int _selectedIndex = 0;
@@ -84,6 +85,10 @@ class _ProductDetailsState extends State<ProductDetails> {
                     color: Colors.black,
                   ),
                 ),
+                actions: [
+                  if (controller.selectedProduct.value != null)
+                  FavoriteIcon(productList: controller.selectedProduct.value!,)
+                ],
 
               ),
 
@@ -161,30 +166,29 @@ class _ProductDetailsState extends State<ProductDetails> {
                                             selectedSize = size;
                                           },
                                         ),
-
-
+                                        //Colors
+                                        Padding(
+                                          padding: EdgeInsets.only(left: 5.0),
+                                          child: Text('Colors:',
+                                            style: TextStyle(fontSize: 14.sp,
+                                                fontWeight: FontWeight.bold),),
+                                        ),
                                       ],
                                       if (product.colors!.isNotEmpty)
-                                        Center(
-                                          child: ColourPalette(
-                                            colors: product.colors!,
-                                            radius: 35,
-                                            canScroll: true,
-                                            spacing: 8,
-                                            onSelect: (color) {
-                                              selectedColour = color;
-                                            },
-
-                                          ),
+                                        ColorPalette(
+                                          colors: product.colors!,
+                                          onSelect: (colorName) {
+                                            colorSelected = colorName;
+                                          },
                                         ),
 
 
                                     ],
                                   ),
-                                  Positioned(
+                                  /*Positioned(
                                       right: 0,
                                       child: FavoriteIcon(productList: product,)
-                                  )
+                                  )*/
                                 ]
                             ),
 
@@ -198,14 +202,14 @@ class _ProductDetailsState extends State<ProductDetails> {
                                   return RoundedButton(
                                     height: 50,
                                     onPressed: () {
-                                      /* if (product.colors!.isNotEmpty && selectedColour == null) {
+                                       if (product.colors!.isNotEmpty && colorSelected == null) {
                                     CoreUtils.showSnackBar(
                                       context,
                                       message: 'Pick a colour',
                                       backgroundColour: Colors.red.withOpacity(.8),
                                     );
                                     return;
-                                  } else*/
+                                  } else
                                       if (product.sizes!.isNotEmpty &&
                                           selectedSize == null) {
                                         CoreUtils.showSnackBar(

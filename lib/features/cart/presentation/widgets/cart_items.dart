@@ -2,6 +2,7 @@
 
 import 'package:e_comapp/core/utils/constants/network_constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../../core/res/styles/colors.dart';
 import '../../../../core/res/styles/shadows.dart';
@@ -51,15 +52,15 @@ class _CartItemsState extends State<CartItems> {
                 Row(
                   children: [
                     RoundedContainer(
-                      height: 110,
+                      height: 110.h,
                       padding:  const EdgeInsets.all(8.0),
                       backgroundColor: dark ? Colours.drColor :Colours.wColor,
                       child: Stack(
                         children: [
                           //--- Thumbnail image
                           RoundedImage(
-                            width: 60,
-                            height: 150,
+                            width: 60.w,
+                            height: 150.h,
                             isNetworkImage: true,
                             imageUrl:"${NetworkConstants.baseUrlOne}${widget.item.productImage}",applyImageRadius: true,fit: BoxFit.fill,),
 
@@ -73,7 +74,7 @@ class _CartItemsState extends State<CartItems> {
                 Row(
                   children: [
                     SizedBox(
-                      width: 210,
+                      width: 210.w,
                       child: Padding(
                         padding: const EdgeInsets.only(top: 8.0),
                         child: Column(
@@ -95,7 +96,7 @@ class _CartItemsState extends State<CartItems> {
                                 Padding(
                                   padding: const EdgeInsets.only(left: 5.0,top: 15),
                                   child: Container(
-                                    width: 20,
+                                    width: 20.w,
                                     alignment: Alignment.center,
                                     color: Colors.white,
 
@@ -119,7 +120,7 @@ class _CartItemsState extends State<CartItems> {
                                 Padding(
                                   padding: const EdgeInsets.only(left: 5.0,top: 15),
                                   child: Container(
-                                    width: 20,
+                                    width: 20.w,
                                     alignment: Alignment.center,
                                     color: Colors.white,
 
