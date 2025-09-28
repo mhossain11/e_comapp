@@ -194,9 +194,7 @@ class _ProductDetailsState extends State<ProductDetails> {
 
                             //Button
                             Padding(
-                              padding: const EdgeInsets.all(
-                                20,
-                              ).copyWith(bottom: 40),
+                              padding: const EdgeInsets.all(20).copyWith(bottom: 40),
                               child: GetBuilder<CartController>(
                                 builder: (cartController) {
                                   return RoundedButton(
@@ -227,18 +225,15 @@ class _ProductDetailsState extends State<ProductDetails> {
                                           imageUid: product.images![0].uid!,
                                           sizeUid: product.sizes![0].uid!,
                                           colorUid: product.colors![0].uid!,
-                                          quantity: cartController.quantity
-                                              .value,
+                                          quantity: cartController.quantity.value,
                                         );
                                         addToCart = true;
                                         print(addToCart);
                                         return;
                                       }
                                     },
-                                    text:
-                                    addToCart ? 'Added to Cart' : 'Add to Cart',
-                                    textStyle:
-                                    TextStyles.buttonTextHeadingSemiBold
+                                    text: addToCart ? 'Added to Cart' : 'Add to Cart',
+                                    textStyle: TextStyles.buttonTextHeadingSemiBold
                                         .copyWith(fontSize: 16)
                                         .white,
                                   ).loading(

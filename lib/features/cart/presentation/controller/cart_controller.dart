@@ -36,6 +36,7 @@ class CartController extends GetxController {
 
 
   var quantity = 0.obs;
+  var quantityTotal = 0.obs;
   var cartCount = 0.obs;
 
 
@@ -67,7 +68,6 @@ class CartController extends GetxController {
 
     try{
       isLoading.value =true;
-      update();
       final result = await _cartListRepo.getCartList();
       result.fold(
               (failure){
@@ -75,12 +75,13 @@ class CartController extends GetxController {
           },
               (fetchedData){
             cartList.assignAll(fetchedData);
-          }
+            QuantityItemUpdate();
+            allPrices();
+              }
 
       );
     }finally{
       isLoading.value = false;
-     // update();
     }
 
   }
@@ -106,13 +107,13 @@ class CartController extends GetxController {
             (_) {
           // Successfully added to cart, update cart details
           fetchGetCartList();
+          QuantityItemUpdate();
           Get.snackbar('Success', 'Product added to cart');
 
         },
       );
     } finally {
       isAddingToCart.value = false;
-     // update(); // Notify listeners
     }
   }
 
@@ -130,12 +131,12 @@ class CartController extends GetxController {
             (_) {
           // Successfully removed from cart, update cart details
               fetchGetCartList();
+              QuantityItemUpdate();
               Get.snackbar('Success', 'Product removed from cart');
         },
       );
     } finally {
       isRemovingFromCart.value = false;
-     // update(); // Notify listeners
     }
   }
 
@@ -144,15 +145,15 @@ class CartController extends GetxController {
 
    double item = cartList.fold(0, (sum, item) => sum + item.totalPrice);
    totalPrices.value = item;
-   print(item.toString());
-   print(totalPrices.value.toString());
+   QuantityItemUpdate();
+  // print(item.toString());
+  // print(totalPrices.value.toString());
    return totalPrices.value.toString();
   }
 
   // Add Item to Cart
 
   increment(CartsItems item,productUid) async{
-    print("Incr1:${quantity.value}");
 
     quantity.value =1;
 
@@ -161,32 +162,22 @@ class CartController extends GetxController {
     int index = cartList.indexWhere((item) => item.productUid == productUid);
     if (existingItem != null) {
       if (index != -1) {
-        print("Incr:${cartList[index].quantity}");
-
          quantity.value = cartList[index].quantity++;
-
           quantity.value+=1;
-
         cartList[index].totalPrice = cartList[index].quantity * cartList[index].price;
-         print("Incr2:${quantity.value}");
       }
-      print(quantity.value);
-      //removeFromCart( cartProductUid: item.productUid);
-      print(quantity.value);
     await addToCart(
           productUid: item.productUid,
           imageUid: item.productImageUid,
           sizeUid: item.productSizeUid,
           colorUid: item.productColorUid,
           quantity: quantity.value);
+      QuantityItemUpdate();
 
       quantity.value=1;
-
       quantity.value=0;
-
-      print(quantity.value);
     }
-
+    QuantityItemUpdate();
     allPrices();
     update();
   }
@@ -198,38 +189,43 @@ class CartController extends GetxController {
 
     int index = cartList.indexWhere((item) => item.productUid == productUid);
     var existingItem = cartList.firstWhereOrNull((element) => element.productUid == item.productUid);
-    print(cartList[index].quantity);
+    //print(cartList[index].quantity);
     if (existingItem != null) {
       if (index != -1) {
         if (cartList[index].quantity > 1) {
 
           quantity.value =cartList[index].quantity--;
-
           quantity.value--;
-
           cartList[index].totalPrice = cartList[index].quantity * cartList[index].price;
         }
       }
-      print(cartList[index].quantity);
-      print(cartList[index].totalPrice);
+
       await addToCart(
           productUid: item.productUid,
           imageUid: item.productImageUid,
           sizeUid: item.productSizeUid,
           colorUid: item.productColorUid,
           quantity: quantity.value);
-      print(cartList[index].quantity);
 
       quantity.value =1;
 
       quantity.value=0;
 
       print(cartList[index].quantity);
+
     }
+    QuantityItemUpdate();
     allPrices();
     update();
-
 }
+
+void QuantityItemUpdate(){
+  quantityTotal.value = cartList.fold(0, (sum, item) => sum + item.quantity);
+
+  }
+
+
+
 
 
 }

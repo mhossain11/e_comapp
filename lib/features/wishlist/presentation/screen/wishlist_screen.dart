@@ -43,11 +43,6 @@ class _WishListScreenState extends State<WishListScreen> {
                 child: Builder(
                     builder: (context){
                       if(controller.isLoading.value){
-                       /* return const Center(
-                          child: CircularProgressIndicator.adaptive(
-                            backgroundColor: Colors.lightBlue,
-                          ),
-                        );*/
                         return ListView.separated(
                           padding: const EdgeInsets.all(16),
                           itemBuilder: (context,index){

@@ -110,7 +110,7 @@ class WishlistProductTile extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            // thumbnail ,Wishlist,button,Discount Tag
+            // image ,Wishlist,button,Discount Tag
             Expanded(
               flex: 1,
               child: RoundedContainer(
@@ -119,7 +119,7 @@ class WishlistProductTile extends StatelessWidget {
                 backgroundColor: dark ? Colours.drColor :Colours.wColor,
                 child: Stack(
                   children: [
-                    //--- Thumbnail image
+                    // image
                     RoundedImage(
                       isNetworkImage: true,
                       imageUrl: '${wishlistProduct.productImageUrl}',applyImageRadius: true,),
@@ -157,7 +157,7 @@ class WishlistProductTile extends StatelessWidget {
                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                        children: [
                          SizedBox(
-                             width:  170,
+                             width:  150,
                              child: ProductTitleText(title:wishlistProduct.productName.toString(),
                                maxLines: 1,smallSize: true,)),
                          IconButton(

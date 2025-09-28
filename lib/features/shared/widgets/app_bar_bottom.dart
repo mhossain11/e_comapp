@@ -48,7 +48,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       title: TextButton(
         onPressed: txtOnPressed,
         child: Text(text,
-            style: const TextStyle(fontSize: 20,color: Colors.black,fontWeight: FontWeight.w500)),),
+            style: const TextStyle(
+                fontSize: 16,
+                color: Colors.black,
+                fontWeight: FontWeight.w500)),),
       backgroundColor: Colours.primary,
       centerTitle: centerTitle,
       actions: action,

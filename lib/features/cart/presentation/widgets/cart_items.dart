@@ -3,11 +3,13 @@
 import 'package:e_comapp/core/utils/constants/network_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import '../../../../core/res/styles/colors.dart';
 import '../../../../core/res/styles/shadows.dart';
 import '../../../../core/res/styles/text.dart';
 import '../../../../core/utils/helper_functions.dart';
+import '../../../product_details/presentations/widget/remove_bottomsheet.dart';
 import '../../../shared/widgets/other/productpricetext.dart';
 import '../../../shared/widgets/roundedContainer.dart';
 import '../../../shared/widgets/roundedImage.dart';
@@ -17,7 +19,7 @@ import '../controller/cart_controller.dart';
 import '../utils/cart_utils.dart';
 
 class CartItems extends StatefulWidget {
-  const CartItems({super.key, required this.item});
+   CartItems({super.key, required this.item,});
   final CartsItems item;
 
   @override
@@ -48,26 +50,22 @@ class _CartItemsState extends State<CartItems> {
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                // thumbnail
-                Row(
-                  children: [
-                    RoundedContainer(
-                      height: 110.h,
-                      padding:  const EdgeInsets.all(8.0),
-                      backgroundColor: dark ? Colours.drColor :Colours.wColor,
-                      child: Stack(
-                        children: [
-                          //--- Thumbnail image
-                          RoundedImage(
-                            width: 60.w,
-                            height: 150.h,
-                            isNetworkImage: true,
-                            imageUrl:"${NetworkConstants.baseUrlOne}${widget.item.productImage}",applyImageRadius: true,fit: BoxFit.fill,),
+                // image
+                RoundedContainer(
+                  height: 100.h,
+                  padding:  const EdgeInsets.all(8.0),
+                  backgroundColor: dark ? Colours.drColor :Colours.wColor,
+                  child: Stack(
+                    children: [
+                      //--- Thumbnail image
+                      RoundedImage(
+                        width: 60.w,
+                        height: 150.h,
+                        isNetworkImage: true,
+                        imageUrl:"${NetworkConstants.baseUrlOne}${widget.item.productImage}",applyImageRadius: true,fit: BoxFit.fill,),
 
-                        ],
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
 
                 // --- details
@@ -83,6 +81,7 @@ class _CartItemsState extends State<CartItems> {
                           children: [
                             ProductTitleText(title:widget.item.productName.toString(),smallSize: true,maxLines: 1,),
                             const SizedBox(height: 16.0 /2,),
+
                             //price, increase and decrease
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -110,6 +109,7 @@ class _CartItemsState extends State<CartItems> {
                                 ),
 
 
+                                //Quantity
                                 Padding(
                                   padding: const EdgeInsets.only(left: 8.0,right: 8.0,top: 15),
                                   child: Text(widget.item.quantity.toString(),
@@ -141,30 +141,36 @@ class _CartItemsState extends State<CartItems> {
 
                       ),
                     ),
-                    Padding(
+                   /* Padding(
                       padding: const EdgeInsets.all(5.0),
                       child: ProductPriceText(
                         price: widget.item.price.toStringAsFixed(0),),
-                    ),
+                    ),*/
                   ],
                 )
               ],
             ),
-
             //Delete
+            //Login না হলে delete হয় না ।
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 IconButton(onPressed: ()async{
                   print(widget.item.productUid.toString());
-                  final shouldDelete = await CartUtils.verifyDeletion(
+                  print(widget.item.productImage.toString());
+                  showRemoveFromCartSheet(
                     context,
-                    message: 'Are you sure you want to remove these items?',
+                    productName: widget.item.productName,
+                    productImage: 'https://ecommerce.liberalsoft.net${widget.item.productImage}',
+                    price: widget.item.price,
+                    oldPrice: widget.item.price,
+                    onConfirm: () {
+                      print("Product Removed!");
+                     /* cartController.removeFromCart(
+                          cartProductUid:widget.item.productUid);*/
+                    },
                   );
-                  if(shouldDelete){
-                    cartController.removeFromCart(
-                        cartProductUid:widget.item.productUid);
-                  }
+
                 },
                     icon: const Row(
                       children: [

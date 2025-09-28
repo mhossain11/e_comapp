@@ -19,9 +19,7 @@ class ProductPriceText extends StatelessWidget {
     return Text(currencySign + price,
     maxLines: maxLines,
       overflow: TextOverflow.ellipsis,
-      style: isLarge
-      ? Theme.of(context).textTheme.headlineMedium!.apply(decoration: lineThrough ? TextDecoration.lineThrough : null)
-      : Theme.of(context).textTheme.titleLarge!.apply(decoration: lineThrough ? TextDecoration.lineThrough : null),
+      style: TextStyle(fontSize: 14,color: Colors.black, ),
     );
   }
 }
@@ -54,9 +52,7 @@ class PriceProductCountText extends StatelessWidget {
         Text('$currencySign$price',
           maxLines: maxLines,
           overflow: TextOverflow.ellipsis,
-          style: isLarge
-              ? Theme.of(context).textTheme.headlineMedium!.apply(decoration: lineThrough ? TextDecoration.lineThrough : null)
-              : Theme.of(context).textTheme.titleLarge!.apply(decoration: lineThrough ? TextDecoration.lineThrough : null),
+          style:const TextStyle(fontSize: 16,color: Colors.black, ),
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -65,12 +61,12 @@ class PriceProductCountText extends StatelessWidget {
             Text(' $currencySign$price',
                 maxLines: maxLines,
                 overflow: TextOverflow.ellipsis,
-                style: const TextStyle(fontSize: 14,color: Colors.grey,decoration:TextDecoration.lineThrough,decorationColor: Colors.grey, )
+                style: const TextStyle(fontSize: 12,color: Colors.grey,decoration:TextDecoration.lineThrough,decorationColor: Colors.grey, )
             ),
-            Text('X $quantity',
+            Text(' X $quantity',
               maxLines: maxLines,
               overflow: TextOverflow.ellipsis,
-              style: const TextStyle(fontSize: 14,color: Colors.grey,fontWeight: FontWeight.w500),
+              style: const TextStyle(fontSize: 12,color: Colors.grey,fontWeight: FontWeight.w500),
             ),
           ],
         )
