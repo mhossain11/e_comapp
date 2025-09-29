@@ -129,10 +129,11 @@ class CartController extends GetxController {
               errorMessage.value = failure.errorMessage;
             },
             (_) {
-          // Successfully removed from cart, update cart details
-              fetchGetCartList();
+              // local list form remove
+              cartList.removeWhere((item)=> item.productUid == cartProductUid);
+              //fetchGetCartList();
               QuantityItemUpdate();
-              Get.snackbar('Success', 'Product removed from cart');
+             // Get.snackbar('Success', 'Product removed from cart');
         },
       );
     } finally {
@@ -142,21 +143,16 @@ class CartController extends GetxController {
 
 
  String allPrices(){
-
    double item = cartList.fold(0, (sum, item) => sum + item.totalPrice);
    totalPrices.value = item;
    QuantityItemUpdate();
-  // print(item.toString());
-  // print(totalPrices.value.toString());
    return totalPrices.value.toString();
   }
 
   // Add Item to Cart
 
   increment(CartsItems item,productUid) async{
-
     quantity.value =1;
-
 
     var existingItem = cartList.firstWhereOrNull((element) => element.productUid == item.productUid);
     int index = cartList.indexWhere((item) => item.productUid == productUid);

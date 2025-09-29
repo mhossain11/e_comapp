@@ -11,27 +11,18 @@ class BuildEmptyCartState extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBar(
-        text: 'My Cart',
-        centerTitle: true,
-        showBackArrow: false,
-        txtOnPressed: () {},
-      ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Lottie.asset(Media.AnimetEmptyCart, repeat: true),
-              const Gap(5),
-              Text('Oh! So empty', style: TextStyles.headingSemiBold.grey),
-            ],
-          ),
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Lottie.asset(Media.AnimetEmptyCart, repeat: true),
+            const Gap(5),
+            Text('Oh! So empty', style: TextStyles.headingSemiBold.grey),
+          ],
         ),
       ),
     );
-    ;
   }
 }

@@ -36,7 +36,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: Colors.white,
         scaffoldBackgroundColor: Colors.white,
-        appBarTheme: AppBarTheme(surfaceTintColor: Colors.white,),
+        bottomNavigationBarTheme:BottomNavigationBarThemeData(
+          backgroundColor: Colors.white
+        ),
+        appBarTheme: AppBarTheme(
+          backgroundColor: Colors.white,
+          surfaceTintColor: Colors.white,),
         colorScheme: ColorScheme.fromSeed(
             seedColor: Colors.white),
         useMaterial3: true,

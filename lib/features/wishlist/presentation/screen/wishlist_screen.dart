@@ -2,6 +2,7 @@ import 'package:e_comapp/features/wishlist/presentation/controller/wishlist_cont
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import '../../../cart/presentation/widgets/empty_widget.dart';
 import '../../../shared/widgets/empty_data.dart';
 import '../widgets/wishlist_product_title.dart';
 
@@ -53,11 +54,8 @@ class _WishListScreenState extends State<WishListScreen> {
                           itemCount: controller.wishList.length,
                         );
                       }else if(controller.wishList.isEmpty){
-                        return const EmptyData('No Saved Product');
-                      }/*else if(controller.errorMessage.isNotEmpty){
-                        return Center(child: Text(
-                            controller.errorMessage.value),);
-                      }*/
+                        return BuildEmptyCartState();
+                      }
 
                       return ListView.separated(
                         padding: const EdgeInsets.all(16),

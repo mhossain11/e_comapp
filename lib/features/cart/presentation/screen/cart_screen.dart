@@ -1,14 +1,8 @@
 
-
-import 'package:e_comapp/core/extensions/text_style_extensions.dart';
 import 'package:e_comapp/features/cart/presentation/controller/cart_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:lottie/lottie.dart';
-import '../../../../core/res/media.dart';
-import '../../../../core/res/styles/colors.dart';
-import '../../../../core/res/styles/text.dart';
 import '../../../../core/utils/helper_functions.dart';
 import '../../../shared/widgets/app_bar_bottom.dart';
 import '../../../shared/widgets/buttonWidget.dart';
@@ -78,17 +72,21 @@ class _CartScreenState extends State<CartScreen> {
             showBackArrow: false,
             text: 'My Cart(${cartController.cartList.length} Items)',
             centerTitle: true,
+            action: [
+              IconButton(onPressed: (){},
+                  icon: Icon(Icons.delete_forever_rounded))
+            ],
           ),
           bottomNavigationBar: Card(
-            color: Colors.green.shade50,
+            color: Colors.blue.shade50,
             surfaceTintColor: Colors.green.shade50,
-            shadowColor: Colors.green.shade100,
+           // shadowColor: Colors.green.shade100,
             shape: RoundedRectangleBorder(
               side: BorderSide(color: Colors.green.shade50),
             ),
             elevation: 5,
             child: SizedBox(
-              height: 100,
+              height: 110,
               width: HelperFunctions.screenWidth(),
               child: Column(
                 children: [
@@ -155,12 +153,14 @@ class _CartScreenState extends State<CartScreen> {
                       ),
                     ],
                   ),
+                  Gap(5),
                   RoundButtonWidget(
                     onPressed: () {
                       // Get.toNamed(OrderScreen.path);
                     },
                     title: 'Checkout',
                     wight: 200,
+                    color: Colors.blue.shade300,
                   ),
                 ],
               ),
@@ -175,9 +175,7 @@ class _CartScreenState extends State<CartScreen> {
               children: [
                 SizedBox(
                   width: HelperFunctions.screenWidth(),
-                  child: CartListView(
-                    item: cartController.cartList,
-                  ),
+                  child: CartListView(),
                 ),
                 const SizedBox(height: 20),
               ],

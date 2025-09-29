@@ -165,9 +165,8 @@ class _CartItemsState extends State<CartItems> {
                     price: widget.item.price,
                     oldPrice: widget.item.price,
                     onConfirm: () {
-                      print("Product Removed!");
-                     /* cartController.removeFromCart(
-                          cartProductUid:widget.item.productUid);*/
+                      cartController.removeFromCart(
+                          cartProductUid:widget.item.productUid);
                     },
                   );
 
