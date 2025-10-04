@@ -7,6 +7,7 @@ import '../../../categories/presentation/screen/banar_screen.dart';
 import '../../../categories/presentation/screen/sliderpiccell_screen.dart';
 import '../../../categories/presentation/screen/specialCategory_screen.dart';
 import '../../../categories/presentation/screen/categories_section.dart';
+import '../widgets/search_bottomsheet.dart';
 
 
 class HomeScreen extends StatefulWidget {
@@ -40,6 +41,13 @@ final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey();
         automaticallyImplyLeading: false,
         actions: [
           IconButton(onPressed: (){}, icon: const Icon(IconlyBroken.notification)),
+          IconButton(onPressed: (){
+            Get.to(SearchView(),
+                fullscreenDialog: true,
+                transition: Transition.downToUp,
+                duration: Duration(milliseconds: 600)
+            );
+          }, icon: const Icon(IconlyBroken.search)),
         ],
       ),
 

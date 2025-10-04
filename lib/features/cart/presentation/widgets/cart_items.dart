@@ -31,7 +31,7 @@ class _CartItemsState extends State<CartItems> {
 
   @override
   Widget build(BuildContext context) {
-    print('Item: ${widget.item.quantity.toString()}');
+    print('Item_build: ${widget.item.quantity.toString()}');
     var dark = HelperFunctions.isDarkMode(context);
     return Card(
       elevation: 3,
@@ -156,8 +156,8 @@ class _CartItemsState extends State<CartItems> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 IconButton(onPressed: ()async{
-                  print(widget.item.productUid.toString());
-                  print(widget.item.productImage.toString());
+                  //print(widget.item.productUid.toString());
+                  //print(widget.item.productImage.toString());
                   showRemoveFromCartSheet(
                     context,
                     productName: widget.item.productName,

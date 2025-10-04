@@ -1,4 +1,4 @@
-import 'package:dartz/dartz.dart';
+  import 'package:dartz/dartz.dart';
 
 import '../../../../core/error/exceptions.dart';
 import '../../../../core/error/failures.dart';

@@ -85,9 +85,7 @@ class CartRemoteDataSrcImpl implements CartRemoteDataSrc {
           '${NetworkConstants.baseUrlOne}${NetworkConstants.cartListGet}');
       final response = await _client.get(
         uri,
-        headers: sl<CacheHelper>()
-            .getAccessAllToken()
-            ?.toHeader,
+        headers: sl<CacheHelper>().getAccessAllToken()?.toHeader,
       ).timeout(const Duration(seconds: 60));
       debugPrint('Hedder:${sl<CacheHelper>().getAccessAllToken()!.toHeader}');
       final payload = jsonDecode(response.body);

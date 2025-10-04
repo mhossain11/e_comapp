@@ -72,6 +72,8 @@ class CacheHelper {
     }
     return accessSessionKen;
   }
+
+
   String? getAccessToken() {
     final accessToken = _prefs.getString(_accessTokenKey);
     if (accessToken != null ) {
@@ -93,7 +95,7 @@ class CacheHelper {
     if (accessToken != null ) {
       print(accessToken);
       debugPrint('getSessionToken: access Token exists');
-      debugPrint("accessToken1:${accessToken.toString()}");
+
     } else if(accessSessionKey !=null){
       debugPrint('getSessionToken: access does not exist');
       debugPrint("accessSessionKey1:${accessSessionKey.toString()}");

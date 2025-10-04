@@ -1,5 +1,6 @@
 import 'package:e_comapp/features/cart/domains/models/cart_Items.dart';
 import 'package:e_comapp/features/cart/domains/repo/cartlist_repo.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 
@@ -149,71 +150,108 @@ class CartController extends GetxController {
    return totalPrices.value.toString();
   }
 
-  // Add Item to Cart
 
-  increment(CartsItems item,productUid) async{
-    quantity.value =1;
+//-------------------------X
+  void increment(CartsItems item, String productUid) async {
+    int index = cartList.indexWhere((element) =>
+    element.productUid == item.productUid &&
+        element.productSizeUid == item.productSizeUid &&
+        element.productColorUid == item.productColorUid
+    );
+    print('+index_print-0:$index');//এখানে আমরা চেক করছি যে cartList-এ এই product আছে কি না।
+    if (index == -1) return; //যদি না থাকে (index == -1) → function exit।
 
-    var existingItem = cartList.firstWhereOrNull((element) => element.productUid == item.productUid);
-    int index = cartList.indexWhere((item) => item.productUid == productUid);
-    if (existingItem != null) {
-      if (index != -1) {
-         quantity.value = cartList[index].quantity++;
-          quantity.value+=1;
-        cartList[index].totalPrice = cartList[index].quantity * cartList[index].price;
-      }
-    await addToCart(
-          productUid: item.productUid,
-          imageUid: item.productImageUid,
-          sizeUid: item.productSizeUid,
-          colorUid: item.productColorUid,
-          quantity: quantity.value);
-      QuantityItemUpdate();
+    // Save old quantity in case of error
+    int oldQuantity = cartList[index].quantity; //কারণ server sync fail হলে আমরা quantity আগের value-এ revert করব।
+    print('Old_Print-1 ${cartList[index].quantity}');
+    // Local update
+    cartList[index].quantity += 1; //quantity locally +1 করা হয়েছে।
+    cartList[index].totalPrice = cartList[index].quantity * cartList[index].price; //totalPrice হিসাব করা হয়েছে quantity * price।
+    QuantityItemUpdate(); //QuantityItemUpdate() → সব relevant reactive value update করে।
+    allPrices(); //allPrices() → cart-এর total price update করে।
+    //before remove
+   // _cartListRepo.removeFromCart(cartProductUid: cartList[index].productUid);
+    //after add Server sync //Cart API call করা হয়েছে নতুন quantity সহ। এটি async operation।
+    final result = await _cartListRepo.addCartList(
+      productUid: item.productUid,
+      imageUid: item.productImageUid,
+      sizeUid: item.productSizeUid,
+      colorUid: item.productColorUid,
+      quantity: cartList[index].quantity,
+    );
+    print('New_Print-1 ${cartList[index].quantity}');
 
-      quantity.value=1;
-      quantity.value=0;
-    }
-    QuantityItemUpdate();
-    allPrices();
-    update();
+    result.fold(
+          (failure) {
+            /*
+            Error Case:
+            যদি server কোনো error return করে → আগের quantity এবং totalPrice restore করা হবে।
+            UI update হবে আগের state-এ।
+            Snackbar দেখাবে error message।
+
+            Success Case:
+            কিছু extra করার দরকার নেই। UI আগেই update হয়ে গেছে।*/
+        // Revert on error
+        cartList[index].quantity = oldQuantity;
+        cartList[index].totalPrice = oldQuantity * cartList[index].price;
+        QuantityItemUpdate();
+        allPrices();
+        Get.snackbar('Error', failure.errorMessage,
+            backgroundColor: Colors.redAccent, colorText: Colors.white);
+      },
+          (_) {
+        // Success: nothing extra needed
+      },
+    );
   }
 
-  decrement(CartsItems item,productUid) async{
+  void decrement(CartsItems item, String productUid) async {
+    int index = cartList.indexWhere((element) =>
+    element.productUid == item.productUid &&
+        element.productSizeUid == item.productSizeUid &&
+        element.productColorUid == item.productColorUid
+    );
+    debugPrint('-index_print-0:$index');
+    if (index == -1 || cartList[index].quantity <= 1) return;
 
-    quantity.value =1;
-
-
-    int index = cartList.indexWhere((item) => item.productUid == productUid);
-    var existingItem = cartList.firstWhereOrNull((element) => element.productUid == item.productUid);
-    //print(cartList[index].quantity);
-    if (existingItem != null) {
-      if (index != -1) {
-        if (cartList[index].quantity > 1) {
-
-          quantity.value =cartList[index].quantity--;
-          quantity.value--;
-          cartList[index].totalPrice = cartList[index].quantity * cartList[index].price;
-        }
-      }
-
-      await addToCart(
-          productUid: item.productUid,
-          imageUid: item.productImageUid,
-          sizeUid: item.productSizeUid,
-          colorUid: item.productColorUid,
-          quantity: quantity.value);
-
-      quantity.value =1;
-
-      quantity.value=0;
-
-      print(cartList[index].quantity);
-
-    }
+    int oldQuantity = cartList[index].quantity;
+      print('print-1:${cartList[index].quantity}');
+    // Local update
+    cartList[index].quantity -= 1;
+    cartList[index].totalPrice = cartList[index].quantity * cartList[index].price;
     QuantityItemUpdate();
     allPrices();
-    update();
-}
+    print('print-2${cartList[index].quantity}');
+
+    //before remove
+    //_cartListRepo.removeFromCart(cartProductUid: cartList[index].productUid);
+    //after add Server sync
+    final result = await _cartListRepo.addCartList(
+      productUid: item.productUid,
+      imageUid: item.productImageUid,
+      sizeUid: item.productSizeUid,
+      colorUid: item.productColorUid,
+      quantity: cartList[index].quantity,
+    );
+
+    result.fold(
+          (failure) {
+        // Revert on error
+        cartList[index].quantity = oldQuantity;
+        cartList[index].totalPrice = oldQuantity * cartList[index].price;
+        QuantityItemUpdate();
+        allPrices();
+        Get.snackbar('Error', failure.errorMessage,
+            backgroundColor: Colors.redAccent, colorText: Colors.white);
+      },
+          (_) {
+        // Success
+      },
+    );
+  }
+
+
+
 
 void QuantityItemUpdate(){
   quantityTotal.value = cartList.fold(0, (sum, item) => sum + item.quantity);
