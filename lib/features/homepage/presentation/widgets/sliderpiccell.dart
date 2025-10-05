@@ -5,9 +5,7 @@ import 'package:get/get.dart';
 
 import '../../../shared/widgets/circularContainer.dart';
 
-import '../../controllers/homeController.dart';
-
-import '../controllers/homeController.dart' hide HomeController;
+import '../controllers/homeController.dart';
 
 import '../../domain/model/sliderModel.dart';
 

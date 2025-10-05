@@ -8,10 +8,8 @@ import 'core/di/injection_container.main.dart';
 import 'features/auth/presentation/controller/auth_controllere.dart';
 import 'features/categories/presentation/controller/category_controller.dart';
 
-import 'features/homepage/controllers/homeController.dart';
-
 import 'features/dashboard/presentation/controller/navigation_controller.dart';
-import 'features/homepage/presentation/controllers/homeController.dart' hide HomeController;
+import 'features/homepage/presentation/controllers/homeController.dart';
 
 import 'features/product_details/presentations/controller/product_details_controller.dart';
 

@@ -23,6 +23,10 @@ import '../../features/categories/data/datasources/categorie_remote_data_src.dar
 import '../../features/categories/data/repo/category_repo_impl.dart';
 import '../../features/categories/domain/repo/category_repo.dart';
 import '../../features/categories/presentation/controller/category_controller.dart';
+import '../../features/homepage/data/datasources/home_remote_data_src.dart';
+import '../../features/homepage/data/repo/home_repo_impl.dart';
+import '../../features/homepage/domain/repo/home_repo.dart';
+import '../../features/homepage/presentation/controllers/homeController.dart';
 import '../app/cache/cache_helper.dart';
 
 final sl = GetIt.instance;  //service locator
@@ -36,11 +40,14 @@ Future<void> init() async {
   await _profileInit();
   await _wishlistInit();
   await _cartInit();
+  await _homeInit();
 /*
 
   await _profileInit();
   */
 }
+
+
 
 
 
@@ -129,6 +136,12 @@ Future<void> _cartInit() async {
   // Registering CategoryController
   sl.registerLazySingleton<CartController>(
           () => CartController(sl<CartListRepo>()));
+}
+
+Future<void> _homeInit() async {
+  sl.registerLazySingleton<HomeRemoteDataSrc>(()=>HomeRemoteDataSrcImpl(sl()));
+  sl.registerLazySingleton<HomeRepo>(()=>HomeRepoImpl(sl<HomeRemoteDataSrc>()));
+  sl.registerLazySingleton<HomeController>(()=>HomeController(sl<HomeRepo>()));
 }
 
 

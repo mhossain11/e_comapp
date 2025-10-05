@@ -10,6 +10,7 @@ abstract class NetworkConstants{
 
 
 
+  static const search = '/product/products/search/';
   static const wishList_Get = '/cart/wishlist/';
   static const apiUrl = '/product';
   static const wishListAddEndPoint = '/cart/wishlist/add';
