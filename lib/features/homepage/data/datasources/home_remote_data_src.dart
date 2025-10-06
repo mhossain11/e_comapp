@@ -21,7 +21,7 @@ class HomeRemoteDataSrcImpl extends HomeRemoteDataSrc{
   HomeRemoteDataSrcImpl(this._client);
   final http.Client _client;
   @override
-  Future<List<SearchModel>> searchData(String search) async{
+/*  Future<List<SearchModel>> searchData(String search) async{
    try{
      final uri = Uri.parse('${NetworkConstants.baseUrlOne}${NetworkConstants.search}');
       final response =await _client.post(
@@ -40,9 +40,11 @@ class HomeRemoteDataSrcImpl extends HomeRemoteDataSrc{
            statusCode: response.statusCode);
      }
 
-     final List<SearchModel> searchList = (payload as List)
-         .map((item) => SearchModel.fromJson(item))
-         .toList();
+     if(payload is List){
+       final List<SearchModel> searchList =
+       payload.map((item) => SearchModel.fromJson(item)).toList();
+       return searchList;
+     }
 
      return searchList;
 
@@ -54,6 +56,54 @@ class HomeRemoteDataSrcImpl extends HomeRemoteDataSrc{
      debugPrintStack(stackTrace: s);
      throw ServerException(message: e.toString(), statusCode: 500);
    }
+  }*/
+
+  Future<List<SearchModel>> searchData(String search) async {
+    try {
+      final uri = Uri.parse('${NetworkConstants.baseUrlOne}${NetworkConstants.search}');
+      final response = await _client.post(
+        uri,
+        body: jsonEncode({'search': search}),
+        headers: NetworkConstants.headers,
+      );
+
+      // Decode response
+      final decoded = jsonDecode(response.body);
+
+      if (response.statusCode != 200) {
+        if (decoded is Map<String, dynamic>) {
+          final errorResponse = ErrorResponse.fromMap(decoded);
+          throw ServerException(
+            message: errorResponse.errorMessage,
+            statusCode: response.statusCode,
+          );
+        } else {
+          throw ServerException(
+            message: 'Unexpected error format',
+            statusCode: response.statusCode,
+          );
+        }
+      }
+
+      // ✅ Expecting List of products from server
+      if (decoded is List) {
+        return decoded
+            .map((item) => SearchModel.fromJson(item as Map<String, dynamic>))
+            .toList();
+      } else {
+        throw ServerException(
+          message: 'Invalid response type: expected List but got ${decoded.runtimeType}',
+          statusCode: response.statusCode,
+        );
+      }
+    } on ServerException {
+      rethrow;
+    } catch (e, s) {
+      debugPrint(e.toString());
+      debugPrintStack(stackTrace: s);
+      throw ServerException(message: e.toString(), statusCode: 500);
+    }
   }
+
   
 }

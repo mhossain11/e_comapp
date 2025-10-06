@@ -17,7 +17,7 @@ class ControllerBinder extends Bindings{
   @override
   void dependencies() {
     Get.put(AuthController(sl()));
-    Get.put(HomeController());
+    Get.put(HomeController(sl()));
     Get.put(NavigationController());
     Get.put(CategoryController(sl()));
     Get.put(WishListController(sl()));
