@@ -29,6 +29,11 @@ abstract class CartRemoteDataSrc{
   required int quantity,
 });
 
+  Future<void> updateToCart({
+   required String cartProductUid,
+   required int quantity,
+});
+
   Future<void> removeFromCart({
     required String cartProductUid});
 
@@ -99,6 +104,9 @@ class CartRemoteDataSrcImpl implements CartRemoteDataSrc {
             statusCode: response.statusCode);
       }
 
+      final cartUid = payload['uid'];
+      await sl<CacheHelper>().setData('cartuid', cartUid);
+
       return (payload["items"] as List)
           .map(
             (cartProduct) => CartsItems.fromJson(cartProduct),
@@ -122,8 +130,7 @@ class CartRemoteDataSrcImpl implements CartRemoteDataSrc {
     required String colorUid,
     required int quantity}) async {
     try {
-      final uri = Uri.parse('${NetworkConstants.baseUrlOne}${NetworkConstants
-          .cartListAddEndPoint}');
+      final uri = Uri.parse('${NetworkConstants.baseUrlOne}${NetworkConstants.cartListAddEndPoint}');
 
       final response = await _client.post(
           uri,
@@ -179,6 +186,41 @@ class CartRemoteDataSrcImpl implements CartRemoteDataSrc {
         );
       }
     } on ServerException {
+      rethrow;
+    } catch (e, s) {
+      debugPrint(e.toString());
+      debugPrintStack(stackTrace: s);
+      throw ServerException(message: e.toString(), statusCode: 500);
+    }
+  }
+
+  @override
+  Future<void> updateToCart({
+    required String cartProductUid,
+    required int quantity}) async{
+    final getData =await sl<CacheHelper>().getData('cartuid');
+    try{
+      final uri = Uri.parse('${NetworkConstants.baseUrlOne}${NetworkConstants.cartUpdate_put}$getData/');
+
+      final response =await _client.put(
+          uri,
+        body: jsonEncode({
+          'product_uid':cartProductUid,
+          'product_quantity':quantity,
+        }),
+        headers: sl<CacheHelper>().getAccessAllToken()!.toHeaders);
+
+      final payload = jsonDecode(response.body);
+      if (response.statusCode != 200 && response.statusCode != 201) {
+        final errorResponse = ErrorResponse.fromMap(payload as DataMap);
+        throw ServerException(
+          message: errorResponse.errorMessage,
+          statusCode: response.statusCode,
+        );
+      }
+
+
+    }on ServerException {
       rethrow;
     } catch (e, s) {
       debugPrint(e.toString());

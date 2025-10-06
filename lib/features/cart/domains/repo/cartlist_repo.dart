@@ -18,6 +18,10 @@ abstract class CartListRepo{
    required int quantity,
 
   });
+ ResultFuture<void> updateCartList({
+   required String cartProductUid,
+   required int quantity,
+ });
 
  ResultFuture<void> removeFromCart({
     required String cartProductUid,

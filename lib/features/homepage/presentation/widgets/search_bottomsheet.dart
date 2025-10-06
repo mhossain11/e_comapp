@@ -4,6 +4,8 @@ import 'package:e_comapp/features/homepage/presentation/controllers/homeControll
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../core/router/app_router.dart';
+
 class SearchView extends StatefulWidget {
   const SearchView({super.key});
 
@@ -146,7 +148,10 @@ class _SearchViewState extends State<SearchView> {
     ];
     return GestureDetector(
       onTap: (){
-
+        Get.toNamed(
+          AppRoutes.productDetailScreen,
+          arguments: {'productId': modelItem.uid},
+        );
       },
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

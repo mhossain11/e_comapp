@@ -69,6 +69,18 @@ class CartListRepoImpl implements CartListRepo{
     }
   }
 
+  @override
+  ResultFuture<void> updateCartList({
+    required String cartProductUid,
+    required int quantity}) async{
+    try{
+      await _cartRemoteDataSrc.updateToCart(cartProductUid: cartProductUid, quantity: quantity);
+      return const Right(null);
+    }on ServerException catch(e){
+      return Left(ServerFailure(message: e.message,statusCode: e.statusCode));
+    }
+  }
+
 
 
 

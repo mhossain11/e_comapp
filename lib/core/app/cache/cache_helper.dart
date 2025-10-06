@@ -39,6 +39,13 @@ class CacheHelper {
       return false;
     }
   }
+  Future<void> setData(String key, dynamic value)async{
+    await _prefs.setString(key, value);
+
+  }
+  Future<String?> getData(String key)async{
+    return _prefs.getString(key);
+  }
 
   Future<void> cacheFirstTimer() async {
     await _prefs.setBool(_firstTimerKey, false);

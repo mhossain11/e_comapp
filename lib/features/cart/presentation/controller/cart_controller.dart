@@ -118,6 +118,26 @@ class CartController extends GetxController {
     }
   }
 
+  Future<void> cartUpdate({
+    required String cartProductUid,
+    required int quantity,}) async{
+    try{
+      isAddingToCart.value = true;
+      final result = await _cartListRepo.updateCartList(
+          cartProductUid: cartProductUid,
+          quantity: quantity);
+
+      result.fold(
+              (failure){
+                errorMessage.value = failure.errorMessage;
+      }, (fetchedData){
+        fetchGetCartList();
+        QuantityItemUpdate();
+        //Get.snackbar('Success', 'Product added to cart');
+      });
+    }catch(e){}
+  }
+
   Future<void> removeFromCart({
     required String cartProductUid,
   }) async {
@@ -172,11 +192,8 @@ class CartController extends GetxController {
     //before remove
    // _cartListRepo.removeFromCart(cartProductUid: cartList[index].productUid);
     //after add Server sync //Cart API call করা হয়েছে নতুন quantity সহ। এটি async operation।
-    final result = await _cartListRepo.addCartList(
-      productUid: item.productUid,
-      imageUid: item.productImageUid,
-      sizeUid: item.productSizeUid,
-      colorUid: item.productColorUid,
+    final result = await _cartListRepo.updateCartList(
+      cartProductUid: item.productUid,
       quantity: cartList[index].quantity,
     );
     print('New_Print-1 ${cartList[index].quantity}');
@@ -226,11 +243,8 @@ class CartController extends GetxController {
     //before remove
     //_cartListRepo.removeFromCart(cartProductUid: cartList[index].productUid);
     //after add Server sync
-    final result = await _cartListRepo.addCartList(
-      productUid: item.productUid,
-      imageUid: item.productImageUid,
-      sizeUid: item.productSizeUid,
-      colorUid: item.productColorUid,
+    final result = await _cartListRepo.updateCartList(
+      cartProductUid: item.productUid,
       quantity: cartList[index].quantity,
     );
 
