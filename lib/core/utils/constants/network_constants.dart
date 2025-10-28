@@ -19,6 +19,7 @@ abstract class NetworkConstants{
   static const cartUpdate_put = '/cart/cart/items/update/';
   static const cartListRemoveEndPoint = '/cart/cart/remove/';
   static const cartListAddEndPoint = '/cart/add/';
+  static const checkout_post = '/order/checkout';
 
   static const wishListGet = '/cart/wishlist/';
   //static const apiUrl = '/product';

@@ -8,6 +8,7 @@ import 'core/di/injection_container.main.dart';
 import 'features/auth/presentation/controller/auth_controllere.dart';
 import 'features/categories/presentation/controller/category_controller.dart';
 
+import 'features/checkout/presentation/controller/checkout_controller.dart';
 import 'features/dashboard/presentation/controller/navigation_controller.dart';
 import 'features/homepage/presentation/controllers/homeController.dart';
 
@@ -23,6 +24,7 @@ class ControllerBinder extends Bindings{
     Get.put(WishListController(sl()));
     Get.put(ProductDetailsController(sl()));
     Get.put(CartController(sl()));
+    Get.put(CheckOutController(sl()));
 
 
   }

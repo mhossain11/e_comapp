@@ -23,6 +23,10 @@ import '../../features/categories/data/datasources/categorie_remote_data_src.dar
 import '../../features/categories/data/repo/category_repo_impl.dart';
 import '../../features/categories/domain/repo/category_repo.dart';
 import '../../features/categories/presentation/controller/category_controller.dart';
+import '../../features/checkout/data/datasource/remote/checkout_remote_data_src.dart';
+import '../../features/checkout/data/repos/checkout_repo_impl.dart';
+import '../../features/checkout/domain/repos/checkout_repo.dart';
+import '../../features/checkout/presentation/controller/checkout_controller.dart';
 import '../../features/homepage/data/datasources/home_remote_data_src.dart';
 import '../../features/homepage/data/repo/home_repo_impl.dart';
 import '../../features/homepage/domain/repo/home_repo.dart';
@@ -41,6 +45,8 @@ Future<void> init() async {
   await _wishlistInit();
   await _cartInit();
   await _homeInit();
+  await _checkoutInit();
+
 /*
 
   await _profileInit();
@@ -142,6 +148,12 @@ Future<void> _homeInit() async {
   sl.registerLazySingleton<HomeRemoteDataSrc>(()=>HomeRemoteDataSrcImpl(sl()));
   sl.registerLazySingleton<HomeRepo>(()=>HomeRepoImpl(sl<HomeRemoteDataSrc>()));
   sl.registerLazySingleton<HomeController>(()=>HomeController(sl<HomeRepo>()));
+}
+
+Future<void> _checkoutInit() async{
+  sl.registerLazySingleton<CheckoutRemoteDataSrc>(()=>CheckoutRemoteDataSrcImpl(sl()));
+  sl.registerLazySingleton<CheckoutRepo>(()=>CheckOutRepoImpl(sl<CheckoutRemoteDataSrc>()));
+  sl.registerLazySingleton<CheckOutController>(()=>CheckOutController(sl<CheckoutRepo>()));
 }
 
 

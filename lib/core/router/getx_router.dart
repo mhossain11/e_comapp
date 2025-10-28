@@ -1,4 +1,5 @@
 import 'package:e_comapp/features/cart/presentation/screen/cart_screen.dart';
+import 'package:e_comapp/features/checkout/presentation/screen/checkout_screen.dart';
 
 
 import 'package:e_comapp/features/dashboard/presentation/screen/dashboard_screen.dart';
@@ -53,6 +54,15 @@ class GetAppRouter {
         // Bindings for the onboarding screen if necessary
       ),
 
+
+      GetPage(
+        name: AppRoutes.checkoutScreen,
+
+        page: (){
+          final products = Get.arguments['productItem'] as ProductCategoriesModel;
+         return CheckoutScreen(cartUid: '',);
+        },
+      ),
 
 
       GetPage(

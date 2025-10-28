@@ -1,8 +1,10 @@
 
 import 'package:e_comapp/features/cart/presentation/controller/cart_controller.dart';
+import 'package:e_comapp/features/checkout/presentation/screen/checkout_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import '../../../../core/router/app_router.dart';
 import '../../../../core/utils/helper_functions.dart';
 import '../../../shared/widgets/app_bar_bottom.dart';
 import '../../../shared/widgets/buttonWidget.dart';
@@ -156,7 +158,11 @@ class _CartScreenState extends State<CartScreen> {
                   Gap(5),
                   RoundButtonWidget(
                     onPressed: () {
-                      // Get.toNamed(OrderScreen.path);
+                       Get.toNamed(CheckoutScreen.path);
+                       Get.toNamed(
+                         AppRoutes.checkoutScreen,
+                         arguments: {"productItem": cartController.cartList},
+                       );
                     },
                     title: 'Checkout',
                     wight: 200,
