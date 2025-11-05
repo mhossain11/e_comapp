@@ -158,7 +158,6 @@ class _CartScreenState extends State<CartScreen> {
                   Gap(5),
                   RoundButtonWidget(
                     onPressed: () {
-                       Get.toNamed(CheckoutScreen.path);
                        Get.toNamed(
                          AppRoutes.checkoutScreen,
                          arguments: {"productItem": cartController.cartList},

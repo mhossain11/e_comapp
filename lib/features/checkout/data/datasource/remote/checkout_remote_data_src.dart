@@ -45,11 +45,13 @@ class CheckoutRemoteDataSrcImpl implements CheckoutRemoteDataSrc {
          body: jsonEncode({
            'cart_uid': cartUid,
            'delivery_address': deliveryAddress.toJson(),
-           'notes': notes ?? '',
+           'notes': notes ?? 'Test',
          }),
          headers: sl<CacheHelper>().getAccessAllToken()!.toHeaders);
 
-
+     print('🟣 Checkout Headers: ${sl<CacheHelper>().getAccessAllToken()!.toHeaders}');
+     print('🔵 Checkout Response (${response.statusCode}): ${response.body}');
+      debugPrint('Checkout statusCode:${response.statusCode}');
      final payload = jsonDecode(response.body);
      if (response.statusCode != 200 && response.statusCode != 201) {
        final errorResponse = ErrorResponse.fromMap(payload as DataMap);

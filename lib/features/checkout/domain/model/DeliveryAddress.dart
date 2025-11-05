@@ -20,7 +20,7 @@ class DeliveryAddress {
       String? postalCode, 
       String? country, 
       String? phoneNumber, 
-      bool? isDefault,}){
+      bool? isDefault = false ,}){
     _uid = uid;
     _fullName = fullName;
     _addressLine1 = addressLine1;
@@ -55,7 +55,8 @@ class DeliveryAddress {
   String? _country;
   String? _phoneNumber;
   bool? _isDefault;
-DeliveryAddress copyWith({  String? uid,
+DeliveryAddress copyWith({
+  String? uid,
   String? fullName,
   String? addressLine1,
   String? addressLine2,
@@ -65,7 +66,8 @@ DeliveryAddress copyWith({  String? uid,
   String? country,
   String? phoneNumber,
   bool? isDefault,
-}) => DeliveryAddress(  uid: uid ?? _uid,
+}) => DeliveryAddress(
+  uid: uid ?? _uid,
   fullName: fullName ?? _fullName,
   addressLine1: addressLine1 ?? _addressLine1,
   addressLine2: addressLine2 ?? _addressLine2,

@@ -7,7 +7,8 @@ import '../controller/cart_controller.dart';
 import 'cart_items.dart';
 
 class CartListView extends StatelessWidget {
-  CartListView({super.key,});
+  CartListView({super.key});
+  String cartUid='';
    final CartController cartController = Get.find<CartController>();
 
 
@@ -22,6 +23,7 @@ class CartListView extends StatelessWidget {
         itemCount: cartController.cartList.length,
           itemBuilder: (context,index){
           var itemList = cartController.cartList[index];
+            cartUid = itemList.productUid;
             return CartItems(item: itemList,);
 
           }),

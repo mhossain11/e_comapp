@@ -14,7 +14,8 @@ Future<void> main() async{
   await init();
 
 //  runApp(const ProviderScope(child: MyApp()));
-  runApp(ScreenUtilInit(
+  runApp(
+      ScreenUtilInit(
     designSize: const Size(360, 690),
 
     minTextAdapt: true,

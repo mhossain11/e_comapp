@@ -19,6 +19,8 @@ import '../../features/categories/presentation/screen/subCategory_screen.dart';
 import '../../features/product_details/presentations/screen/product_details.dart';
 import '../../features/splash/presentation/screen/splash_screen.dart';
 
+import '../app/cache/cache_helper.dart';
+import '../di/injection_container.main.dart';
 import 'app_router.dart';
 
 class GetAppRouter {
@@ -59,8 +61,8 @@ class GetAppRouter {
         name: AppRoutes.checkoutScreen,
 
         page: (){
-          final products = Get.arguments['productItem'] as ProductCategoriesModel;
-         return CheckoutScreen(cartUid: '',);
+
+         return CheckoutScreen();
         },
       ),
 
