@@ -10,7 +10,7 @@
 /// is_default : false
 
 class DeliveryAddress {
-  DeliveryAddress({
+   DeliveryAddress({
       String? uid, 
       String? fullName, 
       String? addressLine1, 

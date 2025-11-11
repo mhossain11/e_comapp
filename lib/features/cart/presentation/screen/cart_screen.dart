@@ -1,11 +1,13 @@
-
 import 'package:e_comapp/features/cart/presentation/controller/cart_controller.dart';
 import 'package:e_comapp/features/checkout/presentation/screen/checkout_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import '../../../../core/app/cache/cache_helper.dart';
+import '../../../../core/di/injection_container.main.dart';
 import '../../../../core/router/app_router.dart';
 import '../../../../core/utils/helper_functions.dart';
+import '../../../auth/presentation/screen/login_screen.dart';
 import '../../../shared/widgets/app_bar_bottom.dart';
 import '../../../shared/widgets/buttonWidget.dart';
 import '../../../shared/widgets/other/productpricetext.dart';
@@ -26,7 +28,7 @@ class CartScreen extends StatefulWidget {
 class _CartScreenState extends State<CartScreen> {
   bool removingBulkProducts = false;
   final CartController cartController = Get.find<CartController>();
-  int totalItems =0;
+  int totalItems = 0;
 
   Future<void> getCart() async {
     await cartController.fetchGetCartList();
@@ -41,14 +43,10 @@ class _CartScreenState extends State<CartScreen> {
     });
   }
 
-
-
   @override
   Widget build(BuildContext context) {
-
     return Obx(() {
       if (removingBulkProducts || cartController.isLoading.value) {
-
         return Scaffold(
           appBar: CustomAppBar(
             txtOnPressed: () {},
@@ -60,29 +58,29 @@ class _CartScreenState extends State<CartScreen> {
 
           bottomNavigationBar: BottomBarShimmer(),
 
-
           body: CartShimmer(),
         );
       } else if (cartController.cartList.isEmpty) {
         print("Empty:${cartController.cartList.length}");
         return BuildEmptyCartState();
-      }else{
+      } else {
         return Scaffold(
-
           appBar: CustomAppBar(
             txtOnPressed: () {},
             showBackArrow: false,
             text: 'My Cart(${cartController.cartList.length} Items)',
             centerTitle: true,
             action: [
-              IconButton(onPressed: (){},
-                  icon: Icon(Icons.delete_forever_rounded))
+              IconButton(
+                onPressed: () {},
+                icon: Icon(Icons.delete_forever_rounded),
+              ),
             ],
           ),
           bottomNavigationBar: Card(
             color: Colors.blue.shade50,
             surfaceTintColor: Colors.green.shade50,
-           // shadowColor: Colors.green.shade100,
+            // shadowColor: Colors.green.shade100,
             shape: RoundedRectangleBorder(
               side: BorderSide(color: Colors.green.shade50),
             ),
@@ -99,18 +97,24 @@ class _CartScreenState extends State<CartScreen> {
                           padding: const EdgeInsets.all(6.0),
                           child: Row(
                             children: [
-                              const Text('Item:',
-                                  style: TextStyle(
-                                      fontSize: 12.0,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.grey)),
+                              const Text(
+                                'Item:',
+                                style: TextStyle(
+                                  fontSize: 12.0,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.grey,
+                                ),
+                              ),
                               Obx(
-                                    ()=> Text( cartController.quantityTotal.value.toString(),
-                                    style: const TextStyle(
-                                        fontSize: 14.0,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.grey)),
-                              )
+                                () => Text(
+                                  cartController.quantityTotal.value.toString(),
+                                  style: const TextStyle(
+                                    fontSize: 14.0,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                              ),
                             ],
                           ),
                         ),
@@ -120,19 +124,26 @@ class _CartScreenState extends State<CartScreen> {
                           children: [
                             Padding(
                               padding: const EdgeInsets.only(
-                                  left: 6.0, right: 8, top: 3, bottom: 3),
+                                left: 6.0,
+                                right: 8,
+                                top: 3,
+                                bottom: 3,
+                              ),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
-                                  const Text('Total:',
-                                      style: TextStyle(
-                                          fontSize: 14.0,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.grey)),
+                                  const Text(
+                                    'Total:',
+                                    style: TextStyle(
+                                      fontSize: 14.0,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.grey,
+                                    ),
+                                  ),
                                   ProductPriceText(
                                     // price: "${cartController.totalPrices.value}",
                                     price: "\$${cartController.allPrices()}",
-                                  )
+                                  ),
                                 ],
                               ),
                             ),
@@ -141,12 +152,20 @@ class _CartScreenState extends State<CartScreen> {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
-                                  Text('You Save ',
-                                      style: TextStyle(
-                                          fontSize: 10.0, color: Colors.grey)),
-                                  Text('\$300',
-                                      style: TextStyle(
-                                          fontSize: 10.0, color: Colors.grey)),
+                                  Text(
+                                    'You Save ',
+                                    style: TextStyle(
+                                      fontSize: 10.0,
+                                      color: Colors.grey,
+                                    ),
+                                  ),
+                                  Text(
+                                    '\$300',
+                                    style: TextStyle(
+                                      fontSize: 10.0,
+                                      color: Colors.grey,
+                                    ),
+                                  ),
                                 ],
                               ),
                             ),
@@ -157,11 +176,18 @@ class _CartScreenState extends State<CartScreen> {
                   ),
                   Gap(5),
                   RoundButtonWidget(
-                    onPressed: () {
-                       Get.toNamed(
-                         AppRoutes.checkoutScreen,
-                         arguments: {"productItem": cartController.cartList},
-                       );
+                    onPressed: (){
+                      String? token = sl<CacheHelper>().getAccessToken();
+                      if (token == null || token.isEmpty) {
+                        //Get.offNamed(AppRoutes.loginScreen);
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginScreen()));
+                        return;
+                      } else {
+                        Get.toNamed(
+                          AppRoutes.checkoutScreen,
+                          arguments: {"productItem": cartController.cartList},
+                        );
+                      }
                     },
                     title: 'Checkout',
                     wight: 200,
@@ -171,7 +197,6 @@ class _CartScreenState extends State<CartScreen> {
               ),
             ),
           ),
-
 
           body: SingleChildScrollView(
             physics: const ScrollPhysics(),
@@ -188,15 +213,6 @@ class _CartScreenState extends State<CartScreen> {
           ),
         );
       }
-      });
-
-    }
+    });
+  }
 }
-
-
-
-
-
-
-
-
