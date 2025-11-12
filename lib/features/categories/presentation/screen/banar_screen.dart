@@ -25,7 +25,7 @@ class BannerScreen extends StatelessWidget {
                   baseColor: Colors.grey.shade300,
                   highlightColor: Colors.grey.shade100,
                   child: Container(
-                    height: 150.h,
+                    height: 130.h,
                     width: double.infinity,
                     decoration: BoxDecoration(
                       color: Colors.white,
@@ -56,7 +56,7 @@ class BannerScreen extends StatelessWidget {
                           baseColor: Colors.grey.shade300,
                           highlightColor: Colors.grey.shade100,
                           child: Container(
-                            height: 150.h,
+                            height: 130.h,
                             width: double.infinity,
                             decoration: BoxDecoration(
                               color: Colors.white,
