@@ -32,10 +32,6 @@ class ProductRemoteDataSrcImp implements ProductRemoteDataSrc{
   @override
   Future<Products> getProducts(String productId) async{
 
-
-
-    print('ProductID:$productId');
-
     try{
       final uri =Uri.http(NetworkConstants.authority,'${NetworkConstants.apiUrl}$GET_PRODUCTS_ENDPOINT/$productId/');
      // final uri =Uri.parse('${NetworkConstants.baseUrlOne}/$productId/');

@@ -6,6 +6,8 @@ import 'package:e_comapp/features/product_details/data/repo/product_repo_impl.da
 import 'package:e_comapp/features/product_details/domain/repo/product_repo.dart';
 import 'package:e_comapp/features/product_details/presentations/controller/product_details_controller.dart';
 import 'package:e_comapp/features/profile/data/datasource/profile_remote_data_src.dart';
+import 'package:e_comapp/features/profile/domain/repos/pofile_repo.dart';
+import 'package:e_comapp/features/profile/presentation/controller/profilecontroller.dart';
 import 'package:e_comapp/features/wishlist/data/datasources/wish_remote_data_src.dart';
 import 'package:e_comapp/features/wishlist/data/repos/wishlist_repo_impl.dart';
 import 'package:e_comapp/features/wishlist/domain/repos/wishlist_repo.dart';
@@ -31,6 +33,7 @@ import '../../features/homepage/data/datasources/home_remote_data_src.dart';
 import '../../features/homepage/data/repo/home_repo_impl.dart';
 import '../../features/homepage/domain/repo/home_repo.dart';
 import '../../features/homepage/presentation/controllers/homeController.dart';
+import '../../features/profile/data/repos/pofile_repo_impl.dart';
 import '../app/cache/cache_helper.dart';
 
 final sl = GetIt.instance;  //service locator
@@ -113,17 +116,15 @@ Future<void> _productInit() async{
 }
 
 Future<void> _profileInit() async{
-  sl.registerLazySingleton<ProfileRemoteDataSrc>(
-      ()=>ProfileRemoteDataSrcImpl(sl()));
-
-
+  sl.registerLazySingleton<ProfileRemoteDataSrc>(()=>ProfileRemoteDataSrcImpl(sl()));
+  sl.registerLazySingleton<ProfileRepo>(()=>ProfileRepoImpl(sl<ProfileRemoteDataSrc>()));
+  sl.registerLazySingleton<ProfileController>(()=>ProfileController(sl<ProfileRepo>()));
 }
 
 Future<void> _wishlistInit() async{
   sl.registerLazySingleton<WishRemoteDataSrc>(
           ()=>WishRemoteDataSrcImpl(sl()));
-  sl.registerLazySingleton<WishListRepo>(
-      ()=>WishListRepoImpl(sl<WishRemoteDataSrc>()));
+  sl.registerLazySingleton<WishListRepo>(()=>WishListRepoImpl(sl<WishRemoteDataSrc>()));
 
   sl.registerLazySingleton<WishListController>(
       ()=>WishListController(sl<WishListRepo>()));
@@ -155,6 +156,7 @@ Future<void> _checkoutInit() async{
   sl.registerLazySingleton<CheckoutRepo>(()=>CheckOutRepoImpl(sl<CheckoutRemoteDataSrc>()));
   sl.registerLazySingleton<CheckOutController>(()=>CheckOutController(sl<CheckoutRepo>()));
 }
+
 
 
 /*

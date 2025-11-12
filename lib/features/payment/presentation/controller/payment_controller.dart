@@ -43,13 +43,5 @@ class PaymentController extends GetxController {
       return;
     }
 
-    isLoading.value = false;
-    Get.snackbar(
-      "Payment Successful 🎉",
-      "Your order has been confirmed.",
-      snackPosition: SnackPosition.BOTTOM,
-      backgroundColor: Colors.green.shade600,
-      colorText: Colors.white,
-    );
   }
 }

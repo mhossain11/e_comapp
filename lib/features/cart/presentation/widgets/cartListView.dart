@@ -24,7 +24,7 @@ class CartListView extends StatelessWidget {
           itemBuilder: (context,index){
           var itemList = cartController.cartList[index];
             cartUid = itemList.productUid;
-            return CartItems(item: itemList,);
+            return CartItems(item: itemList,context: context,);
 
           }),
     );

@@ -47,7 +47,8 @@ class CheckoutRemoteDataSrcImpl implements CheckoutRemoteDataSrc {
            'delivery_address': deliveryAddress.toJson(),
            'notes': notes ?? 'Test',
          }),
-         headers: sl<CacheHelper>().getAccessAllToken()!.toHeaders);
+         headers: sl<CacheHelper>().getAccessAllToken()!.toHeaders,
+     ).timeout(Duration(seconds: 30));
 
      print('🟣 Checkout Headers: ${sl<CacheHelper>().getAccessAllToken()!.toHeaders}');
      print('🔵 Checkout Response (${response.statusCode}): ${response.body}');

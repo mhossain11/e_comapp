@@ -15,7 +15,7 @@ import 'package:http/http.dart'as http;
 
 abstract class ProfileRemoteDataSrc {
 
-  Future<ProfileModel> getProfile(String userId);
+  Future<ProfileModel> getProfile();
   Future<ProfileModel> updateProfile({
    required String userId,
     required DataMap updateData
@@ -31,29 +31,25 @@ class ProfileRemoteDataSrcImpl implements ProfileRemoteDataSrc{
   final http.Client _client;
 
   @override
-  Future<ProfileModel> getProfile(String userId) async{
+  Future<ProfileModel> getProfile() async {
+    try {
+      final uri = Uri.parse('${NetworkConstants.baseUrl}$GET_PROFILE_ENDPOINT');
 
-    try{
-    final  uri = Uri.parse('${NetworkConstants.baseUrl}$GET_PROFILE_ENDPOINT');
+      final response = await _client.get(
+        uri,
+        headers: sl<CacheHelper>().getAccessToken()?.toHeaders,
+      );
 
-    final response =await _client.get(
-      uri,
-      headers: sl<CacheHelper>().getAccessToken()?.toHeaders,
-    );
+      final payload = jsonDecode(response.body) as Map<String, dynamic>;
+      await NetworkUtils.renewToken(response);
 
-    final payload = jsonDecode(response.body) as DataMap;
-    await NetworkUtils.renewToken(response);
-
-    return ProfileModel.fromJson(payload);
-
-    }catch(e){
+      return ProfileModel.fromJson(payload);
+    } catch (e) {
       debugPrint(e.toString());
-      //debugPrintStack(stackTrace: s);
       throw ServerException(message: e.toString(), statusCode: 500);
     }
-
-
   }
+
 
   @override
   Future<ProfileModel> updateProfile({

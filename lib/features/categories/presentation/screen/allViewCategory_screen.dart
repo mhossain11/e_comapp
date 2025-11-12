@@ -1,6 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../../../core/router/app_router.dart';
 import '../../domain/model/specialCategoryProduct_model.dart';
@@ -48,7 +50,7 @@ class AllViewCategoryScreen extends StatelessWidget {
                 elevation: 3,
                 child: Container(
                   width: 160.w,
-                  height: media.width * 0.3.sh,
+                  height: media.width * 0.3,
                   padding: const EdgeInsets.all(8),
                   child: Column(
                     children: [
@@ -63,15 +65,31 @@ class AllViewCategoryScreen extends StatelessWidget {
                       else
                         ClipRRect(
                           borderRadius: BorderRadius.circular(12),
-                          child: Image.network(
-                            product.productImage ?? '',
-                            height: media.width * 0.40.h,
+                          child: CachedNetworkImage(
+                            imageUrl: product.productImage ?? '',
+                            height: 160.h, // .h লাগবে না, already logical pixels
                             width: 160.w,
                             fit: BoxFit.cover,
-                            errorBuilder:
-                                (_, __, ___) =>
-                            const Icon(Icons.broken_image),
+
+                            // Placeholder with shimmer
+                            placeholder: (context, url) => Shimmer.fromColors(
+                              baseColor: Colors.grey.shade300,
+                              highlightColor: Colors.grey.shade100,
+                              child: Container(
+                                height: media.width * 0.40,
+                                width: 160.w,
+                                color: Colors.white,
+                              ),
+                            ),
+
+                            // Error widget
+                            errorWidget: (context, url, error) => const Icon(
+                              Icons.broken_image,
+                              color: Colors.grey,
+                              size: 40,
+                            ),
                           ),
+
                         ),
                       SizedBox(height: 8.h),
                       Text(
@@ -84,26 +102,44 @@ class AllViewCategoryScreen extends StatelessWidget {
                         textAlign: TextAlign.center,
                       ),
                       SizedBox(height: 4.h),
-                      Text(
-                        '৳${product.discountPrice ?? product.mainPrice}',
-                        maxLines: 2,
-                        overflow:TextOverflow.ellipsis,
-                        style: const TextStyle(
-                          color: Colors.green,
-                          fontWeight: FontWeight.bold,
-                        ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            '৳${ product.mainPrice}',
+                            maxLines: 2,
+                            overflow:TextOverflow.ellipsis,
+                            style: const TextStyle(
+                              color: Colors.grey,
+                              fontWeight: FontWeight.bold,
+                              decoration:TextDecoration.lineThrough,
+                            ),
+                          ),
+                          SizedBox(width: 5.w),
+                          Text(
+                            '৳${product.discountPrice ?? product.mainPrice}',
+                            maxLines: 2,
+                            overflow:TextOverflow.ellipsis,
+                            style: const TextStyle(
+                              color: Colors.green,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
                       ),
                       SizedBox(height: 4.h),
                       SizedBox(
                         width: 100.w,
                         height: 50.h,
                         child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+
+                          },
                           style: ElevatedButton.styleFrom(
                             padding: EdgeInsets.zero,
                             backgroundColor: Colors.white,
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(4),
+                              borderRadius: BorderRadius.circular(10),
                             ),
                             minimumSize: Size.zero, // Important to remove default min constraints
                             fixedSize: Size(100.w, 50.h), // fix size exactly

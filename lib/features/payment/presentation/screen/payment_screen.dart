@@ -116,15 +116,32 @@ class PaymentScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(12),
                     ),
                   ),
-                  onPressed: (){
-                    if( controller.isLoading.value){
-                      null;
-                    }else{
+                  onPressed: ()async{
 
-                      controller.makePayment();
-                      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>OrderConfirmedScreen(
-                          orderId: orderId, totalPrice: controller.total.value.toString())), (route)=>false);
+                    if(controller.selectedMethod.value.isEmpty){
+                      await controller.makePayment();
+                      return;
+                    }else{
+                      Get.snackbar(
+                        "Payment Successful 🎉",
+                        "Your order has been confirmed.",
+                        snackPosition: SnackPosition.BOTTOM,
+                        backgroundColor: Colors.green.shade600,
+                        colorText: Colors.white,
+                      );
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => OrderConfirmedScreen(
+                            orderId: orderId,
+                            totalPrice: controller.total.value.toString(),
+                          ),
+                        ),
+                      );
                     }
+
+
+
                   },
                   child: controller.isLoading.value
                       ? const CircularProgressIndicator(

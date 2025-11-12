@@ -13,6 +13,7 @@ import 'features/dashboard/presentation/controller/navigation_controller.dart';
 import 'features/homepage/presentation/controllers/homeController.dart';
 
 import 'features/product_details/presentations/controller/product_details_controller.dart';
+import 'features/profile/presentation/controller/profilecontroller.dart';
 
 class ControllerBinder extends Bindings{
   @override
@@ -25,6 +26,7 @@ class ControllerBinder extends Bindings{
     Get.put(ProductDetailsController(sl()));
     Get.put(CartController(sl()));
     Get.put(CheckOutController(sl()));
+    Get.put(ProfileController(sl()));
 
 
   }

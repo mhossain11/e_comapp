@@ -1,4 +1,3 @@
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:e_comapp/features/categories/domain/model/Products.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +5,6 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:shimmer/shimmer.dart';
-
 import '../../../core/res/media.dart';
 import '../../../core/res/styles/colors.dart';
 
@@ -14,170 +12,142 @@ class CategoriesProductItems extends StatelessWidget {
   final Products item;
   final bool ignoring;
   final bool priceIgnoring;
-  const CategoriesProductItems({super.key,
+
+  const CategoriesProductItems({
+    super.key,
     required this.item,
     required this.ignoring,
     required this.priceIgnoring,
   });
 
-
   @override
   Widget build(BuildContext context) {
-    var media = MediaQuery.of(context).size;
-   // print('P-${media.height * 0.25}');
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-      //width: media.width * 0.32,
-      width:  200.w,
-      height: 256.h,
+    final hasImages = (item.images?.isNotEmpty ?? false);
+    final hasSizes = (item.sizes?.isNotEmpty ?? false);
 
+    return Container(
+      width: 160.w,
+      height: 220.h,
+      margin: EdgeInsets.symmetric(horizontal: 10.w, vertical: 8.h),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(15),
+        borderRadius: BorderRadius.circular(15.r),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey,
-            spreadRadius: 3,
-            blurRadius: 10,
-            offset: const Offset(0, 3)
-          )
-        ]
+            color: Colors.grey.shade300,
+            blurRadius: 6,
+            spreadRadius: 1,
+            offset: const Offset(0, 3),
+          ),
+        ],
       ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+        padding: EdgeInsets.all(8.w),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Gap(5),
-            if(item.images!.isEmpty)
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                boxShadow: const [
-                  BoxShadow(
-                      color: Colors.white38, offset: Offset(0, 2), blurRadius: 5)
-                ],
-              ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 5),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: SizedBox(
-                   // width: media.width * 0.32,
-                    height: media.width * 0.40,
+            // 🖼️ Product Image
+            ClipRRect(
+              borderRadius: BorderRadius.circular(10.r),
+              child: hasImages
+                  ? CachedNetworkImage(
+                imageUrl: item.images![0].image ?? '',
+                height: 160.h,
+                width: double.infinity,
+                fit: BoxFit.cover,
+                placeholder: (context, url) => Shimmer.fromColors(
+                  baseColor: Colors.grey.shade300,
+                  highlightColor: Colors.grey.shade100,
+                  child: Container(
+                    height: 120.h,
+                    color: Colors.white,
                   ),
                 ),
+                errorWidget: (context, url, error) =>
+                const Icon(Icons.broken_image, color: Colors.grey),
+              )
+                  : Container(
+                height: 120.h,
+                color: Colors.grey.shade200,
+                child: const Icon(Icons.image_not_supported,
+                    size: 40, color: Colors.grey),
               ),
             ),
-            if(item.images!.isNotEmpty)
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  boxShadow: const [
-                    BoxShadow(
-                        color: Colors.white38, offset: Offset(0, 2), blurRadius: 5)
-                  ],
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 5),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: CachedNetworkImage(
-                      imageUrl: item.images![0].image ?? '',
-                      height: media.width * 0.40,
-                      fit: BoxFit.fitWidth,
 
-                      // Shimmer while loading
-                      placeholder: (context, url) => Shimmer.fromColors(
-                        baseColor: Colors.grey.shade300,
-                        highlightColor: Colors.grey.shade100,
-                        child: Container(
-                          height: media.width * 0.40,
-                          width: double.infinity,
-                          color: Colors.white,
-                        ),
-                      ),
+            const Gap(6),
 
-                      // Show error icon if failed
-                      errorWidget: (context, url, error) =>
-                      const Icon(Icons.broken_image),
-                    ),
-                  ),
-                ),
-              ),
-            const Gap(2),
+            // 🏷️ Product Name
             Text(
-              item.name.toString(),
+              item.name ?? '',
               maxLines: 2,
+              overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.center,
-              style: const TextStyle(
-                  fontSize: 10,
-                  fontWeight: FontWeight.bold),
+              style: TextStyle(
+                fontSize: 12.sp,
+                fontWeight: FontWeight.bold,
+                color: Colors.black87,
+              ),
             ),
 
-            const Gap(5),
-            Visibility(
-              visible: ignoring,
-              child: RatingBar.builder(
-                  initialRating: 5,
-                  maxRating: 1,
-                  direction: Axis.horizontal,
-                  allowHalfRating: true,
-                  itemCount: 5,
-                  itemSize: 15,
-                  itemPadding: const EdgeInsets.symmetric(horizontal: 1.0),
-                  itemBuilder: (context, _) => const Icon(
-                        Icons.star,
-                        color: Colours.lightThemePrimaryTextColour,
-                      ),
-                  onRatingUpdate: (rating) {}),
-            ),
-            const Gap(5),
-            Visibility(
-              visible: priceIgnoring,
-              child: Row(
+            const Gap(4),
+
+            // ⭐ Rating
+            if (ignoring)
+              RatingBar.builder(
+                initialRating: 4.5,
+                minRating: 1,
+                allowHalfRating: true,
+                itemCount: 5,
+                itemSize: 14.sp,
+                unratedColor: Colors.grey.shade300,
+                itemBuilder: (context, _) => const Icon(
+                  Icons.star,
+                  color: Colours.lightThemePrimaryTextColour,
+                ),
+                onRatingUpdate: (rating) {},
+              ),
+
+            const Gap(4),
+
+              Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  /*const Text('Price: ',style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 10,fontWeight: FontWeight.bold,
-                  )),*/
-                  Text(
-                    item.sizes![0].mainPrice.toString(),
-                    maxLines: 1,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      decoration:TextDecoration.lineThrough,
-                      color: Colors.black,
-                      fontSize: 11,
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        item.sizes![0].mainPrice.toString(),
+                        style: TextStyle(
+                          fontSize: 11.sp,
+                          color: Colors.grey,
+                          decoration: TextDecoration.lineThrough,
+                        ),
+                      ),
+                      SizedBox(width: 2.w),
+                      Image.asset(Media.takaPng, height: 12.h),
+                    ],
                   ),
-                  SizedBox(
-                      height: 15,
-                      child: Image.asset(Media.takaPng)),
+                  SizedBox(width: 5,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        item.sizes![0].discountPrice.toString(),
+                        style: TextStyle(
+                          fontSize: 13.sp,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                      SizedBox(width: 2.w),
+                      Image.asset(Media.takaPng, height: 12.h),
+                    ],
+                  ),
                 ],
               ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-               /* const Text('Price: ',style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 13,fontWeight: FontWeight.bold
-                )),*/
-                Text(
-                  item.sizes![0].discountPrice.toString(),
-                  maxLines: 1,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 11,
-                  ),
-                ),
-                SizedBox(
-                    height: 15,
-                    child: Image.asset(Media.takaPng)),
-              ],
-            )
+
+            // 💵 Discount Price
+
 
           ],
         ),

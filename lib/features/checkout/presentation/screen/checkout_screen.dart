@@ -444,13 +444,16 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                     ),
                     ElevatedButton.icon(
                       onPressed: () {
-                        Navigator.push(
+                        Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => PaymentScreen(
-                                orderId:order.uid!,
-                                price: order.totalPrice!,)),
+                            builder: (context) => PaymentScreen(
+                              orderId: order.uid!,
+                              price: order.totalPrice!,
+                            ),
+                          ),
                         );
+
                       },
                       icon: const Icon(Icons.check_circle_outline),
                       label: const Text("Confirm Order"),

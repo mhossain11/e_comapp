@@ -19,8 +19,9 @@ import '../controller/cart_controller.dart';
 import '../utils/cart_utils.dart';
 
 class CartItems extends StatefulWidget {
-   CartItems({super.key, required this.item,});
+   CartItems({super.key, required this.item,required this.context});
   final CartsItems item;
+  BuildContext context;
 
   @override
   State<CartItems> createState() => _CartItemsState();
@@ -155,11 +156,12 @@ class _CartItemsState extends State<CartItems> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                IconButton(onPressed: ()async{
+                IconButton(
+                    onPressed: ()async{
                   //print(widget.item.productUid.toString());
                   //print(widget.item.productImage.toString());
                   showRemoveFromCartSheet(
-                    context,
+                    widget.context,
                     productName: widget.item.productName,
                     productImage: 'https://ecommerce.liberalsoft.net${widget.item.productImage}',
                     price: widget.item.price,

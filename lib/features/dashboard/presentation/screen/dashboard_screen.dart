@@ -49,11 +49,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
       body: Obx(() => IndexedStack(
         index: navController.activeNavIndex.value, //  Rx Variable ব্যবহার
 
-        children: const [
+        children: [
           HomeScreen(),
           CartScreen(),
           WishListScreen(),
-
           ProfileScreen()
         ],
       )),

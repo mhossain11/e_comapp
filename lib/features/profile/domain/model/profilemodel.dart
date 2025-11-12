@@ -1,3 +1,5 @@
+import '../../../categories/domain/model/Products.dart';
+
 class ProfileModel {
   String? uid;
   String? address;

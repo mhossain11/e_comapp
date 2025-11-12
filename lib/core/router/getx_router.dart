@@ -17,6 +17,7 @@ import '../../features/product_details/presentations/screen/product_details.dart
 import '../../features/categories/presentation/screen/allViewCategory_screen.dart';
 import '../../features/categories/presentation/screen/subCategory_screen.dart';
 import '../../features/product_details/presentations/screen/product_details.dart';
+import '../../features/product_details/presentations/screen/product_review_screen.dart';
 import '../../features/splash/presentation/screen/splash_screen.dart';
 
 import '../app/cache/cache_helper.dart';
@@ -59,9 +60,7 @@ class GetAppRouter {
 
       GetPage(
         name: AppRoutes.checkoutScreen,
-
         page: (){
-
          return CheckoutScreen();
         },
       ),
@@ -90,6 +89,12 @@ class GetAppRouter {
     return ProductDetails(productId: productId,);
     },),
 
+
+      GetPage(
+        name: AppRoutes.productReviewScreen,
+
+        page: () => const ProductReviewScreen(),
+      ),
 
       GetPage(
         name: AppRoutes.cartScreen,
